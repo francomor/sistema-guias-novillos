@@ -1,0 +1,82 @@
+<div class="card" fxLayout="column">
+  <div class="title-text" style="margin-bottom: 5px">Transportista</div>
+  <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
+    <div fxLayout="row" fxFlex="100">
+      <mat-form-field style="width: 100%;">
+        <mat-icon matSuffix>search</mat-icon>
+        <input matInput type="text" 
+        class="search-input" 
+        [formControl]="control" 
+        [matAutocomplete]="auto" 
+        (keyup.enter)="inputSearchOnKeyEnter()" 
+        (ngModelChange)="inputSearchOnKeyDown($event)"
+        [ngModel]="cuit"
+        >
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let cuit of filteredCuits | async" [value]="cuit" (onSelectionChange)="matOptionAutoCompleteOnSelectionChange($event)">
+            {{cuit}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxFlex="100%">
+      <div *ngIf="tengoDatos">
+        <div class="texts">
+         <b>Razón social:</b>  {{ datosTransportistaSelecionado.RazonSocial }}
+        </div>
+        <div class="texts">
+          <b>Ingresos brutos:</b> {{ datosTransportistaSelecionado.IngresosBrutos }}
+        </div>
+        <div class="texts">
+          <b>Teléfono:</b> {{ datosTransportistaSelecionado.Telefono }}
+        </div>
+        <div class="texts">
+          <b>Email:</b> {{ datosTransportistaSelecionado.Email }}
+        </div>
+        <div *ngIf="!tengoCamionSeleccionado" class="texts">
+          <b>Camiones (Chasis - Acoplado):</b> 
+        </div>
+        <div class="texts" *ngIf="camiones?.length == 0">
+            Este transportista no tiene camiones.
+        </div>
+      </div>
+      
+      <div *ngIf="cuitNoEncontrado" class="texts">
+        No encontramos este CUIT ¿desea agregarlo?
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="tieneCamiones && !tengoCamionSeleccionado">
+      <div fxLayout="column" fxFlex="100%" fxFlex.lt-lg="100%" fxLayoutAlign="start center">
+        <mat-chip-list class="mat-chip-list-stacked my-chip">
+          <mat-chip style="text-align: center;"
+            *ngFor="let camion of camiones" 
+            (click)="onCamionSelectionChange(camion)">
+              {{camion.ChapaChasis}} - {{ camion.ChapaAcoplado }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+    
+
+    <div fxLayout="row" fxFlex="100%" *ngIf="tengoCamionSeleccionado"> 
+      <div>
+        <div class="texts">
+          <b>Chapa del chasis:</b> {{ camionSeleccionado.ChapaChasis }}
+        </div>
+        <div class="texts">
+          <b>Chapa del acoplado:</b> {{ camionSeleccionado.ChapaAcoplado }}
+        </div>
+        <div class="texts">
+          <b>Chofer:</b> {{ camionSeleccionado.Chofer }}
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end">
+      <button class="mat-primary" [hidden]=!tengoDatos mat-button (click)="openUpsertDialog()">Editar</button>
+      <button class="mat-primary" [hidden]=tengoDatos mat-button (click)="openUpsertDialog()">Nuevo</button>
+    </div>
+  </div>
+</div>

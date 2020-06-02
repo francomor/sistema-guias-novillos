@@ -1,0 +1,66 @@
+<div class="card" fxLayout="column">
+  <div class="title-text" style="margin-bottom: 5px">Productor</div>
+  <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
+    <div fxLayout="row" fxFlex="100">
+      <mat-form-field style="width: 100%;">
+        <mat-icon matSuffix>search</mat-icon>
+        <input matInput type="text" 
+        class="search-input" 
+        [formControl]="control" 
+        [matAutocomplete]="auto" 
+        (keyup.enter)="inputSearchOnKeyEnter()" 
+        (ngModelChange)="inputSearchOnKeyDown($event)"
+        [ngModel]="renspa"
+        >
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let renspa of filteredRENSPAS | async" [value]="renspa" (onSelectionChange)="matOptionAutoCompleteOnSelectionChange($event)">
+            {{renspa}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxFlex="100%">
+      <div *ngIf="tengoDatos">
+        <div class="texts">
+          <b>Razón social</b>: {{ datosProductorSelecionado.RazonSocial }}
+        </div>
+        <div class="texts">
+          <b>Nombre del establecimiento:</b> {{ datosProductorSelecionado.NombreEstablecimiento }}
+        </div>
+        <div class="texts">
+          <b>CUIT:</b> {{ datosProductorSelecionado.CUIT }}
+        </div>
+        <div class="texts">
+          <b>Boleto de marca:</b> {{ datosProductorSelecionado.BoletoMarca }}
+        </div>
+        <div class="texts">
+          <b>Boleto de señal:</b> {{ datosProductorSelecionado.BoletoSenial }}
+        </div>
+        <div class="texts">
+          <b>Ingresos brutos:</b> {{ datosProductorSelecionado.IngresosBrutos }}
+        </div>
+        <div class="texts">
+          <b>Partida N°:</b> {{ datosProductorSelecionado.Partida }}
+        </div>
+        <div class="texts">
+          <b>Repagro N°:</b> {{ datosProductorSelecionado.Repagro }}
+        </div>
+        <div class="texts">
+          <b>Teléfono:</b> {{ datosProductorSelecionado.Telefono }}
+        </div>
+        <div class="texts">
+          <b>Email:</b> {{ datosProductorSelecionado.Email }}
+        </div>
+        
+      </div>
+      
+      <div *ngIf="renspaNoEncontrado" class="texts">
+        No encontramos este RENSPA ¿desea agregarlo?
+      </div>
+    </div>
+    <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end">
+      <button class="mat-primary" [hidden]=!tengoDatos mat-button (click)="openUpsertDialog()">Editar</button>
+      <button class="mat-primary" [hidden]=tengoDatos mat-button (click)="openUpsertDialog()">Nuevo</button>
+    </div>
+  </div>
+</div>

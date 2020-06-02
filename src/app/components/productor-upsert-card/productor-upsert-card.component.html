@@ -1,0 +1,100 @@
+<h1 mat-dialog-title>Cargar/Editar productor</h1>
+<mat-dialog-content>
+    <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+        <mat-form-field style="width: 97%;">
+          <mat-label>RENSPA</mat-label>
+          <input matInput type="text" 
+          class="search-input" 
+          [formControl]="controlSearchRenspa" 
+          [matAutocomplete]="autoSearchRenspa" 
+          (keyup.enter)="inputSearchOnKeyEnter()" 
+          (ngModelChange)="inputSearchRENSPAOnKeyDown($event)"
+          placeholder="RENSPA" 
+          [ngModel]="renspa"
+          >
+          <mat-error *ngIf="controlSearchRenspa.hasError('required')">
+            RENSPA es <strong>requerido</strong>
+          </mat-error>
+          <mat-autocomplete #autoSearchRenspa="matAutocomplete">
+            <mat-option *ngFor="let renspa of filteredRENSPAS | async" [value]="renspa" (onSelectionChange)="RENSPAmatOptionAutoCompleteOnSelectionChange($event)">
+              {{ renspa }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="space-around">
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">    
+          <mat-form-field class="input-full-width">
+            <mat-label>CUIT</mat-label>
+            <input matInput [formControl]="CUITFormControl" placeholder="CUIT" [(ngModel)]="datosProductorSelecionado.CUIT">
+            <mat-error *ngIf="CUITFormControl.hasError('required')">
+              CUIT es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Razón social</mat-label>
+            <input matInput [formControl]="razonSocialFormControl" placeholder="Razón social" [(ngModel)]="datosProductorSelecionado.RazonSocial">
+            <mat-error *ngIf="razonSocialFormControl.hasError('required')">
+              Razón social es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field class="input-full-width">
+            <mat-label>Boleto de marca</mat-label>
+            <input matInput placeholder="Boleto de marca" [(ngModel)]="datosProductorSelecionado.BoletoMarca">
+          </mat-form-field>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Boleto de señal</mat-label>
+            <input matInput placeholder="Boleto de señal" [(ngModel)]="datosProductorSelecionado.BoletoSenial">
+          </mat-form-field>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Ingresos brutos</mat-label>
+            <input matInput placeholder="Ingresos brutos" [(ngModel)]="datosProductorSelecionado.IngresosBrutos">
+          </mat-form-field>
+    
+        </div>
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <mat-form-field class="input-full-width">
+            <mat-label>Nombre del establecimiento</mat-label>
+            <input matInput [formControl]="nombreEstablecimientoFormControl" placeholder="Nombre del establecimiento" [(ngModel)]="datosProductorSelecionado.NombreEstablecimiento">
+            <mat-error *ngIf="nombreEstablecimientoFormControl.hasError('required')">
+              Nombre del establecimiento es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Partida N°</mat-label>
+            <input matInput placeholder="Partida N°" [(ngModel)]="datosProductorSelecionado.Partida">
+          </mat-form-field>
+    
+          <mat-form-field class="input-full-width">
+            <mat-label>Repagro N°</mat-label>
+            <input matInput placeholder="Repagro N°" [(ngModel)]="datosProductorSelecionado.Repagro">
+          </mat-form-field>
+        
+          <mat-form-field class="input-full-width">
+            <mat-label>Teléfono</mat-label>
+            <input matInput placeholder="Teléfono" [(ngModel)]="datosProductorSelecionado.Telefono">
+          </mat-form-field>
+    
+          <mat-form-field class="input-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput [formControl]="emailFormControl" type="email" placeholder="Email" [(ngModel)]="datosProductorSelecionado.Email">
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Por favor ingresa un email valido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>  
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button class="mat-raised-button" (click)="close()">Cerrar</button>
+    <button class="mat-raised-button mat-primary" [disabled]="!checkFormValid" (click)="save()">Guardar</button>
+</mat-dialog-actions>

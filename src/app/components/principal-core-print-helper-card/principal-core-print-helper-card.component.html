@@ -1,0 +1,283 @@
+<div fxLayout="row" fxLayoutAlign="space-around center">
+  <div fxLayout="column" fxFlex="27%">
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 30px; font-weight: 500; margin-bottom: 10px;"> 
+        Bobinos
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Vacas: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Vacas }}
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Vaquillonas: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Vaquillonas }}
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Novillos: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Novillos }}
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Novillitos: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Novillitos }}
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Terneras/os: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Terneros }}
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Toros: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Toros }}
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 30px; font-weight: 500; margin-bottom: 10px;"> 
+        Porcinos
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Porcinos: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Porcinos }}
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 30px; font-weight: 500; margin-bottom: 10px;"> 
+        Ovinos
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Ovinos: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Ovinos }}
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 30px; font-weight: 500; margin-bottom: 10px;"> 
+        Equinos
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
+          Equinos: 
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
+          {{ datosAnimalesParseados.Equinos }}
+        </div>
+      </div>
+    </div>
+    <br>
+
+  </div>
+
+  <div fxLayout="column" fxFlex="70%">
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Productor: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Est.Nombre: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.NombreEstablecimiento" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          CUIT: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.CUIT" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;"> 
+      <div fxLayout="row" fxFlex="100%">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Transportista: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosTransportistaSelecionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Chapa del chasis: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosCamionSelecionado.ChapaChasis" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Chapa del acoplado: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosCamionSelecionado.ChapaAcoplado" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          CUIT: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosTransportistaSelecionado.CUIT" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Productor: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Partida N°: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.Partida" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Repagro N°: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.Repagro" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+    </div>
+    <br>
+    
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Destino: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          CUIT: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.CUIT" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Provincia: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.NombreProvincia" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Localidad: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.NombreLocalidad" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;"> 
+      <div fxLayout="row" fxFlex="100%">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Repagro N°: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.Repagro" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Boleto de marca: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.BoletoMarca" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Boleto de señal: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          <ngx-barcode6 [bc-value]="datosProductorSelecionado.BoletoSenial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

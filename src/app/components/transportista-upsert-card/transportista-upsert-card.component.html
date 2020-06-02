@@ -1,0 +1,102 @@
+<h1 mat-dialog-title>Cargar/Editar transportista</h1>
+<mat-dialog-content>
+    <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+        <mat-form-field style="width: 97%;">
+          <mat-label>CUIT</mat-label>
+          <input matInput type="text" 
+          class="search-input" 
+          [formControl]="controlSearchCuit" 
+          [matAutocomplete]="autoSearchCuits" 
+          (keyup.enter)="inputSearchOnKeyEnter()" 
+          (ngModelChange)="inputSearchOnKeyDown($event)"
+          placeholder="CUIT" 
+          [ngModel]="cuit"
+          >
+          <mat-error *ngIf="controlSearchCuit.hasError('required')">
+            CUIT es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="controlSearchCuit.hasError('min')">
+            Por favor ingresa un CUIT valido
+          </mat-error>
+          <mat-autocomplete #autoSearchCuits="matAutocomplete">
+            <mat-option *ngFor="let cuit of filteredCuits | async" [value]="cuit" (onSelectionChange)="matOptionAutoCompleteOnSelectionChange($event)">
+              {{cuit}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="space-around">
+        <div fxLayout="column" fxFlex="100" fxLayoutAlign="start center">    
+          <mat-form-field class="input-full-width">
+            <mat-label>Razón social</mat-label>
+            <input matInput [formControl]="razonSocialFormControl" placeholder="Razón social" [(ngModel)]="datosTransportistaSelecionado.RazonSocial">
+            <mat-error *ngIf="razonSocialFormControl.hasError('required')">
+              Razón social es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field class="input-full-width">
+            <mat-label>Ingresos brutos</mat-label>
+            <input matInput placeholder="Ingresos brutos" [(ngModel)]="datosTransportistaSelecionado.IngresosBrutos">
+          </mat-form-field>
+        </div>
+        
+        <div fxLayout="column" fxFlex="100" fxLayoutAlign="start center"> 
+          <mat-form-field class="input-full-width">
+            <mat-label>Teléfono</mat-label>
+            <input matInput placeholder="Teléfono" [(ngModel)]="datosTransportistaSelecionado.Telefono">
+          </mat-form-field>     
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput [formControl]="emailFormControl" type="email" placeholder="Email" [(ngModel)]="datosTransportistaSelecionado.Email">
+            <mat-error *ngIf="emailFormControl.hasError('email')">
+              Por favor ingresa un email valido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center" style="margin-bottom: 10px ;">
+        <button class="mat-raised-button" (click)="addCamion()">Agregar camion</button>
+        <button class="mat-raised-button" (click)="removeCamion()">Eliminar camion seleccionado</button>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center" *ngIf="tieneCamiones">
+          <mat-chip-list *ngFor="let camion of camiones" >
+            <mat-chip (click)="onCamionSelectionChange(camion)">
+              {{camion.ChapaChasis}} - {{ camion.ChapaAcoplado }}
+            </mat-chip>
+          </mat-chip-list>
+      </div>
+
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="space-around" *ngIf="tengoCamionSeleccionado">
+        <div fxLayout="column" fxFlex="100" fxLayoutAlign="start center">    
+          <mat-form-field class="input-full-width">
+            <mat-label>Chapa del chasis</mat-label>
+            <input matInput placeholder="Chapa del chasis" [(ngModel)]="camionSeleccionado.ChapaChasis">
+          </mat-form-field>
+    
+          <mat-form-field class="input-full-width">
+            <mat-label>Chapa del acoplado</mat-label>
+            <input matInput placeholder="Chapa del acoplado" [(ngModel)]="camionSeleccionado.ChapaAcoplado">
+          </mat-form-field>
+        </div>
+        
+        <div fxLayout="column" fxFlex="100" fxLayoutAlign="start center"> 
+          <mat-form-field class="input-full-width">
+            <mat-label>Chofer</mat-label>
+            <input matInput placeholder="Chofer" [(ngModel)]="camionSeleccionado.Chofer">
+          </mat-form-field>     
+        </div>
+      </div>
+
+    </div>  
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button class="mat-raised-button" (click)="close()">Cerrar</button>
+    <button class="mat-raised-button mat-primary" [disabled]="!checkFormValid" (click)="save()">Guardar</button>
+</mat-dialog-actions>

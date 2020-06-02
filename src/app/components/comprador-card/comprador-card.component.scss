@@ -1,0 +1,54 @@
+.grid-as-list {
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 16px;
+}
+
+.card {
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 15px
+}
+
+.title-text {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.error-message {
+    color: red;
+}
+
+
+.info-text {
+    font-weight: 200;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+.example-full-width {
+    width: 100%;
+}
+
+[hidden] {
+    display: none !important;
+} 
+
+.texts {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.text-no-encontrado {
+    margin: 0;
+    display: inline-block;
+}
