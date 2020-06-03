@@ -19,6 +19,7 @@ function createWindow(): BrowserWindow {
     y: 0,
     width: size.width,
     height: size.height,
+    icon: __dirname + "/icon.ico",
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
