@@ -11,8 +11,8 @@ const routes: Routes = [
       { path: 'principal', component: PrincipalComponent},
     ]
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/home/principal', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home/principal', pathMatch: 'full' }
 ];
 
 @NgModule({
