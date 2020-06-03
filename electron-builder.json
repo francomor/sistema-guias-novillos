@@ -36,5 +36,8 @@
     "target": [
       "AppImage"
     ]
-  }
+  },
+  "extraFiles": [
+    "database.sqlite"
+  ]
 }
