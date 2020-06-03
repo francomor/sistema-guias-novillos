@@ -14,6 +14,7 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
   @Input() totalSoloGuia: any; 
   @Input() derechoOficina: any; 
   @Input() ingresosBrutos: any; 
+  @Input() totalRedondeo: any; 
   @Output() htmlPlain: EventEmitter<string> = new EventEmitter<string>();
   
   datosCompradorSeleccionado = null;

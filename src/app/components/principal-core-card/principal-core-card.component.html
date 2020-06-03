@@ -144,26 +144,32 @@
           <mat-list-item class="texts-big">
             <b>Total a cobrar:</b>  &nbsp;${{ total | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
-          <mat-list-item class="texts">
-            Redondeo:
-          </mat-list-item>
         </mat-list>
-
-       
+      </div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center start" style="padding-left: 16px; padding-right: 16px;" class="texts-redondeo">
+        <div>
+          Redondeo:
+          <mat-form-field appearance="legacy" style="width: 150px;">
+            <span matPrefix>$&nbsp;</span>
+            <input matInput [formControl]="redondeoControl" [(ngModel)]="totalRedondeo">
+            <span matSuffix></span>
+            <mat-error class="texts" *ngIf="redondeoControl.invalid">El valor minimo es 0</mat-error>
+          </mat-form-field>
+        </div>
       </div>
 
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center start">
         <button mat-flat-button color="primary" 
                 [disabled]="!tengoDatosDeOtrosComponentes" 
                 (click)="print()" 
-                style="padding: 15px 100px 15px 100px;">Generar PDF</button>
+                style="padding: 15px 100px 15px 100px;">Imprimir</button>
       </div>
       
     </div>
   </div>
 </div>
 
-<div *ngIf="readyToPrint" style="display: none;" >
+<div *ngIf="readyToPrint"  >
   <app-principal-core-print-helper-card 
     (htmlPlain)="cargaHtmlAImprimir($event)" 
     [datosAnimales]="datosAnimales"
@@ -171,6 +177,7 @@
     [totalSoloGuia]="totalSoloGuia"
     [derechoOficina]="derechoOficina"
     [ingresosBrutos]="ingresosBrutos"
+    [totalRedondeo]="totalRedondeo"
     >
   </app-principal-core-print-helper-card>
 </div>

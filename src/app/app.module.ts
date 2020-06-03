@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import '../polyfills';
 
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, DecimalPipe } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 
 import {A11yModule} from '@angular/cdk/a11y';
@@ -156,7 +156,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
       }
     })
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' }],
+  providers: [DecimalPipe, { provide: LOCALE_ID, useValue: 'es-Ar' }],
   entryComponents: [
     ProductorsUpsertComponent,
     CompradorUpsertComponent,

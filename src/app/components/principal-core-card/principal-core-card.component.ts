@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Validators, FormControl } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { PrincipalCoreDialogComponent } from '../principal-core-dialog-card/principal-core-dialog-card.component';
@@ -42,6 +43,9 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   equinosControl = new FormControl('', [
     Validators.min(0)
   ]);
+  redondeoControl = new FormControl('', [
+    Validators.required
+  ]);
   
   datosAnimales = {
     Vacas: undefined,
@@ -73,6 +77,7 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   };
 
   total = 0;
+  totalRedondeo = '0';
   totalSoloGuia = 0;
   derechoOficina = 0;
   ingresosBrutos = 0;
@@ -95,7 +100,8 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     private electronService: ElectronService, 
     private changeDetectorRefService: ChangeDetectorRef, 
     public dialog: MatDialog,
-    private dataShareService:DataSharedService
+    private dataShareService:DataSharedService,
+    private _decimalPipe: DecimalPipe
   ) {}
 
   ngOnInit() {
@@ -126,7 +132,8 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   }
 
   tengoDatos() {
-    if (this.datosCompradorSeleccionado && this.datosProductorSelecionado && this.datosTransportistaSelecionado && this.datosCamionSelecionado) {
+    if (this.datosCompradorSeleccionado && this.datosProductorSelecionado && this.datosTransportistaSelecionado && this.datosCamionSelecionado && 
+      this.redondeoControl.valid) {
       this.tengoDatosDeOtrosComponentes = true;
     } else {
       this.tengoDatosDeOtrosComponentes = false;
@@ -178,6 +185,8 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.totalSoloGuia += this.sumarValoresGanadoYEquinos(kgMunicipal);
     this.totalSoloGuia += this.sumarValoresPorcinos(kgMunicipal);
     this.totalSoloGuia += this.sumarValoresOvinos(kgMunicipal);  
+
+    this.totalRedondeo = this._decimalPipe.transform(this.total, '1.0-2', 'es-Ar');
   }
 
   calculoIngresosBrutos(kgRenta) {
