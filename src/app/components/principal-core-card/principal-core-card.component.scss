@@ -63,3 +63,12 @@
     font-weight: 500;
     margin-bottom: 10px;
 }
+
+.radio-group {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.radio-button {
+    margin: 5px;
+}

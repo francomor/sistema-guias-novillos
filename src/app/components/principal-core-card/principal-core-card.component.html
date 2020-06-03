@@ -76,8 +76,15 @@
           <div class='texts'>
             Destino de porcinos:
           </div>
-          <mat-checkbox [(ngModel)]="datosCheckbox.porcinosVentaProvincia" (change)="calcularTotal()">Vta en la prov.</mat-checkbox>
-          <mat-checkbox [(ngModel)]="datosCheckbox.porcinosVentaFuera" (change)="calcularTotal()">Vta fuera</mat-checkbox>
+
+          <mat-radio-group class="radio-group">
+            <mat-radio-button class="radio-button" #buttonPorcinoVentaProvincia value="VentaProvincia" (click)="checkStateRadioPorcinos($event, buttonPorcinoVentaProvincia)">
+              Vta en la prov.
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" #buttonPorcinoVentaFuera value="VentaFuera" (click)="checkStateRadioPorcinos($event, buttonPorcinoVentaFuera)">
+              Vta fuera
+            </mat-radio-button>
+          </mat-radio-group>
         </div>
         <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
           <mat-form-field class="input-full-width" appearance="fill">
@@ -90,8 +97,15 @@
           <div class='texts'> 
             Destino de ovinos:
           </div>
-          <mat-checkbox [(ngModel)]="datosCheckbox.ovinosVentaProvincia" (change)="calcularTotal()">Vta en la prov.</mat-checkbox>
-          <mat-checkbox [(ngModel)]="datosCheckbox.ovinosVentaFuera" (change)="calcularTotal()">Vta fuera</mat-checkbox>
+
+          <mat-radio-group class="radio-group">
+            <mat-radio-button class="radio-button" #buttonOvinoVentaProvincia value="VentaProvincia" (click)="checkStateRadioOvinos($event, buttonOvinoVentaProvincia)">
+              Vta en la prov.
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" #buttonOvinoVentaFuera value="VentaFuera" (click)="checkStateRadioOvinos($event, buttonOvinoVentaFuera)">
+              Vta fuera
+            </mat-radio-button>
+          </mat-radio-group>
         </div>
       </div>
       
@@ -110,6 +124,7 @@
     <div fxLayout="column" fxFlex="50" fxLayoutAlign="center">
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end start" style="padding-bottom: 10px;">
         <button class="mat-primary" mat-button (click)="openUpsertDialog()">Editar valores fijos</button>
+        <button class="mat-primary" mat-button (click)="reiniciarPantalla()">Reiniciar pantalla</button>
       </div>
 
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">

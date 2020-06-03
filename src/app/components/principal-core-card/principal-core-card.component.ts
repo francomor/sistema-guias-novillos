@@ -55,6 +55,9 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     Equinos: undefined,
   };
 
+  ovinosVenta = null;
+  porcinosVenta = null;
+
   datosCheckbox = {
     derechoOficina: false,
     ingresosBrutos: false,
@@ -62,10 +65,6 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     ganadoVentaProvincia: false,
     ganadoVentaFaenaDentro: false,
     ganadoVentaFuera: false,
-    porcinosVentaProvincia: false,
-    porcinosVentaFuera: false,
-    ovinosVentaProvincia: false,
-    ovinosVentaFuera: false,
   }
 
   datosFijos = {
@@ -134,6 +133,30 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     }
     // refresh view
     this.changeDetectorRefService.detectChanges();
+  }
+
+  checkStateRadioOvinos(event, el) {
+    event.preventDefault();
+    if (this.ovinosVenta && this.ovinosVenta === el.value) {
+      el.checked = false;
+      this.ovinosVenta = null;
+    } else {
+      this.ovinosVenta = el.value
+      el.checked = true;
+    }
+    this.calcularTotal();
+  }
+
+  checkStateRadioPorcinos(event, el) {
+    event.preventDefault();
+    if (this.porcinosVenta && this.porcinosVenta === el.value) {
+      el.checked = false;
+      this.porcinosVenta = null;
+    } else {
+      this.porcinosVenta = el.value
+      el.checked = true;
+    }
+    this.calcularTotal();
   }
   
   calcularTotal() {
@@ -209,8 +232,12 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     const precioPorcinosVentaFuera = 0.73 * kgMunicipal;
 
     const cantidadDePorcinos = this.calcularCantidadPorcinos();
-    if (this.datosCheckbox.porcinosVentaProvincia){ total += precioPorcinosVentaProvincia * cantidadDePorcinos;}
-    if (this.datosCheckbox.porcinosVentaFuera){ total += precioPorcinosVentaFuera * cantidadDePorcinos;}
+    if (this.porcinosVenta === 'VentaProvincia') {
+      total += precioPorcinosVentaProvincia * cantidadDePorcinos;
+    }
+    else if (this.porcinosVenta === 'VentaFuera') {
+      total += precioPorcinosVentaFuera * cantidadDePorcinos;
+    }
     return total;
   }
 
@@ -226,8 +253,12 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     const precioOvinosVentaFuera = 1.20 * kgMunicipal;  
     
     const cantidadDeOvinos = this.calcularCantidadOvinos();
-    if (this.datosCheckbox.ovinosVentaProvincia){ total += precioOvinosVentaProvincia * cantidadDeOvinos;}
-    if (this.datosCheckbox.ovinosVentaFuera){ total += precioOvinosVentaFuera * cantidadDeOvinos;}
+    if (this.ovinosVenta === 'VentaProvincia') {
+      total += precioOvinosVentaProvincia * cantidadDeOvinos;
+    }
+    else if (this.ovinosVenta === 'VentaFuera') {
+      total += precioOvinosVentaFuera * cantidadDeOvinos;
+    }
     return total;
   }
 
@@ -267,6 +298,10 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     dialogRef.afterClosed().subscribe( () => {
       this.cargarDatosFijos();
     });
+  }
+
+  reiniciarPantalla() {
+    window.location.reload();
   }
 
   ngOnDestroy() {
