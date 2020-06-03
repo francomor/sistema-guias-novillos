@@ -115,10 +115,10 @@
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <mat-list>
           <mat-list-item class="texts" *ngIf="datosCheckbox.ingresosBrutos">
-          <b>Ingresos Brutos: </b> &nbsp;${{ ingresosBrutos | number:'1.0-3':'es-Ar' }}
+          <b>Ingresos Brutos: </b> &nbsp;${{ ingresosBrutos | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
           <mat-list-item class="texts" *ngIf="datosCheckbox.derechoOficina">
-            <b>Derecho de oficina: </b>&nbsp;${{ derechoOficina | number:'1.0-3':'es-Ar' }}
+            <b>Derecho de oficina: </b>&nbsp;${{ derechoOficina | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
           <mat-list-item class="texts">
             <b>Valor kg municipal: </b> &nbsp;${{ datosFijos.KgMunicipal }}
@@ -127,7 +127,7 @@
             <b>Valor kg rentas: </b> &nbsp;${{ datosFijos.KgRenta }} 
           </mat-list-item>
           <mat-list-item class="texts-big">
-            <b>Total a cobrar:</b>  &nbsp;${{ total | number:'1.0-3':'es-Ar' }}
+            <b>Total a cobrar:</b>  &nbsp;${{ total | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
           <mat-list-item class="texts">
             Redondeo:
@@ -148,6 +148,14 @@
   </div>
 </div>
 
-<div *ngIf="readyToPrint">
-  <app-principal-core-print-helper-card (htmlPlain)="cargaHtmlAImprimir($event)" [datosAnimales]="datosAnimales"></app-principal-core-print-helper-card>
+<div *ngIf="readyToPrint" style="display: none;" >
+  <app-principal-core-print-helper-card 
+    (htmlPlain)="cargaHtmlAImprimir($event)" 
+    [datosAnimales]="datosAnimales"
+    [total]="total"
+    [totalSoloGuia]="totalSoloGuia"
+    [derechoOficina]="derechoOficina"
+    [ingresosBrutos]="ingresosBrutos"
+    >
+  </app-principal-core-print-helper-card>
 </div>

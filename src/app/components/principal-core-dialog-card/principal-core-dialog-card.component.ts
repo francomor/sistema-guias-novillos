@@ -17,7 +17,10 @@ export class PrincipalCoreDialogComponent implements OnInit {
     Validators.required,
   ]);
 
-  datosFijos = {}
+  datosFijos = {
+    KgMunicipal: undefined,
+    KgRenta: undefined,
+  }
 
   constructor(
     public dialogRef: MatDialogRef<PrincipalCoreDialogComponent>,
@@ -53,6 +56,8 @@ export class PrincipalCoreDialogComponent implements OnInit {
   }
 
   callUpdateDatosFijos() {
+    this.datosFijos.KgMunicipal = this.datosFijos.KgMunicipal.replace(/\./g, ',');
+    this.datosFijos.KgRenta = this.datosFijos.KgRenta.replace(/\./g, ',');
     this.electronService.ipcRenderer.send('datosFijos:actualizarDatosFijos', this.datosFijos);
   }
 

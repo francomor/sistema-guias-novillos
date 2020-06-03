@@ -6,8 +6,8 @@
     .page {
         width: 210mm;
         min-height: 297mm;
-        padding: 5mm;
-        margin: 10mm auto;
+        padding: 1mm;
+        margin: 1mm auto;
         background: white;
     }
     .subpage {
@@ -27,14 +27,13 @@
     <div class="page">
         <div id="imprime" class="subpage"></div>    
     </div>
-
-    <script>
-        const ipcRenderer = require("electron").ipcRenderer;
-
-        ipcRenderer.on("print", (event, content) => {
-            var elem = document.getElementById('imprime');
-            elem.innerHTML = content;
-            ipcRenderer.send("readyToPrint");
-        });
-    </script>
 </body>
+<script>
+    const ipcRenderer = require("electron").ipcRenderer;
+
+    ipcRenderer.on("print", (event, content) => {
+        var elem = document.getElementById('imprime');
+        elem.innerHTML = content;
+        ipcRenderer.send("readyToPrint");
+    });
+</script>

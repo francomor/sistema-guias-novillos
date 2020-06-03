@@ -49,7 +49,6 @@ export class ProductorsUpsertComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data);
     this.datosProductorSelecionado = this.data.datosProductorSelecionado;
     this.renspa = this.data.renspa;
 
@@ -94,7 +93,6 @@ export class ProductorsUpsertComponent implements OnInit {
 
   callUpsertProductor() {
     this.datosProductorSelecionado.RENSPA = this.renspa;
-    console.log(this.datosProductorSelecionado);
     this.electronService.ipcRenderer.send('productor:upsertProductor', this.datosProductorSelecionado);
   }
 

@@ -12,7 +12,6 @@ import { DataSharedService } from '../../services/data-shared-services';
   styleUrls: ['./principal-core-card.component.scss']
 })
 export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
-
   cantidadControl = new FormControl('', [
     Validators.min(0)
   ]);
@@ -75,6 +74,7 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   };
 
   total = 0;
+  totalSoloGuia = 0;
   derechoOficina = 0;
   ingresosBrutos = 0;
 
@@ -142,6 +142,7 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     const kgRenta = parseFloat(this.datosFijos.KgRenta.replace(/,/g, '.'));
     this.derechoOficina = 3.00 * kgMunicipal;
     this.total = 0;
+    this.totalSoloGuia = 0;
     this.ingresosBrutos = this.calculoIngresosBrutos(kgRenta);
 
     if (this.datosCheckbox.derechoOficina){ this.total += this.derechoOficina; }
@@ -150,6 +151,10 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.total += this.sumarValoresGanadoYEquinos(kgMunicipal);
     this.total += this.sumarValoresPorcinos(kgMunicipal);
     this.total += this.sumarValoresOvinos(kgMunicipal);  
+
+    this.totalSoloGuia += this.sumarValoresGanadoYEquinos(kgMunicipal);
+    this.totalSoloGuia += this.sumarValoresPorcinos(kgMunicipal);
+    this.totalSoloGuia += this.sumarValoresOvinos(kgMunicipal);  
   }
 
   calculoIngresosBrutos(kgRenta) {

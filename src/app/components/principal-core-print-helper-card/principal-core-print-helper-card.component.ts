@@ -10,6 +10,10 @@ import { DataSharedService } from '../../services/data-shared-services';
 })
 export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
   @Input() datosAnimales: any; 
+  @Input() total: any; 
+  @Input() totalSoloGuia: any; 
+  @Input() derechoOficina: any; 
+  @Input() ingresosBrutos: any; 
   @Output() htmlPlain: EventEmitter<string> = new EventEmitter<string>();
   
   datosCompradorSeleccionado = null;
@@ -42,17 +46,31 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.datosCompradorSubscribe = this.dataShareService.getDatosCompradorSelecionado().subscribe(datos => { 
       this.datosCompradorSeleccionado = datos;
+      if (this.datosCompradorSeleccionado.CUIT != null) {
+        const stringCuit = this.datosCompradorSeleccionado.CUIT.toString()
+        this.datosCompradorSeleccionado.CUITParteAdelante = stringCuit.slice(0,2);
+        this.datosCompradorSeleccionado.CUITParteAtras = stringCuit.substr(2);
+      }
     });
     this.datosProductorSubscribe = this.dataShareService.getDatosProductorSelecionado().subscribe(datos => {
         this.datosProductorSelecionado = datos;
+        if (this.datosProductorSelecionado.CUIT != null) {
+          const stringCuit = this.datosProductorSelecionado.CUIT.toString()
+          this.datosProductorSelecionado.CUITParteAdelante = stringCuit.slice(0,2);
+          this.datosProductorSelecionado.CUITParteAtras = stringCuit.substr(2);
+        }
     });
     this.datosTransportistaSubscribe = this.dataShareService.getDatosTransportistaSelecionado().subscribe(datos => {
       this.datosTransportistaSelecionado = datos;
+      if (this.datosTransportistaSelecionado.CUIT != null) {
+        const stringCuit = this.datosTransportistaSelecionado.CUIT.toString()
+        this.datosTransportistaSelecionado.CUITParteAdelante = stringCuit.slice(0,2);
+        this.datosTransportistaSelecionado.CUITParteAtras = stringCuit.substr(2);
+      }
     });
     this.datosCamionSubscribe = this.dataShareService.getDatosCamionSelecionado().subscribe(datos => {
       this.datosCamionSelecionado = datos;
     });
-    console.log(this.datosAnimales);
 
     if (this.datosAnimales.Vacas != null) { this.datosAnimalesParseados.Vacas = this.datosAnimales.Vacas;}
     if (this.datosAnimales.Vaquillonas != null) { this.datosAnimalesParseados.Vaquillonas = this.datosAnimales.Vaquillonas;}
