@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Validators, FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { PrincipalCoreDialogComponent } from '../principal-core-dialog-card/principal-core-dialog-card.component';
@@ -95,13 +96,15 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   htmlAImprimir = "";
   readyToPrint = false;
 
+  navigationSubscription; 
   
   constructor(
     private electronService: ElectronService, 
     private changeDetectorRefService: ChangeDetectorRef, 
     public dialog: MatDialog,
     private dataShareService:DataSharedService,
-    private _decimalPipe: DecimalPipe
+    private _decimalPipe: DecimalPipe,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -125,8 +128,50 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.cargarDatosFijos();
     
     this.ipcRespuestas();
+
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.resetDatos();
+      }
+    });
   }
   
+  resetDatos() {
+    this.datosAnimales = {
+      Vacas: undefined,
+      Vaquillonas: undefined,
+      Novillos: undefined,
+      Novillitos: undefined,
+      Terneros: undefined,
+      Toros: undefined,
+      Porcinos: undefined,
+      Ovinos: undefined,
+      Equinos: undefined,
+    };
+  
+    this.ovinosVenta = null;
+    this.porcinosVenta = null;
+  
+    this.datosCheckbox = {
+      derechoOficina: false,
+      ingresosBrutos: false,
+      ganadoSiMismo: false,
+      ganadoVentaProvincia: false,
+      ganadoVentaFaenaDentro: false,
+      ganadoVentaFuera: false,
+    }
+
+    this.readyToPrint = false;
+    this.tengoDatosDeOtrosComponentes = false;
+    this.htmlAImprimir = '';
+    this.total = 0;
+    this.totalRedondeo = '0';
+    this.totalSoloGuia = 0;
+    this.derechoOficina = 0;
+    this.ingresosBrutos = 0;
+  }
+
   cargarDatosFijos() {
     this.electronService.ipcRenderer.send('datosFijos:obtenerDatosFijos');
   }
@@ -310,7 +355,7 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   }
 
   reiniciarPantalla() {
-    window.location.reload();
+    location.reload();
   }
 
   ngOnDestroy() {
@@ -322,5 +367,8 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.datosTransportistaSubscribe.complete();
     this.datosCamionSubscribe.next(true);
     this.datosCamionSubscribe.complete();
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 }

@@ -9,14 +9,15 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'principal', pathMatch: 'full' },
       { path: 'principal', component: PrincipalComponent},
-    ]
+    ],
+    runGuardsAndResolvers: 'always',
   },
   { path: '', redirectTo: '/home/principal', pathMatch: 'full' },
   { path: '**', redirectTo: '/home/principal', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

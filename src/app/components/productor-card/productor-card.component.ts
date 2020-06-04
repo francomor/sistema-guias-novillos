@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ViewChild } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { ProductorsUpsertComponent } from '../productor-upsert-card/productor-upsert-card.component';
@@ -15,7 +16,7 @@ import { DataSharedService } from '../../services/data-shared-services';
   templateUrl: './productor-card.component.html',
   styleUrls: ['./productor-card.component.scss']
 })
-export class ProductorsCardComponent implements OnInit {
+export class ProductorsCardComponent implements OnInit, OnDestroy {
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
   control = new FormControl();
   resnpasBusqueda: string[] = [];
@@ -25,11 +26,14 @@ export class ProductorsCardComponent implements OnInit {
   renspaNoEncontrado = false;
   renspa: string = '';
 
+  navigationSubscription; 
+
   constructor(
     private electronService: ElectronService, 
     private changeDetectorRefService: ChangeDetectorRef, 
     public dialog: MatDialog,
-    private dataShareService:DataSharedService
+    private dataShareService:DataSharedService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -41,6 +45,21 @@ export class ProductorsCardComponent implements OnInit {
     );
     
     this.ipcRespuestas();
+
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.resetDatos();
+      }
+    });
+  }
+
+  resetDatos() {
+    this.datosProductorSelecionado = {};
+    this.tengoDatos = false;
+    this.renspaNoEncontrado = false;
+    this.renspa = '';
+    this.dataShareService.setDatosProductorSelecionado(null);
   }
 
   private _filter(value: string): string[] {
@@ -141,5 +160,11 @@ export class ProductorsCardComponent implements OnInit {
       this.cargaRenspas();
       this.cargarDatosDelProductor(renspa);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 }

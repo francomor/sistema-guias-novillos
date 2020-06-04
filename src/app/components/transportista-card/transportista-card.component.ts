@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ViewChild } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { TransportistaUpsertComponent } from '../transportista-upsert-card/transportista-upsert-card.component';
@@ -15,7 +16,7 @@ import { DataSharedService } from '../../services/data-shared-services';
   templateUrl: './transportista-card.component.html',
   styleUrls: ['./transportista-card.component.scss']
 })
-export class TransportistaCardComponent implements OnInit {
+export class TransportistaCardComponent implements OnInit, OnDestroy {
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
   control = new FormControl();
   cuitBusqueda: string[] = [];
@@ -31,11 +32,14 @@ export class TransportistaCardComponent implements OnInit {
   camionSeleccionado;
   tengoCamionSeleccionado = false;
 
+  navigationSubscription; 
+
   constructor(
     private electronService: ElectronService, 
     private changeDetectorRefService: ChangeDetectorRef, 
     public dialog: MatDialog,
-    private dataShareService:DataSharedService
+    private dataShareService:DataSharedService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -47,6 +51,26 @@ export class TransportistaCardComponent implements OnInit {
     );
     
     this.ipcRespuestas();
+
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.resetDatos();
+      }
+    });
+  }
+
+  resetDatos() {
+    this.datosTransportistaSelecionado = {};
+    this.tengoDatos = false;
+    this.cuitNoEncontrado = false;
+    this.tieneCamiones = false;
+    this.cuit = '';
+    this.camiones = [];
+    this.camionSeleccionado = null;
+    this.tengoCamionSeleccionado = false;
+    this.dataShareService.setDatosTransportistaSelecionado(null);
+    this.dataShareService.setDatosCamionSelecionado(null);
   }
 
   private _filter(value: string): string[] {
@@ -169,5 +193,11 @@ export class TransportistaCardComponent implements OnInit {
       this.cargaCuits();
       this.cargarDatosDelTransportista(this.cuit);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 }
