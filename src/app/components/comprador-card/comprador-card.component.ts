@@ -132,14 +132,10 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
         datosCompradorSelecionado: {
           NombreLocalidad: '',
           NombreProvincia: '',
-          IngresosBrutos: '',
           CUITPersona: '',
           CUIT: '',
           RazonSocial: '',
-          Telefono: '',
-          Email: '',
           NombreEstablecimiento: '',
-          Partida: '',
           Repagro: ''
         }
       };

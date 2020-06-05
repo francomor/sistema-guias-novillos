@@ -79,11 +79,6 @@
               Provincia es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
-  
-          <mat-form-field class="input-full-width">
-            <mat-label>Ingresos brutos</mat-label>
-            <input matInput placeholder="Ingresos brutos" [(ngModel)]="datosCompradorSelecionado.IngresosBrutos">
-          </mat-form-field>
 
         </div>
 
@@ -98,26 +93,8 @@
           </mat-form-field>
     
           <mat-form-field class="input-full-width">
-            <mat-label>Partida N°</mat-label>
-            <input matInput placeholder="Partida N°" [(ngModel)]="datosCompradorSelecionado.Partida">
-          </mat-form-field>
-    
-          <mat-form-field class="input-full-width">
             <mat-label>Repagro N°</mat-label>
             <input matInput placeholder="Repagro N°" [(ngModel)]="datosCompradorSelecionado.Repagro">
-          </mat-form-field>
-    
-          <mat-form-field class="input-full-width">
-            <mat-label>Teléfono</mat-label>
-            <input matInput placeholder="Teléfono" [(ngModel)]="datosCompradorSelecionado.Telefono">
-          </mat-form-field>
-    
-          <mat-form-field class="input-full-width">
-            <mat-label>Email</mat-label>
-            <input matInput [formControl]="emailFormControl" type="email" placeholder="Email" [(ngModel)]="datosCompradorSelecionado.Email">
-            <mat-error *ngIf="emailFormControl.hasError('email')">
-              Por favor ingresa un email valido
-            </mat-error>
           </mat-form-field>
         </div>
       </div>

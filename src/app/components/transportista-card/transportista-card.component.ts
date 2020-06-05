@@ -165,9 +165,6 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
         update: false,
         datosTransportistaSelecionado: {
           RazonSocial: '',
-          IngresosBrutos: '',
-          Telefono: '',
-          Email: '',
         },
         camionSeleccionado: {
           ChapaChasis: '',

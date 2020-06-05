@@ -170,13 +170,10 @@ ipcMain.on('transportista:upsertTransportista', (event, datosTransportista, cami
   const persona = {
     CUIT: datosTransportista.cuit,
     RazonSocial: datosTransportista.RazonSocial,
-    Telefono: datosTransportista.Telefono,
-    Email: datosTransportista.Email,
   }
   upsertPersona(persona).then(async () => {
     const transportista = {
       idTransportista: datosTransportista.idTransportista,
-      IngresosBrutos: datosTransportista.IngresosBrutos,
       CUITPersona: datosTransportista.cuit,
     }
     upsertTransportista(transportista).then(async (idTransportista) => {
@@ -219,7 +216,6 @@ async function insertTransportista(Transportista) {
   let result = knex('Transportista')
             .returning('idTransportista')
             .insert({
-              IngresosBrutos: Transportista.IngresosBrutos,
               CUITPersona: Transportista.CUITPersona,
             })
   return await result.then((id) => {
@@ -231,7 +227,6 @@ async function updateTransportista(Transportista) {
   let result = knex('Transportista')
               .where('idTransportista', Transportista.idTransportista)
               .update({
-                IngresosBrutos: Transportista.IngresosBrutos,
                 CUITPersona: Transportista.CUITPersona,
               });
   return await result.then(() => {
@@ -357,8 +352,6 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
   const persona = {
     CUIT: datosComprador.CUIT,
     RazonSocial: datosComprador.RazonSocial,
-    Telefono: datosComprador.Telefono,
-    Email: datosComprador.Email,
   }
   upsertPersona(persona).then(async () => {
     if (datosComprador.idEstablecimiento == 0 && datosComprador.NombreEstablecimiento != '') {
@@ -369,7 +362,6 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
     const establecimiento = {
       idEstablecimiento: datosComprador.idEstablecimiento,
       Nombre: datosComprador.NombreEstablecimiento,
-      Partida: datosComprador.Partida,
       Repagro: datosComprador.Repagro,
     }
     upsertEstablecimiento(establecimiento).then(async (idEstablecimiento) => {
@@ -486,8 +478,9 @@ ipcMain.on('productor:upsertProductor', (event, datosProductor) => {
           idProductor: datosProductor.idProductor,
           RENSPA: datosProductor.RENSPA,
           BoletoMarca: datosProductor.BoletoMarca,
+          VencimientoBoletoMarca: datosProductor.VencimientoBoletoMarca,
           BoletoSenial: datosProductor.BoletoSenial,
-          IngresosBrutos: datosProductor.IngresosBrutos,
+          VencimientoBoletoSenial: datosProductor.VencimientoBoletoSenial,
           idEstablecimiento: idEstablecimiento,
           CUITPersona: datosProductor.CUIT,
         }
@@ -525,8 +518,9 @@ async function insertProductor(Productor) {
             .insert({
               RENSPA: Productor.RENSPA,
               BoletoMarca: Productor.BoletoMarca,
+              VencimientoBoletoMarca: Productor.VencimientoBoletoMarca,
               BoletoSenial: Productor.BoletoSenial,
-              IngresosBrutos: Productor.IngresosBrutos,
+              VencimientoBoletoSenial: Productor.VencimientoBoletoSenial,
               idEstablecimiento: Productor.idEstablecimiento,
               CUITPersona: Productor.CUITPersona,
             })
@@ -540,9 +534,9 @@ async function updateProductor(Productor) {
               .where('idProductor', Productor.idProductor)
               .update({
                 RENSPA: Productor.RENSPA,
-                BoletoMarca: Productor.BoletoMarca,
+                VencimientoBoletoMarca: Productor.VencimientoBoletoMarca,
                 BoletoSenial: Productor.BoletoSenial,
-                IngresosBrutos: Productor.IngresosBrutos,
+                VencimientoBoletoSenial: Productor.VencimientoBoletoSenial,
                 idEstablecimiento: Productor.idEstablecimiento,
                 CUITPersona: Productor.CUITPersona,
               });

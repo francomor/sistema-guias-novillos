@@ -48,13 +48,17 @@
           </mat-form-field>
 
           <mat-form-field class="input-full-width">
-            <mat-label>Boleto de señal</mat-label>
-            <input matInput placeholder="Boleto de señal" [(ngModel)]="datosProductorSelecionado.BoletoSenial">
+            <mat-label>Vencimiento del boleto de marca</mat-label>
+            <input matInput type="date" placeholder="Vencimiento" [(ngModel)]="datosProductorSelecionado.VencimientoBoletoMarca">
           </mat-form-field>
 
           <mat-form-field class="input-full-width">
-            <mat-label>Ingresos brutos</mat-label>
-            <input matInput placeholder="Ingresos brutos" [(ngModel)]="datosProductorSelecionado.IngresosBrutos">
+            <mat-label>Boleto de señal</mat-label>
+            <input matInput placeholder="Boleto de señal" [(ngModel)]="datosProductorSelecionado.BoletoSenial">
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Vencimiento del boleto de señal</mat-label>
+            <input matInput type="date" placeholder="Vencimiento" [(ngModel)]="datosProductorSelecionado.VencimientoBoletoSenial">
           </mat-form-field>
     
         </div>

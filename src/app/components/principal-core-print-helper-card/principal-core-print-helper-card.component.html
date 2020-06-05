@@ -2,7 +2,7 @@
   <div fxLayout="column" fxFlex="27%">
     <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 30px; font-weight: 500; margin-bottom: 10px;"> 
-        Bobinos
+        Bovinos
       </div>
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
@@ -118,7 +118,7 @@
           Productor: 
         </div>
         <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
-          <ngx-barcode6 [bc-value]="datosProductorSelecionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          {{ datosProductorSelecionado.RazonSocial }}
         </div>
       </div>
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
@@ -127,7 +127,7 @@
           Est.Nombre: 
         </div>
         <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
-          <ngx-barcode6 [bc-value]="datosProductorSelecionado.NombreEstablecimiento" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          {{ datosProductorSelecionado.NombreEstablecimiento }}
         </div>
       </div>
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
@@ -148,7 +148,7 @@
           Transportista: 
         </div>
         <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
-          <ngx-barcode6 [bc-value]="datosTransportistaSelecionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          {{ datosTransportistaSelecionado.RazonSocial }}
         </div>
       </div>
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
@@ -187,7 +187,7 @@
           Productor: 
         </div>
         <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
-          <ngx-barcode6 [bc-value]="datosProductorSelecionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          {{ datosProductorSelecionado.RazonSocial }}
         </div>
       </div>
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
@@ -214,9 +214,18 @@
     <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
       <div fxLayout="row" fxFlex="100%">
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
+          Comprador: 
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          {{ datosCompradorSeleccionado.RazonSocial }}
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100%">
+        <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
           Destino: 
         </div>
         <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+          CAMBIAR
           <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
         </div>
       </div>
@@ -247,10 +256,6 @@
           <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.NombreLocalidad" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
         </div>
       </div>
-    </div>
-    <br>
-
-    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;"> 
       <div fxLayout="row" fxFlex="100%">
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
           Repagro N°: 
@@ -259,6 +264,10 @@
           <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.Repagro" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
         </div>
       </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;"> 
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
@@ -286,7 +295,7 @@
   <div fxLayout="column" fxFlex="30%" fxLayoutAlign="start stretch" style="padding: 2px;">
     <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end center" style="margin-bottom: 10px;">
       <div fxLayout="column" fxFlex="60%" fxLayoutAlign="center end">
-        Sub-Total:
+        Ingresos Brutos:
       </div>
       <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
         ${{ total | number:'1.0-2':'es-Ar'}}
@@ -294,7 +303,7 @@
     </div>
     <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end center" style="margin-bottom: 10px;">
       <div fxLayout="column" fxFlex="60%" fxLayoutAlign="center end">
-        Carga S.A.G:
+        Ingresado a S.A.G:
       </div>
       <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
         ${{ totalRedondeo }}

@@ -15,9 +15,6 @@ import { ElectronService } from '../../core/services/electron/electron.service';
 })
 export class TransportistaUpsertComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
-  emailFormControl = new FormControl('', [
-    Validators.email,
-  ]);
   razonSocialFormControl = new FormControl('', [
     Validators.required,
   ]);
@@ -76,8 +73,7 @@ export class TransportistaUpsertComponent implements OnInit {
   }
 
   get checkFormValid() {
-    if(this.emailFormControl.valid && this.razonSocialFormControl.valid 
-      && this.controlSearchCuit.valid) 
+    if(this.razonSocialFormControl.valid && this.controlSearchCuit.valid) 
     {
       return true;
     } else {

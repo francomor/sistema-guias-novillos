@@ -131,8 +131,9 @@ export class ProductorsCardComponent implements OnInit, OnDestroy {
         update: false,
         datosProductorSelecionado: {
           BoletoMarca: '',
+          VencimientoBoletoMarca: '',
           BoletoSenial: '',
-          IngresosBrutos: '',
+          VencimientoBoletoSenial: '',
           CUITPersona: '',
           CUIT: '',
           RazonSocial: '',

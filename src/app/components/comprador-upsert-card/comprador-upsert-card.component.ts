@@ -15,9 +15,6 @@ import { ElectronService } from '../../core/services/electron/electron.service';
 })
 export class CompradorUpsertComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
-  emailFormControl = new FormControl('', [
-    Validators.email,
-  ]);
   razonSocialFormControl = new FormControl('', [
     Validators.required,
   ]);
@@ -101,8 +98,7 @@ export class CompradorUpsertComponent implements OnInit {
   }
 
   get checkFormValid() {
-    if(this.emailFormControl.valid && this.razonSocialFormControl.valid 
-      && this.controlSearchRenspa.valid && this.nombreEstablecimientoFormControl.valid
+    if(this.razonSocialFormControl.valid && this.controlSearchRenspa.valid && this.nombreEstablecimientoFormControl.valid
       && this.CUITFormControl.valid && this.controlSearchLocalidades.valid
       && this.ProvinciaFormControl.valid) 
     {

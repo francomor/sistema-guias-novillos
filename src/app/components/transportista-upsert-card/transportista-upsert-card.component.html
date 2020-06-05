@@ -36,26 +36,6 @@
               Razón social es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
-    
-          <mat-form-field class="input-full-width">
-            <mat-label>Ingresos brutos</mat-label>
-            <input matInput placeholder="Ingresos brutos" [(ngModel)]="datosTransportistaSelecionado.IngresosBrutos">
-          </mat-form-field>
-        </div>
-        
-        <div fxLayout="column" fxFlex="100" fxLayoutAlign="start center"> 
-          <mat-form-field class="input-full-width">
-            <mat-label>Teléfono</mat-label>
-            <input matInput placeholder="Teléfono" [(ngModel)]="datosTransportistaSelecionado.Telefono">
-          </mat-form-field>     
-
-          <mat-form-field class="input-full-width">
-            <mat-label>Email</mat-label>
-            <input matInput [formControl]="emailFormControl" type="email" placeholder="Email" [(ngModel)]="datosTransportistaSelecionado.Email">
-            <mat-error *ngIf="emailFormControl.hasError('email')">
-              Por favor ingresa un email valido
-            </mat-error>
-          </mat-form-field>
         </div>
       </div>
 
