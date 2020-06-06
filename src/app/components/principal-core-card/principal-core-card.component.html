@@ -41,7 +41,7 @@
           </mat-form-field>
     
           <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Toros</mat-label>
+            <mat-label>Toros/Toritos</mat-label>
             <input matInput type="number" placeholder="Cantidad" [formControl]="torosControl" min="0" [(ngModel)]="datosAnimales.Toros" (ngModelChange)="calcularTotal()">
             <span matSuffix></span>
             <mat-error *ngIf="torosControl.invalid">El valor minimo es 0</mat-error>

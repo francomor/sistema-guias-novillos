@@ -1,5 +1,5 @@
 <div class="card" fxLayout="column">
-  <div class="title-text" style="margin-bottom: 15px">Listado de compradores</div>
+  <div class="title-text" style="margin-bottom: 15px">Listado de productores</div>
   <div fxLayout="row" fxFlexFill>
     <div fxLayout="column" fxFlexFill>
 
@@ -35,13 +35,13 @@
               <td mat-cell *matCellDef="let element"> {{element.NombreEstablecimiento}} </td>
             </ng-container>
         
-            <ng-container matColumnDef="NombreLocalidad">
-              <th mat-header-cell *matHeaderCellDef> Localidad </th>
-              <td mat-cell *matCellDef="let element"> {{element.NombreLocalidad}} </td>
+            <ng-container matColumnDef="Partida">
+              <th mat-header-cell *matHeaderCellDef> Partida </th>
+              <td mat-cell *matCellDef="let element"> {{element.Partida}} </td>
         
-            </ng-container><ng-container matColumnDef="NombreProvincia">
-              <th mat-header-cell *matHeaderCellDef> Provincia </th>
-              <td mat-cell *matCellDef="let element"> {{element.NombreProvincia}} </td>
+            </ng-container><ng-container matColumnDef="Repagro">
+              <th mat-header-cell *matHeaderCellDef> Repagro </th>
+              <td mat-cell *matCellDef="let element"> {{element.Repagro}} </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

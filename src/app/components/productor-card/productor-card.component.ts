@@ -37,6 +37,10 @@ export class ProductorsCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    const localRenspa = JSON.parse(localStorage.getItem('ProductorRenspa'));
+    if (typeof localRenspa !== 'undefined' && localRenspa !== null){
+      this.renspa = localRenspa;
+    }
     this.cargaRenspas();
 
     this.filteredRENSPAS = this.control.valueChanges.pipe(
@@ -58,6 +62,7 @@ export class ProductorsCardComponent implements OnInit, OnDestroy {
     this.datosProductorSelecionado = {};
     this.tengoDatos = false;
     this.renspaNoEncontrado = false;
+    localStorage.removeItem('ProductorRenspa');
     this.renspa = '';
     this.dataShareService.setDatosProductorSelecionado(null);
   }
@@ -83,6 +88,7 @@ export class ProductorsCardComponent implements OnInit, OnDestroy {
     const renspa = textoInput;
     if (textoInput === "") {
       this.renspa = '';
+      localStorage.removeItem('ProductorRenspa');
       this.datosProductorSelecionado = {};
       this.dataShareService.setDatosProductorSelecionado(null);
       this.tengoDatos = false;
@@ -100,6 +106,7 @@ export class ProductorsCardComponent implements OnInit, OnDestroy {
 
   cargarDatosDelProductor(renspa) {
     this.renspa = renspa;
+    localStorage.setItem('ProductorRenspa', JSON.stringify(this.renspa));
     this.electronService.ipcRenderer.send('productor:obtenerDatosProductor', renspa);
   }
 

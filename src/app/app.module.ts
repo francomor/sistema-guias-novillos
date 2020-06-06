@@ -73,8 +73,12 @@ import { TransportistaUpsertComponent } from './components/transportista-upsert-
 import { PrincipalCoreCardComponent } from './components/principal-core-card/principal-core-card.component'
 import { PrincipalCoreDialogComponent } from './components/principal-core-dialog-card/principal-core-dialog-card.component'
 import { PrincipalCorePrintHelperComponent } from './components/principal-core-print-helper-card/principal-core-print-helper-card.component'
+import { ListaTransportistasComponent } from './home/lista-transportista/lista-transportista.component'
 import { ListaCompradoresComponent } from './home/lista-compradores/lista-compradores.component'
+import { ListaProductoresComponent } from './home/lista-productores/lista-productores.component'
 import { CompradorListadoCardComponent } from './components-listados/comprador-listado-card/comprador-listado-card.component'
+import { ProductorListadoCardComponent } from './components-listados/productor-listado-card/productor-listado-card.component'
+import { TransportistaListadoCardComponent } from './components-listados/transportista-listado-card/transportista-listado-card.component'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -98,7 +102,11 @@ registerLocaleData(localeEsAr, 'es-Ar');
     PrincipalCoreDialogComponent,
     PrincipalCorePrintHelperComponent,
     ListaCompradoresComponent,
-    CompradorListadoCardComponent
+    CompradorListadoCardComponent,
+    ListaProductoresComponent,
+    ProductorListadoCardComponent,
+    TransportistaListadoCardComponent,
+    ListaTransportistasComponent
   ],
   imports: [
     NgxBarcode6Module,

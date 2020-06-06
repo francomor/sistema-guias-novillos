@@ -144,6 +144,17 @@ ipcMain.on('datosFijos:actualizarDatosFijos', (event, datosFijos) => {
 });
 
 // transportista
+ipcMain.on('transportista:obtenerTodosLosTransportistas', (event) => {
+  let result = knex('Transportista')
+    .join('Persona', 'Persona.CUIT', '=', 'Transportista.CUITPersona')
+    .join('Camion', 'Camion.idTransportista', '=', 'Transportista.idTransportista')
+    .select('*')
+    .orderBy('Persona.RazonSocial')
+  result.then(function(row){
+    win.webContents.send('transportista:RespuestaObtenerTodosLosTransportistas', row);
+  });
+});
+
 
 ipcMain.on('transportista:obtenerTodosLosCUIT', (event) => {
   let result = knex.select('CUITPersona').from('Transportista');
@@ -331,6 +342,7 @@ ipcMain.on('comprador:obtenerTodosLosCompradores', (event) => {
       'Localidad.Nombre as NombreLocalidad', 
       'Provincia.Nombre as NombreProvincia' 
       )
+    .orderBy('Persona.RazonSocial')
   result.then(function(row){
     win.webContents.send('comprador:RespuestaObtenerTodosLosCompradores', row);
   });
@@ -454,6 +466,17 @@ async function updateComprador(Comprador) {
 }
 
 // productor
+ipcMain.on('productor:obtenerTodosLosProductores', (event) => {
+  let result = knex('Productor')
+    .join('Persona', 'Productor.CUITPersona', '=', 'Persona.CUIT')
+    .join('Establecimiento', 'Productor.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
+    .select('*', 'Establecimiento.Nombre as NombreEstablecimiento')
+    .orderBy('Persona.RazonSocial')
+  result.then(function(row){
+    win.webContents.send('productor:RespuestaObtenerTodosLosProductores', row);
+  });
+});
+
 ipcMain.on('productor:obtenerDatosProductor', (event, renspa) => {
   let result = knex('Productor')
     .join('Persona', 'Productor.CUITPersona', '=', 'Persona.CUIT')

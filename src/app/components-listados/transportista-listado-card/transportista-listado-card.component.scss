@@ -52,7 +52,7 @@ table {
   }
 
 
-.mat-column-RENSPA {
+.mat-column-CUIT {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 15% !important;
@@ -67,23 +67,7 @@ table {
     hyphens: auto;
 }
 
-.mat-column-CUITPersona {
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 10% !important;
-    width: 10% !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  
-    word-break: break-word;
-  
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-}
-
-.mat-column-NombreEstablecimiento {
+.mat-column-ChapaChasis {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 12% !important;
@@ -99,7 +83,7 @@ table {
     hyphens: auto;
 }
 
-.mat-column-NombreLocalidad {
+.mat-column-ChapaAcoplado {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 10% !important;
@@ -115,7 +99,7 @@ table {
     hyphens: auto;
 }
 
-.mat-column-NombreProvincia {
+.mat-column-Chofer {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 10% !important;

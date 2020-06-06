@@ -52,7 +52,7 @@
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
-          Toros: 
+          Toros/Toritos: 
         </div>
         <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
           {{ datosAnimalesParseados.Toros }}
@@ -79,12 +79,12 @@
 
     <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 30px; font-weight: 500; margin-bottom: 10px;"> 
-        Ovinos
+        Ovinos/Caprinos
       </div>
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center end">
-          Ovinos: 
+          Ovinos/Caprinos: 
         </div>
         <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center center">
           {{ datosAnimalesParseados.Ovinos }}
@@ -220,6 +220,7 @@
           {{ datosCompradorSeleccionado.RazonSocial }}
         </div>
       </div>
+      <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%">
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
           Destino: 
@@ -256,6 +257,7 @@
           <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.NombreLocalidad" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
         </div>
       </div>
+      <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%">
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
           Repagro N°: 
@@ -268,7 +270,6 @@
     <br>
 
     <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;"> 
-      <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
           Boleto de marca: 
@@ -298,7 +299,7 @@
         Ingresos Brutos:
       </div>
       <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
-        ${{ total | number:'1.0-2':'es-Ar'}}
+        ${{ ingresosBrutos | number:'1.0-2':'es-Ar'}}
       </div>
     </div>
     <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end center" style="margin-bottom: 10px;">
@@ -336,7 +337,7 @@
         A depositar en S.A.G:
       </div>
       <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
-        ${{ totalRedondeo }}
+        ${{ totalSoloGuia + ingresosBrutos }}
       </div>
     </div>
     <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end center" style="margin-bottom: 10px;">
@@ -344,7 +345,7 @@
         Total recibo municipal:
       </div>
       <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
-        ${{ total + derechoOficina | number:'1.0-2':'es-Ar'}} 
+        ${{ total | number:'1.0-2':'es-Ar'}} 
       </div>
     </div>
   </div>

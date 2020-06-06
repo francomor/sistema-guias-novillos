@@ -6,12 +6,12 @@ import { ElectronService } from '../../core/services/electron/electron.service';
 
 
 @Component({
-  selector: 'app-comprador-listado-card',
-  templateUrl: './comprador-listado-card.component.html',
-  styleUrls: ['./comprador-listado-card.component.scss']
+  selector: 'app-productor-listado-card',
+  templateUrl: './productor-listado-card.component.html',
+  styleUrls: ['./productor-listado-card.component.scss']
 })
-export class CompradorListadoCardComponent implements OnInit {
-  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'NombreLocalidad', 'NombreProvincia'];
+export class ProductorListadoCardComponent implements OnInit {
+  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'Partida', 'Repagro'];
   todosLosDatosTabla = [];
   datosTabla = [];
   isLoading = true;
@@ -31,11 +31,11 @@ export class CompradorListadoCardComponent implements OnInit {
   }
 
   cargaRenspas() {
-    this.electronService.ipcRenderer.send('comprador:obtenerTodosLosCompradores');
+    this.electronService.ipcRenderer.send('productor:obtenerTodosLosProductores');
   }
 
   ipcRespuestas() {
-    this.electronService.ipcRenderer.on('comprador:RespuestaObtenerTodosLosCompradores', (event, datos) => {
+    this.electronService.ipcRenderer.on('productor:RespuestaObtenerTodosLosProductores', (event, datos) => {
       this.todosLosDatosTabla = datos;
       this.datosTabla = datos;
       this.isLoading = false;
@@ -54,9 +54,8 @@ export class CompradorListadoCardComponent implements OnInit {
   }
 
   onRenspaClick(event) {
-    console.log(event.target.innerHTML);
-    localStorage.setItem('CompradorRenspa', JSON.stringify(event.target.innerHTML.trim()));
-    this.openSnackBar("Comprador con RENSPA " + event.target.innerHTML + " fue seleccionado con éxito", "");
+    localStorage.setItem('ProductorRenspa', JSON.stringify(event.target.innerHTML.trim()));
+    this.openSnackBar("Productor con RENSPA " + event.target.innerHTML + " fue seleccionado con éxito", "");
   }
 
   openSnackBar(message: string, action: string) {

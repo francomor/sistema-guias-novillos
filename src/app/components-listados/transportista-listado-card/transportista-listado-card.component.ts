@@ -6,12 +6,12 @@ import { ElectronService } from '../../core/services/electron/electron.service';
 
 
 @Component({
-  selector: 'app-comprador-listado-card',
-  templateUrl: './comprador-listado-card.component.html',
-  styleUrls: ['./comprador-listado-card.component.scss']
+  selector: 'app-transportista-listado-card',
+  templateUrl: './transportista-listado-card.component.html',
+  styleUrls: ['./transportista-listado-card.component.scss']
 })
-export class CompradorListadoCardComponent implements OnInit {
-  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'NombreLocalidad', 'NombreProvincia'];
+export class TransportistaListadoCardComponent implements OnInit {
+  displayedColumns: string[] = ['CUIT', 'RazonSocial', 'ChapaChasis', 'ChapaAcoplado', 'Chofer'];
   todosLosDatosTabla = [];
   datosTabla = [];
   isLoading = true;
@@ -31,11 +31,11 @@ export class CompradorListadoCardComponent implements OnInit {
   }
 
   cargaRenspas() {
-    this.electronService.ipcRenderer.send('comprador:obtenerTodosLosCompradores');
+    this.electronService.ipcRenderer.send('transportista:obtenerTodosLosTransportistas');
   }
 
   ipcRespuestas() {
-    this.electronService.ipcRenderer.on('comprador:RespuestaObtenerTodosLosCompradores', (event, datos) => {
+    this.electronService.ipcRenderer.on('transportista:RespuestaObtenerTodosLosTransportistas', (event, datos) => {
       this.todosLosDatosTabla = datos;
       this.datosTabla = datos;
       this.isLoading = false;
@@ -53,10 +53,12 @@ export class CompradorListadoCardComponent implements OnInit {
     this.changeDetectorRefService.detectChanges();
   }
 
-  onRenspaClick(event) {
-    console.log(event.target.innerHTML);
-    localStorage.setItem('CompradorRenspa', JSON.stringify(event.target.innerHTML.trim()));
-    this.openSnackBar("Comprador con RENSPA " + event.target.innerHTML + " fue seleccionado con éxito", "");
+  onCuitClick(event) {
+    const cuitTransportista = event.target.innerHTML.trim();
+    const transportistaSeleccionado = this.todosLosDatosTabla.find(element => element.CUIT == cuitTransportista);
+    localStorage.setItem('TransportistaCUIT', JSON.stringify(cuitTransportista));
+    localStorage.setItem('TransportistaIDCamionSeleccionado', JSON.stringify(transportistaSeleccionado.idCamion));
+    this.openSnackBar("Transportista con CUIT " + event.target.innerHTML + " fue seleccionado con éxito", "");
   }
 
   openSnackBar(message: string, action: string) {

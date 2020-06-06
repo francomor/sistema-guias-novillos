@@ -43,6 +43,11 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    const localCuit = JSON.parse(localStorage.getItem('TransportistaCUIT'));
+    if (typeof localCuit !== 'undefined' && localCuit !== null){
+      this.cuit = localCuit;
+    }
+
     this.cargaCuits();
 
     this.filteredCuits = this.control.valueChanges.pipe(
@@ -66,6 +71,8 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
     this.cuitNoEncontrado = false;
     this.tieneCamiones = false;
     this.cuit = '';
+    localStorage.removeItem('TransportistaCUIT');
+    localStorage.removeItem('TransportistaIDCamionSeleccionado');
     this.camiones = [];
     this.camionSeleccionado = null;
     this.tengoCamionSeleccionado = false;
@@ -94,6 +101,8 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
     const cuit = textoInput;
     if (textoInput === "") {
       this.cuit = '';
+      localStorage.removeItem('TransportistaCUIT');
+      localStorage.removeItem('TransportistaIDCamionSeleccionado');
       this.datosTransportistaSelecionado = {};
       this.dataShareService.setDatosTransportistaSelecionado(null);
       this.dataShareService.setDatosCamionSelecionado(null);
@@ -113,12 +122,14 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
   cargarDatosDelTransportista(cuit) {
     this.tengoCamionSeleccionado = false;
     this.cuit = cuit;
+    localStorage.setItem('TransportistaCUIT', JSON.stringify(this.cuit));
     this.electronService.ipcRenderer.send('camion:obtenerCamionesDelTransportista', cuit);
     this.electronService.ipcRenderer.send('transportista:obtenerDatosDelTransportista', cuit);
   }
 
   onCamionSelectionChange(camion) {
     this.camionSeleccionado = camion;
+    localStorage.setItem('TransportistaIDCamionSeleccionado', JSON.stringify(camion.idCamion));
     this.dataShareService.setDatosCamionSelecionado(this.camionSeleccionado);
     this.tengoCamionSeleccionado = true;
     // refresh view
@@ -151,6 +162,12 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
       } else {
         this.camiones = camiones;
         this.tieneCamiones = true;
+
+        const localIDCamion = JSON.parse(localStorage.getItem('TransportistaIDCamionSeleccionado'));
+        if (typeof localIDCamion !== 'undefined' && localIDCamion !== null){
+          this.camionSeleccionado = this.camiones.find(camion => camion.idCamion == localIDCamion);
+          this.tengoCamionSeleccionado = true;
+        }
       }
       // refresh view
       this.changeDetectorRefService.detectChanges();

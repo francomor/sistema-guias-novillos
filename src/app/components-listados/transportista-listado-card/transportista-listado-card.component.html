@@ -1,5 +1,5 @@
 <div class="card" fxLayout="column">
-  <div class="title-text" style="margin-bottom: 15px">Listado de compradores</div>
+  <div class="title-text" style="margin-bottom: 15px">Listado de transportistas</div>
   <div fxLayout="row" fxFlexFill>
     <div fxLayout="column" fxFlexFill>
 
@@ -10,7 +10,7 @@
           <input matInput (keyup)="applyFilter($event)" placeholder="Razon social">
         </mat-form-field>
         <div style="width: 100%; padding: 0px 0px 20px">
-          Haga click sobre cualquier RENSPA para marcarlo como seleccionado en la pantalla principal.
+          Haga click sobre cualquier CUIT para marcarlo como seleccionado en la pantalla principal.
         </div>
         <div class="table-container" fxLayout="row" fxLayoutAlign="space-between start">
           <table mat-table [dataSource]="datosTabla" class="mat-elevation-z8">
@@ -20,28 +20,24 @@
               <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
             </ng-container>
           
-            <ng-container matColumnDef="RENSPA">
-              <th mat-header-cell *matHeaderCellDef> RENSPA </th>
-              <td mat-cell *matCellDef="let element" (click)="onRenspaClick($event)" style="color:blue; cursor: pointer;"> {{element.RENSPA}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="CUITPersona">
+            <ng-container matColumnDef="CUIT">
               <th mat-header-cell *matHeaderCellDef> CUIT </th>
-              <td mat-cell *matCellDef="let element"> {{element.CUITPersona}} </td>
+              <td mat-cell *matCellDef="let element" (click)="onCuitClick($event)" style="color:blue; cursor: pointer;"> {{element.CUIT}} </td>
             </ng-container>
           
-            <ng-container matColumnDef="NombreEstablecimiento">
-              <th mat-header-cell *matHeaderCellDef> Establecimiento </th>
-              <td mat-cell *matCellDef="let element"> {{element.NombreEstablecimiento}} </td>
+            <ng-container matColumnDef="ChapaChasis">
+              <th mat-header-cell *matHeaderCellDef> Chapa del chasis </th>
+              <td mat-cell *matCellDef="let element"> {{element.ChapaChasis}} </td>
             </ng-container>
-        
-            <ng-container matColumnDef="NombreLocalidad">
-              <th mat-header-cell *matHeaderCellDef> Localidad </th>
-              <td mat-cell *matCellDef="let element"> {{element.NombreLocalidad}} </td>
-        
-            </ng-container><ng-container matColumnDef="NombreProvincia">
-              <th mat-header-cell *matHeaderCellDef> Provincia </th>
-              <td mat-cell *matCellDef="let element"> {{element.NombreProvincia}} </td>
+          
+            <ng-container matColumnDef="ChapaAcoplado">
+              <th mat-header-cell *matHeaderCellDef> Chapa del acoplado </th>
+              <td mat-cell *matCellDef="let element"> {{element.ChapaAcoplado}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Chofer">
+              <th mat-header-cell *matHeaderCellDef> Chofer </th>
+              <td mat-cell *matCellDef="let element"> {{element.Chofer}} </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

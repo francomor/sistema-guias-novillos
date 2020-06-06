@@ -1,10 +1,11 @@
 <div class="card" fxLayout="column">
-  <div class="title-text" style="margin-bottom: 5px">Transportista</div>
+  <div class="title-text" style="margin-bottom: 7px">Transportista</div>
   <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
     <div fxLayout="row" fxFlex="100">
       <mat-form-field style="width: 100%;">
         <mat-icon matSuffix>search</mat-icon>
         <input matInput type="text" 
+        placeholder="CUIT"
         class="search-input" 
         [formControl]="control" 
         [matAutocomplete]="auto" 

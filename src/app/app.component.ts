@@ -24,5 +24,10 @@ export class AppComponent {
     } else {
       console.log('Mode web');
     }
+
+    localStorage.removeItem('CompradorRenspa');
+    localStorage.removeItem('ProductorRenspa');
+    localStorage.removeItem('TransportistaCUIT');
+    localStorage.removeItem('TransportistaIDCamionSeleccionado');
   }
 }
