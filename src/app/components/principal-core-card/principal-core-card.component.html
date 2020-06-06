@@ -88,14 +88,14 @@
         </div>
         <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
           <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Ovinos</mat-label>
+            <mat-label>Ovinos/Caprinos</mat-label>
             <input matInput type="number" placeholder="Cantidad" [formControl]="ovinosControl" min="0" [(ngModel)]="datosAnimales.Ovinos" (ngModelChange)="calcularTotal()">
             <span matSuffix></span>
             <mat-error *ngIf="ovinosControl.invalid">El valor minimo es 0</mat-error>
           </mat-form-field>
 
           <div class='texts'> 
-            Destino de ovinos:
+            Destino de ovinos/caprinos:
           </div>
 
           <mat-radio-group class="radio-group">

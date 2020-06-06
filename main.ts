@@ -319,6 +319,23 @@ async function updateCamion(Camion) {
 
 // comprador
 
+ipcMain.on('comprador:obtenerTodosLosCompradores', (event) => {
+  let result = knex('Comprador')
+    .join('Persona', 'Comprador.CUITPersona', '=', 'Persona.CUIT')
+    .join('Establecimiento', 'Comprador.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
+    .join('Localidad', 'Comprador.idLocalidad', '=', 'Localidad.idLocalidad')
+    .join('Provincia', 'Localidad.idProvincia', '=', 'Provincia.idProvincia')
+    .select(
+      '*', 
+      'Establecimiento.Nombre as NombreEstablecimiento', 
+      'Localidad.Nombre as NombreLocalidad', 
+      'Provincia.Nombre as NombreProvincia' 
+      )
+  result.then(function(row){
+    win.webContents.send('comprador:RespuestaObtenerTodosLosCompradores', row);
+  });
+});
+
 ipcMain.on('comprador:obtenerDatosComprador', (event, renspa) => {
   let result = knex('Comprador')
     .join('Persona', 'Comprador.CUITPersona', '=', 'Persona.CUIT')

@@ -1,0 +1,58 @@
+<div class="card" fxLayout="column">
+  <div fxLayout="row" fxFlexFill>
+    <div fxLayout="column" fxFlexFill>
+
+      <div *ngIf="!isLoading">
+        <mat-form-field class="texts-redondeo" appearance="fill" style="width: 50%;">
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-label>Filtro por razon social</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Razon social">
+        </mat-form-field>
+        <div style="width: 100%; padding: 0px 0px 20px">
+          Haga click sobre cualquier RENSPA para marcarlo como seleccionado en la pantalla principal.
+        </div>
+        <div class="table-container" fxLayout="row" fxLayoutAlign="space-between start">
+          <table mat-table [dataSource]="datosTabla" class="mat-elevation-z8">
+        
+            <ng-container matColumnDef="RazonSocial">
+              <th mat-header-cell *matHeaderCellDef> Razon social </th>
+              <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="RENSPA">
+              <th mat-header-cell *matHeaderCellDef> RENSPA </th>
+              <td mat-cell *matCellDef="let element" (click)="onRenspaClick($event)" style="color:blue; cursor: pointer;"> {{element.RENSPA}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="CUITPersona">
+              <th mat-header-cell *matHeaderCellDef> CUIT </th>
+              <td mat-cell *matCellDef="let element"> {{element.CUITPersona}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="NombreEstablecimiento">
+              <th mat-header-cell *matHeaderCellDef> Establecimiento </th>
+              <td mat-cell *matCellDef="let element"> {{element.NombreEstablecimiento}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="NombreLocalidad">
+              <th mat-header-cell *matHeaderCellDef> Localidad </th>
+              <td mat-cell *matCellDef="let element"> {{element.NombreLocalidad}} </td>
+        
+            </ng-container><ng-container matColumnDef="NombreProvincia">
+              <th mat-header-cell *matHeaderCellDef> Provincia </th>
+              <td mat-cell *matCellDef="let element"> {{element.NombreProvincia}} </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+      <mat-spinner
+      strokeWidth="3"
+      diameter="30"
+      *ngIf="isLoading"
+    ></mat-spinner>
+    </div>
+  </div>
+</div>

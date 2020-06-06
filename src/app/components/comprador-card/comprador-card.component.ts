@@ -37,6 +37,10 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    const localRenspa = JSON.parse(localStorage.getItem('CompradorRenspa'));
+    if (typeof localRenspa !== 'undefined' && localRenspa !== null){
+      this.renspa = localRenspa;
+    }
     this.cargaRenspas();
 
     this.filteredRENSPAS = this.control.valueChanges.pipe(
@@ -56,6 +60,7 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
 
   resetDatos() {
     this.datosCompradorSelecionado = {};
+    localStorage.removeItem('CompradorRenspa');
     this.tengoDatos = false;
     this.renspaNoEncontrado = false;
     this.renspa = '';
@@ -83,6 +88,7 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
     const renspa = textoInput;
     if (textoInput === "") {
       this.renspa = '';
+      localStorage.removeItem('CompradorRenspa');
       this.datosCompradorSelecionado = {};
       this.dataShareService.setDatosCompradorSelecionado(null);
       this.tengoDatos = false;
@@ -100,6 +106,7 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
 
   cargarDatosDelComprador(renspa) {
     this.renspa = renspa;
+    localStorage.setItem('CompradorRenspa', JSON.stringify(this.renspa));
     this.electronService.ipcRenderer.send('comprador:obtenerDatosComprador', renspa);
   }
 
