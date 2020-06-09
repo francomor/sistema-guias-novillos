@@ -11,7 +11,12 @@ import { ElectronService } from '../../core/services/electron/electron.service';
   styleUrls: ['./productor-listado-card.component.scss']
 })
 export class ProductorListadoCardComponent implements OnInit {
-  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'Partida', 'Repagro'];
+  displayedColumns: string[] = [
+    'RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'Partida', 'Repagro', 
+    'BoletoMarca', 'BoletoMarcaInc', 'BoletoMarcaFolio', 'VencimientoBoletoMarca',
+    'BoletoSenial', 'BoletoSenialInc', 'BoletoSenialFolio', 'VencimientoBoletoSenial',
+    'Telefono', 'Email'
+  ];
   todosLosDatosTabla = [];
   datosTabla = [];
   isLoading = true;

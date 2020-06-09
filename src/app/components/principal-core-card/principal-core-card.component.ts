@@ -177,7 +177,7 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
 
   tengoDatos() {
     if (this.datosCompradorSeleccionado && this.datosProductorSelecionado && this.datosTransportistaSelecionado && this.datosCamionSelecionado && 
-      this.redondeoControl.valid && this.derechoOficinaControl.valid) {
+      this.redondeoControl.valid) {
       this.tengoDatosDeOtrosComponentes = true;
     } else {
       this.tengoDatosDeOtrosComponentes = false;

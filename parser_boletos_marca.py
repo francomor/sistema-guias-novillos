@@ -22,17 +22,22 @@ for line in Lines:
   folio = release[3]
   vence = release[4]
 
+  dia, mes, ano = vence.split("-")
+
   print(nombre_productor)
   print(boleto_marca)
   print(inc)
   print(folio)
   print(vence)
+  print(dia)
+  print(mes)
+  print("20"+ano)
 
   cur = conn.cursor()
   cur.execute("SELECT idProductor, RazonSocial "
               "FROM Productor "
               "JOIN Persona on Productor.CUITPersona = Persona.CUIT "
-              "where Persona.RazonSocial like '%" + nombre_productor + "%';")
+              "where Persona.RazonSocial='" + nombre_productor + "';")
   rows = cur.fetchall()
   if rows:
     if len(rows) > 1:
@@ -43,7 +48,7 @@ for line in Lines:
       salida = "UPDATE Productor " \
                "SET BoletoMarca = '" + boleto_marca + "', " \
                "BoletoMarcaFolio = '" + folio + "', " \
-               "VencimientoBoletoMarca = '" + vence + "', " \
+               "VencimientoBoletoMarca = '" + dia + '-' + mes + '-' + '20' + ano + "', " \
                "BoletoMarcaInc = '" + inc + "' " \
                "WHERE idProductor = " + id_productor + ";\n"
       print(salida)

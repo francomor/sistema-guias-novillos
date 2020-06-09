@@ -43,27 +43,6 @@
           </mat-form-field>
     
           <mat-form-field class="input-full-width">
-            <mat-label>Boleto de marca</mat-label>
-            <input matInput placeholder="Boleto de marca" [(ngModel)]="datosProductorSelecionado.BoletoMarca">
-          </mat-form-field>
-
-          <mat-form-field class="input-full-width">
-            <mat-label>Vencimiento del boleto de marca</mat-label>
-            <input matInput type="date" placeholder="Vencimiento" [(ngModel)]="datosProductorSelecionado.VencimientoBoletoMarca">
-          </mat-form-field>
-
-          <mat-form-field class="input-full-width">
-            <mat-label>Boleto de señal</mat-label>
-            <input matInput placeholder="Boleto de señal" [(ngModel)]="datosProductorSelecionado.BoletoSenial">
-          </mat-form-field>
-          <mat-form-field class="input-full-width">
-            <mat-label>Vencimiento del boleto de señal</mat-label>
-            <input matInput type="date" placeholder="Vencimiento" [(ngModel)]="datosProductorSelecionado.VencimientoBoletoSenial">
-          </mat-form-field>
-    
-        </div>
-        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
-          <mat-form-field class="input-full-width">
             <mat-label>Nombre del establecimiento</mat-label>
             <input matInput [formControl]="nombreEstablecimientoFormControl" placeholder="Nombre del establecimiento" [(ngModel)]="datosProductorSelecionado.NombreEstablecimiento">
             <mat-error *ngIf="nombreEstablecimientoFormControl.hasError('required')">
@@ -93,6 +72,53 @@
               Por favor ingresa un email valido
             </mat-error>
           </mat-form-field>
+    
+        </div>
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <mat-form-field class="input-full-width">
+            <mat-label>N° Boleto de marca</mat-label>
+            <input matInput placeholder="N° Boleto de marca" [(ngModel)]="datosProductorSelecionado.BoletoMarca">
+          </mat-form-field>
+
+          <div fxLayout="row" fxLayoutAlign="space-around center" >
+            <mat-form-field class="input-mitad-width">
+              <mat-label>Inc. boleto de marca</mat-label>
+              <input matInput placeholder="Inc." [(ngModel)]="datosProductorSelecionado.BoletoMarcaInc">
+            </mat-form-field>
+  
+            <mat-form-field class="input-mitad-width">
+              <mat-label>Folio del boleto de marca</mat-label>
+              <input matInput placeholder="Folio" [(ngModel)]="datosProductorSelecionado.BoletoMarcaFolio">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Vencimiento del boleto de marca</mat-label>
+            <input matInput type="text" placeholder="dd/mm/aaaa" [(ngModel)]="datosProductorSelecionado.VencimientoBoletoMarca">
+          </mat-form-field>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Boleto de señal</mat-label>
+            <input matInput placeholder="Boleto de señal" [(ngModel)]="datosProductorSelecionado.BoletoSenial">
+          </mat-form-field>
+
+          <div fxLayout="row" fxLayoutAlign="space-around center" >
+            <mat-form-field class="input-mitad-width">
+              <mat-label>Inc. boleto de señal</mat-label>
+              <input matInput placeholder="Inc." [(ngModel)]="datosProductorSelecionado.BoletoSenialInc">
+            </mat-form-field>
+  
+            <mat-form-field class="input-mitad-width">
+              <mat-label>Folio del boleto de señal</mat-label>
+              <input matInput placeholder="Folio" [(ngModel)]="datosProductorSelecionado.BoletoSenialFolio">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Vencimiento del boleto de señal</mat-label>
+            <input matInput type="text" placeholder="dd/mm/aaaa" [(ngModel)]="datosProductorSelecionado.VencimientoBoletoSenial">
+          </mat-form-field>
+
         </div>
       </div>
     </div>  

@@ -36,7 +36,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatNativeDateModule , MatRippleModule} from '@angular/material/core';
+import { MatNativeDateModule , MatRippleModule, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -168,7 +168,11 @@ registerLocaleData(localeEsAr, 'es-Ar');
       }
     })
   ],
-  providers: [DecimalPipe, { provide: LOCALE_ID, useValue: 'es-Ar' }],
+  providers: [
+    DecimalPipe, 
+    { provide: LOCALE_ID, useValue: 'es-Ar' }, 
+    { provide: MAT_DATE_LOCALE, useValue: 'es' },
+  ],
   entryComponents: [
     ProductorsUpsertComponent,
     CompradorUpsertComponent,

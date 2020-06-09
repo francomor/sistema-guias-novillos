@@ -37,6 +37,7 @@ export class ProductorsCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+
     const localRenspa = JSON.parse(localStorage.getItem('ProductorRenspa'));
     if (typeof localRenspa !== 'undefined' && localRenspa !== null){
       this.renspa = localRenspa;
@@ -138,8 +139,12 @@ export class ProductorsCardComponent implements OnInit, OnDestroy {
         update: false,
         datosProductorSelecionado: {
           BoletoMarca: '',
+          BoletoMarcaInc: '',
+          BoletoMarcaFolio: '',
           VencimientoBoletoMarca: '',
           BoletoSenial: '',
+          BoletoSenialInc: '',
+          BoletoSenialFolio: '',
           VencimientoBoletoSenial: '',
           CUITPersona: '',
           CUIT: '',
