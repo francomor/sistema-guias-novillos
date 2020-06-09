@@ -47,6 +47,9 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   redondeoControl = new FormControl('', [
     Validators.required
   ]);
+  derechoOficinaControl = new FormControl('', [
+    Validators.required
+  ]);
   
   datosAnimales = {
     Vacas: undefined,
@@ -60,16 +63,14 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     Equinos: undefined,
   };
 
+  bovinosVenta = null;
   ovinosVenta = null;
   porcinosVenta = null;
+  equinosVenta = null;
 
+  derechoOficinaCantidad = undefined;
   datosCheckbox = {
-    derechoOficina: false,
     ingresosBrutos: false,
-    ganadoSiMismo: false,
-    ganadoVentaProvincia: false,
-    ganadoVentaFaenaDentro: false,
-    ganadoVentaFuera: false,
   }
 
   datosFijos = {
@@ -150,16 +151,14 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
       Equinos: undefined,
     };
   
+    this.bovinosVenta = null;
     this.ovinosVenta = null;
+    this.equinosVenta = null;
     this.porcinosVenta = null;
   
+    this.derechoOficinaCantidad = undefined;
     this.datosCheckbox = {
-      derechoOficina: false,
       ingresosBrutos: false,
-      ganadoSiMismo: false,
-      ganadoVentaProvincia: false,
-      ganadoVentaFaenaDentro: false,
-      ganadoVentaFuera: false,
     }
 
     this.readyToPrint = false;
@@ -178,13 +177,25 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
 
   tengoDatos() {
     if (this.datosCompradorSeleccionado && this.datosProductorSelecionado && this.datosTransportistaSelecionado && this.datosCamionSelecionado && 
-      this.redondeoControl.valid) {
+      this.redondeoControl.valid && this.derechoOficinaControl.valid) {
       this.tengoDatosDeOtrosComponentes = true;
     } else {
       this.tengoDatosDeOtrosComponentes = false;
     }
     // refresh view
     this.changeDetectorRefService.detectChanges();
+  }
+
+  checkStateRadioBovinos(event, el) {
+    event.preventDefault();
+    if (this.bovinosVenta && this.bovinosVenta === el.value) {
+      el.checked = false;
+      this.bovinosVenta = null;
+    } else {
+      this.bovinosVenta = el.value
+      el.checked = true;
+    }
+    this.calcularTotal();
   }
 
   checkStateRadioOvinos(event, el) {
@@ -210,26 +221,45 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     }
     this.calcularTotal();
   }
+
+  checkStateRadioEquinos(event, el) {
+    event.preventDefault();
+    if (this.equinosVenta && this.equinosVenta === el.value) {
+      el.checked = false;
+      this.equinosVenta = null;
+    } else {
+      this.equinosVenta = el.value
+      el.checked = true;
+    }
+    this.calcularTotal();
+  }
+
   
   calcularTotal() {
     this.dataShareService.setDatosAnimales(this.datosAnimales);
     const kgMunicipal = parseFloat(this.datosFijos.KgMunicipal.replace(/,/g, '.'));
     const kgRenta = parseFloat(this.datosFijos.KgRenta.replace(/,/g, '.'));
-    this.derechoOficina = 3.00 * kgMunicipal;
+    const calculoDerechoOficina = 3.00 * kgMunicipal;
+    this.derechoOficina = 0;
     this.total = 0;
     this.totalSoloGuia = 0;
     this.ingresosBrutos = this.calculoIngresosBrutos(kgRenta);
 
-    if (this.datosCheckbox.derechoOficina){ this.total += this.derechoOficina; }
+    if (this.derechoOficinaCantidad != null){ 
+      this.derechoOficina += calculoDerechoOficina * this.derechoOficinaCantidad; 
+      this.total += this.derechoOficina;
+    }
     if (this.datosCheckbox.ingresosBrutos){ this.total += this.ingresosBrutos; }
 
-    this.total += this.sumarValoresGanadoYEquinos(kgMunicipal);
+    this.total += this.sumarValoresGanado(kgMunicipal);
     this.total += this.sumarValoresPorcinos(kgMunicipal);
     this.total += this.sumarValoresOvinos(kgMunicipal);  
+    this.total += this.sumarValoresEquinos(kgMunicipal);  
 
-    this.totalSoloGuia += this.sumarValoresGanadoYEquinos(kgMunicipal);
+    this.totalSoloGuia += this.sumarValoresGanado(kgMunicipal);
     this.totalSoloGuia += this.sumarValoresPorcinos(kgMunicipal);
     this.totalSoloGuia += this.sumarValoresOvinos(kgMunicipal);  
+    this.totalSoloGuia += this.sumarValoresEquinos(kgMunicipal);  
 
     this.totalRedondeo = this._decimalPipe.transform(this.total, '1.0-2', 'es-Ar');
   }
@@ -252,23 +282,37 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     return ingresosBrutos;
   }
 
-  sumarValoresGanadoYEquinos(kgMunicipal) {
+  sumarValoresGanado(kgMunicipal) {
     let total = 0;
     const precioGanadoSiMismo = 0.74 * kgMunicipal;
     const precioGanadoVentaProvincia = 1.56 * kgMunicipal;
     const precioGanadoVentaFaenaDentro = 2.14 * kgMunicipal;
     const precioGanadoVentaFuera = 3.00 * kgMunicipal;
 
-    const cantidadDeBobinosYEquinos = this.calcularCantidadDeBoninosYEquinos();
-    if (this.datosCheckbox.ganadoSiMismo){ total += precioGanadoSiMismo * cantidadDeBobinosYEquinos;}
-    if (this.datosCheckbox.ganadoVentaProvincia){ total += precioGanadoVentaProvincia * cantidadDeBobinosYEquinos;}
-    if (this.datosCheckbox.ganadoVentaFaenaDentro){ total += precioGanadoVentaFaenaDentro * cantidadDeBobinosYEquinos;}
-    if (this.datosCheckbox.ganadoVentaFuera){ total += precioGanadoVentaFuera * cantidadDeBobinosYEquinos;}
+    const cantidadDeBobinos = this.calcularCantidadDeBoninos();
+    if (this.bovinosVenta === 'VentaProvincia') {
+      total += precioGanadoVentaProvincia * cantidadDeBobinos;
+    }
+    else if (this.bovinosVenta === 'VentaForanea') {
+      total += precioGanadoVentaFuera * cantidadDeBobinos;
+    }
+    else if (this.bovinosVenta === 'MismoEjido') {
+      ; // no se multiplica por nada
+    }
+    else if (this.bovinosVenta === 'TransladoProvincial') {
+      total += precioGanadoSiMismo * cantidadDeBobinos;
+    }
+    else if (this.bovinosVenta === 'FaenaLocal') {
+      total += precioGanadoVentaFaenaDentro * cantidadDeBobinos;
+    }
+    else if (this.bovinosVenta === 'Feria') {
+      total += precioGanadoVentaProvincia * cantidadDeBobinos;
+    }
     
     return total;
   }
 
-  calcularCantidadDeBoninosYEquinos() {
+  calcularCantidadDeBoninos() {
     let cantidadDeBobinosYEquinos = 0;
     if (this.datosAnimales.Vacas != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Vacas;}
     if (this.datosAnimales.Vaquillonas != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Vaquillonas;}
@@ -276,7 +320,6 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     if (this.datosAnimales.Novillitos != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Novillitos;}
     if (this.datosAnimales.Terneros != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Terneros;}
     if (this.datosAnimales.Toros != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Toros;}
-    if (this.datosAnimales.Equinos != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Equinos;}
     return cantidadDeBobinosYEquinos;
   }
 
@@ -320,6 +363,27 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     let cantidadDeOvinos = 0;
     if (this.datosAnimales.Ovinos != null) { cantidadDeOvinos += this.datosAnimales.Ovinos;}
     return cantidadDeOvinos;
+  }
+
+  sumarValoresEquinos(kgMunicipal) {
+    let total = 0;
+    const precioEquinosVentaProvincia = 1.56 * kgMunicipal;
+    const precioEquinosVentaFuera = 3.00 * kgMunicipal;  
+    
+    const cantidadDeEquinos = this.calcularCantidadEquinos();
+    if (this.equinosVenta === 'VentaProvincia') {
+      total += precioEquinosVentaProvincia * cantidadDeEquinos;
+    }
+    else if (this.equinosVenta === 'VentaFuera') {
+      total += precioEquinosVentaFuera * cantidadDeEquinos;
+    }
+    return total;
+  }
+
+  calcularCantidadEquinos() {
+    let cantidadDeEquinos = 0;
+    if (this.datosAnimales.Equinos != null) { cantidadDeEquinos += this.datosAnimales.Equinos;}
+    return cantidadDeEquinos;
   }
 
   cargaHtmlAImprimir(plainHtml) {

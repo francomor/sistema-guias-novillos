@@ -1,80 +1,101 @@
 <div class="card" fxLayout="column">
   <div fxLayout="row" fxFlex="100%">
     <div fxLayout="column" fxFlex="50" fxLayoutAlign="start" style="padding: 10px">
-      <div fxLayout="row" fxFlex="100%">
-        <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
-          <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Vacas</mat-label>
-            <input matInput type="number" placeholder="Cantidad" [formControl]="vacasControl" min="0"  [(ngModel)]="datosAnimales.Vacas" (ngModelChange)="calcularTotal()">
-            <span matSuffix></span>
-            <mat-error *ngIf="vacasControl.invalid">El valor minimo es 0</mat-error>
-          </mat-form-field>
-    
-          <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Vaquillonas</mat-label>
-            <input matInput type="number" placeholder="Cantidad" [formControl]="vaquillonasControl" min="0" [(ngModel)]="datosAnimales.Vaquillonas" (ngModelChange)="calcularTotal()">
-            <span matSuffix></span>
-            <mat-error *ngIf="vaquillonasControl.invalid">El valor minimo es 0</mat-error>
-          </mat-form-field>
-    
-          <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Novillos</mat-label>
-            <input matInput type="number" placeholder="Cantidad" [formControl]="novillosControl" min="0" [(ngModel)]="datosAnimales.Novillos" (ngModelChange)="calcularTotal()">
-            <span matSuffix></span>
-            <mat-error *ngIf="novillosControl.invalid">El valor minimo es 0</mat-error>
-          </mat-form-field>  
+      <div fxLayout="column" fxFlex="100%" class="animales-card">
+        <div style="font-size: 20px; font-weight: 500; padding-bottom: 10px;">
+          Ganado
         </div>
-        
-        <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
-          <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Novillitos</mat-label>
-            <input matInput type="number" placeholder="Cantidad" [formControl]="novillitosControl" min="0" [(ngModel)]="datosAnimales.Novillitos" (ngModelChange)="calcularTotal()">
-            <span matSuffix></span>
-            <mat-error *ngIf="novillitosControl.invalid">El valor minimo es 0</mat-error>
-          </mat-form-field>
-    
-          <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Terneras/os</mat-label>
-            <input matInput type="number" placeholder="Cantidad" [formControl]="ternerosControl" min="0" [(ngModel)]="datosAnimales.Terneros" (ngModelChange)="calcularTotal()"> 
-            <span matSuffix></span>
-            <mat-error *ngIf="ternerosControl.invalid">El valor minimo es 0</mat-error>
-          </mat-form-field>
-    
-          <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Toros/Toritos</mat-label>
-            <input matInput type="number" placeholder="Cantidad" [formControl]="torosControl" min="0" [(ngModel)]="datosAnimales.Toros" (ngModelChange)="calcularTotal()">
-            <span matSuffix></span>
-            <mat-error *ngIf="torosControl.invalid">El valor minimo es 0</mat-error>
-          </mat-form-field>
+        <div fxLayout="row" fxFlex="100%">
+          <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
+            <mat-form-field class="input-full-width" appearance="fill">
+              <mat-label>Vacas</mat-label>
+              <input matInput type="number" placeholder="Cantidad" [formControl]="vacasControl" min="0"  [(ngModel)]="datosAnimales.Vacas" (ngModelChange)="calcularTotal()">
+              <span matSuffix></span>
+              <mat-error *ngIf="vacasControl.invalid">El valor minimo es 0</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="input-full-width" appearance="fill">
+              <mat-label>Vaquillonas</mat-label>
+              <input matInput type="number" placeholder="Cantidad" [formControl]="vaquillonasControl" min="0" [(ngModel)]="datosAnimales.Vaquillonas" (ngModelChange)="calcularTotal()">
+              <span matSuffix></span>
+              <mat-error *ngIf="vaquillonasControl.invalid">El valor minimo es 0</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="input-full-width" appearance="fill">
+              <mat-label>Novillos</mat-label>
+              <input matInput type="number" placeholder="Cantidad" [formControl]="novillosControl" min="0" [(ngModel)]="datosAnimales.Novillos" (ngModelChange)="calcularTotal()">
+              <span matSuffix></span>
+              <mat-error *ngIf="novillosControl.invalid">El valor minimo es 0</mat-error>
+            </mat-form-field>  
+          </div>
+          
+          <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
+            <mat-form-field class="input-full-width" appearance="fill">
+              <mat-label>Novillitos</mat-label>
+              <input matInput type="number" placeholder="Cantidad" [formControl]="novillitosControl" min="0" [(ngModel)]="datosAnimales.Novillitos" (ngModelChange)="calcularTotal()">
+              <span matSuffix></span>
+              <mat-error *ngIf="novillitosControl.invalid">El valor minimo es 0</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="input-full-width" appearance="fill">
+              <mat-label>Terneras/os</mat-label>
+              <input matInput type="number" placeholder="Cantidad" [formControl]="ternerosControl" min="0" [(ngModel)]="datosAnimales.Terneros" (ngModelChange)="calcularTotal()"> 
+              <span matSuffix></span>
+              <mat-error *ngIf="ternerosControl.invalid">El valor minimo es 0</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="input-full-width" appearance="fill">
+              <mat-label>Toros/Toritos</mat-label>
+              <input matInput type="number" placeholder="Cantidad" [formControl]="torosControl" min="0" [(ngModel)]="datosAnimales.Toros" (ngModelChange)="calcularTotal()">
+              <span matSuffix></span>
+              <mat-error *ngIf="torosControl.invalid">El valor minimo es 0</mat-error>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
-      <div class='texts'>
-        Destino del ganado:
-      </div>
-      <div fxLayout="row" fxFlex="100%">
-        <div fxLayout="column" fxFlex="30" fxLayoutAlign="start">
-          <mat-checkbox [(ngModel)]="datosCheckbox.ganadoSiMismo" (change)="calcularTotal()">Si mismo</mat-checkbox>
-          <mat-checkbox [(ngModel)]="datosCheckbox.ingresosBrutos" (change)="calcularTotal()">I.Brutos</mat-checkbox>
-          <mat-checkbox [(ngModel)]="datosCheckbox.derechoOficina" (change)="calcularTotal()">D.Oficina</mat-checkbox>
+        <div class='texts'>
+          Destino:
         </div>
-        <div fxLayout="column" fxFlex="30" fxLayoutAlign="start">
-          <mat-checkbox [(ngModel)]="datosCheckbox.ganadoVentaFuera" (change)="calcularTotal()">Vta fuera</mat-checkbox>
-          <mat-checkbox [(ngModel)]="datosCheckbox.ganadoVentaProvincia" (change)="calcularTotal()">Vta en la prov.</mat-checkbox>
-          <mat-checkbox [(ngModel)]="datosCheckbox.ganadoVentaFaenaDentro" (change)="calcularTotal()">Vta faena dentro</mat-checkbox>
+
+        <div fxLayout="row" fxFlex="100%">
+          <div fxLayout="column" fxFlex="30" fxLayoutAlign="start">
+            <mat-radio-group class="radio-group">
+              <mat-radio-button class="radio-button" #buttonBobinosVentaProvincia value="VentaProvincia" (click)="checkStateRadioBovinos($event, buttonBobinosVentaProvincia)">
+                Venta en la provincia
+              </mat-radio-button>
+              <mat-radio-button class="radio-button" #buttonBovinosVentaForanea value="VentaForanea" (click)="checkStateRadioBovinos($event, buttonBovinosVentaForanea)">
+                Venta foranea
+              </mat-radio-button>
+              <mat-radio-button class="radio-button" #buttonBovinosMismoEjido value="MismoEjido" (click)="checkStateRadioBovinos($event, buttonBovinosMismoEjido)">
+                Translado mismo ejido - A si mismo
+              </mat-radio-button>
+              <mat-radio-button class="radio-button" #buttonBovinosTransladoProvincial value="TransladoProvincial" (click)="checkStateRadioBovinos($event, buttonBovinosTransladoProvincial)">
+                Translado provincial - A si mismo
+              </mat-radio-button>
+              <mat-radio-button class="radio-button" #buttonBovinosFaenaLocal value="FaenaLocal" (click)="checkStateRadioBovinos($event, buttonBovinosFaenaLocal)">
+                Faena local
+              </mat-radio-button>
+              <mat-radio-button class="radio-button" #buttonBovinosFeria value="Feria" (click)="checkStateRadioBovinos($event, buttonBovinosFeria)">
+                Feria
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
         </div>
       </div>
 
-      <div fxLayout="row" fxFlex="100%" style="margin-top: 10px;">
-        <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
+      <div fxLayout="row" fxFlex="100%" style="margin-top: 10px;" fxLayoutAlign="space-between center" >
+        <div fxLayout="column" fxFlex="48" fxLayoutAlign="start" class="animales-card">
+          <div style="font-size: 20px; font-weight: 500; padding-bottom: 10px;">
+            Porcinos
+          </div>
           <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Porcinos</mat-label>
+            <mat-label>Cantidad</mat-label>
             <input matInput type="number" placeholder="Cantidad" [formControl]="porcinosControl" min="0" [(ngModel)]="datosAnimales.Porcinos" (ngModelChange)="calcularTotal()">
             <span matSuffix></span>
             <mat-error *ngIf="porcinosControl.invalid">El valor minimo es 0</mat-error>
           </mat-form-field>
     
           <div class='texts'>
-            Destino de porcinos:
+            Destino:
           </div>
 
           <mat-radio-group class="radio-group">
@@ -86,16 +107,20 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-        <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
+
+        <div fxLayout="column" fxFlex="48" fxLayoutAlign="start" class="animales-card">
+          <div style="font-size: 20px; font-weight: 500; padding-bottom: 10px;">
+            Ovinos/Caprinos
+          </div>
           <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Ovinos/Caprinos</mat-label>
+            <mat-label>Cantidad</mat-label>
             <input matInput type="number" placeholder="Cantidad" [formControl]="ovinosControl" min="0" [(ngModel)]="datosAnimales.Ovinos" (ngModelChange)="calcularTotal()">
             <span matSuffix></span>
             <mat-error *ngIf="ovinosControl.invalid">El valor minimo es 0</mat-error>
           </mat-form-field>
 
           <div class='texts'> 
-            Destino de ovinos/caprinos:
+            Destino:
           </div>
 
           <mat-radio-group class="radio-group">
@@ -109,30 +134,66 @@
         </div>
       </div>
       
-      <div fxLayout="row" fxFlex="100%" style="margin-top: 10px;">
-        <div fxLayout="column" fxFlex="50" fxLayoutAlign="start">
+      <div fxLayout="row" fxFlex="100%" style="margin-top: 10px;"  fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxFlex="48" fxLayoutAlign="start" class="animales-card">
+          <div style="font-size: 20px; font-weight: 500; padding-bottom: 10px;">
+            Equinos
+          </div>
           <mat-form-field class="input-full-width" appearance="fill">
-            <mat-label>Equinos</mat-label>
+            <mat-label>Cantidad</mat-label>
             <input matInput type="number" placeholder="Cantidad" [formControl]="equinosControl" min="0" [(ngModel)]="datosAnimales.Equinos" (ngModelChange)="calcularTotal()">
             <span matSuffix></span>
             <mat-error *ngIf="equinosControl.invalid">El valor minimo es 0</mat-error>
           </mat-form-field>
+
+          <div class='texts'> 
+            Destino:
+          </div>
+
+          <mat-radio-group class="radio-group">
+            <mat-radio-button class="radio-button" #buttonEquinoVentaProvincia value="VentaProvincia" (click)="checkStateRadioEquinos($event, buttonEquinoVentaProvincia)">
+              Vta en la prov.
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" #buttonEquinoVentaFuera value="VentaFuera" (click)="checkStateRadioEquinos($event, buttonEquinoVentaFuera)">
+              Vta fuera
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div fxLayout="column" fxFlex="48" fxLayoutAlign="start" class="animales-card">
+          <div style="font-size: 20px; font-weight: 500; padding-bottom: 10px;">
+            Otros
+          </div>
+
+          <mat-form-field class="input-full-width" appearance="fill">
+            <mat-label>Derecho oficina</mat-label>
+            <input matInput type="number" 
+            placeholder="Cantidad a multiplicar" 
+            [formControl]="derechoOficinaControl" min="0" [(ngModel)]="derechoOficinaCantidad" (ngModelChange)="calcularTotal()">
+            <span matSuffix></span>
+            <mat-error *ngIf="derechoOficinaControl.invalid">El valor minimo es 0</mat-error>
+          </mat-form-field>
+
+          <div class='texts'> 
+            Calculos adicionales:
+          </div>
+          <mat-checkbox [(ngModel)]="datosCheckbox.ingresosBrutos" (change)="calcularTotal()">Ingresos brutos</mat-checkbox>
         </div>
       </div>
     </div>
 
     <div fxLayout="column" fxFlex="50" fxLayoutAlign="center">
-      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end start" style="padding-bottom: 10px;">
-        <button class="mat-primary" mat-button (click)="openUpsertDialog()">Editar valores fijos</button>
-        <button class="mat-primary" mat-button routerLink="/home">Reiniciar pantalla</button>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end start" style="margin-bottom: 80px;">
+          <button class="mat-primary" mat-button (click)="openUpsertDialog()">Editar valores fijos</button>
+          <button class="mat-primary" mat-button routerLink="/home">Reiniciar pantalla</button>
       </div>
+
 
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <mat-list>
           <mat-list-item class="texts" *ngIf="datosCheckbox.ingresosBrutos">
           <b>Ingresos Brutos: </b> &nbsp;${{ ingresosBrutos | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
-          <mat-list-item class="texts" *ngIf="datosCheckbox.derechoOficina">
+          <mat-list-item class="texts">
             <b>Derecho de oficina: </b>&nbsp;${{ derechoOficina | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
           <mat-list-item class="texts">
@@ -178,6 +239,7 @@
     [derechoOficina]="derechoOficina"
     [ingresosBrutos]="ingresosBrutos"
     [totalRedondeo]="totalRedondeo"
+    [bovinosVenta]="bovinosVenta"
     >
   </app-principal-core-print-helper-card>
 </div>
