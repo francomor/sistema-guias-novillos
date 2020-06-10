@@ -107,6 +107,7 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
       this.dataShareService.setDatosTransportistaSelecionado(null);
       this.dataShareService.setDatosCamionSelecionado(null);
       this.tengoDatos = false;
+      this.tengoCamionSeleccionado = false;
       this.cuitNoEncontrado = false;
     }
     else {
@@ -148,6 +149,7 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
       } else {
         this.datosTransportistaSelecionado = datosTransportista;
         this.dataShareService.setDatosTransportistaSelecionado(datosTransportista);
+        localStorage.removeItem('TransportistaIDCamionSeleccionado');
         this.cuitNoEncontrado = false;
         this.tengoDatos = true;
       }
@@ -167,6 +169,7 @@ export class TransportistaCardComponent implements OnInit, OnDestroy {
         if (typeof localIDCamion !== 'undefined' && localIDCamion !== null){
           this.camionSeleccionado = this.camiones.find(camion => camion.idCamion == localIDCamion);
           this.tengoCamionSeleccionado = true;
+          this.dataShareService.setDatosCamionSelecionado(this.camionSeleccionado);
         }
       }
       // refresh view

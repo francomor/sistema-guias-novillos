@@ -54,7 +54,6 @@ export class CompradorListadoCardComponent implements OnInit {
   }
 
   onRenspaClick(event) {
-    console.log(event.target.innerHTML);
     localStorage.setItem('CompradorRenspa', JSON.stringify(event.target.innerHTML.trim()));
     this.openSnackBar("Comprador con RENSPA " + event.target.innerHTML + " fue seleccionado con éxito", "");
   }

@@ -1,7 +1,7 @@
 <div class="card" fxLayout="column">
   <div class="title-text" style="margin-bottom: 7px">Comprador</div>
   <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
-    <div fxLayout="row" fxFlex="100">
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="start center" *ngIf="buscarPorRENSPA">
       <mat-form-field style="width: 100%;">
         <mat-icon matSuffix>search</mat-icon>
         <input matInput type="text" 
@@ -20,6 +20,46 @@
         </mat-autocomplete>
       </mat-form-field>
     </div>
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="start center" *ngIf="buscarPorCuit">
+      <mat-form-field style="width: 100%;" >
+        <mat-icon matSuffix>search</mat-icon>
+        <input matInput type="text" 
+        placeholder="CUIT"
+        class="search-input" 
+        [formControl]="cuitControl" 
+        [matAutocomplete]="autoCuit" 
+        (keyup.enter)="inputSearchOnKeyEnter()" 
+        (ngModelChange)="inputSearchOnKeyDownCUIT($event)"
+        [ngModel]="cuit"
+        >
+        <mat-autocomplete #autoCuit="matAutocomplete">
+          <mat-option *ngFor="let cuit of filteredCuits | async" [value]="cuit" (onSelectionChange)="matOptionAutoCompleteOnSelectionChangeCuit($event)">
+            {{cuit}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="start center" style="padding-bottom: 15px;">
+      Buscar por:
+      <mat-chip-list style="padding-left: 5px;">
+        <mat-chip (click)="activaBuscaPorCuit()">CUIT</mat-chip>
+        <mat-chip (click)="activaBuscaPorRenspa()">RENSPA</mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center start" *ngIf="!cuitNoEncontrado && buscarPorCuit">
+      <div fxLayout="column" fxFlex="100%" fxFlex.lt-lg="100%" fxLayoutAlign="start center">
+        <mat-chip-list class="mat-chip-list-stacked my-chip">
+          <mat-chip style="text-align: center;"
+            *ngFor="let renspa of renspasPorCuit" 
+            (click)="onRenspaSelectionChange(renspa)">
+              {{renspa}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+
     <div fxLayout="row" fxFlex="100%">
       <div *ngIf="tengoDatos">
         <div class="texts">
@@ -43,8 +83,12 @@
         
       </div>
       
-      <div *ngIf="renspaNoEncontrado" class="texts">
+      <div *ngIf="renspaNoEncontrado && buscarPorRENSPA" class="texts">
         No encontramos este RENSPA ¿desea agregarlo?
+      </div>
+            
+      <div *ngIf="cuitNoEncontrado && buscarPorCuit" class="texts">
+        No encontramos este CUIT ¿desea agregarlo?
       </div>
     </div>
     <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end">

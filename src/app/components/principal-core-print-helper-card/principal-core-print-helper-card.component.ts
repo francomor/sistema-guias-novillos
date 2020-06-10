@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, ViewContainerRef, Output, EventEmitter, Input } from '@angular/core';
-
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { DataSharedService } from '../../services/data-shared-services';
+declare var require: any;
 
 @Component({
   selector: 'app-principal-core-print-helper-card',
@@ -38,14 +38,15 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
     Ovinos: 0,
     Equinos: 0,
   };
-  
 
   constructor(
     private dataShareService:DataSharedService,
-    private view: ViewContainerRef
+    private view: ViewContainerRef,
+    private changeDetectorRefService: ChangeDetectorRef, 
   ) {}
 
   ngOnInit() {
+    var unidecode = require('unidecode');
     this.datosCompradorSubscribe = this.dataShareService.getDatosCompradorSelecionado().subscribe(datos => { 
       this.datosCompradorSeleccionado = datos;
       if (this.datosCompradorSeleccionado.CUIT != null) {
@@ -53,6 +54,11 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
         this.datosCompradorSeleccionado.CUITParteAdelante = stringCuit.slice(0,2);
         this.datosCompradorSeleccionado.CUITParteAtras = stringCuit.substr(2);
       }
+      this.datosCompradorSeleccionado.RazonSocial = unidecode(this.datosCompradorSeleccionado.RazonSocial);
+      this.datosCompradorSeleccionado.NombreProvincia = unidecode(this.datosCompradorSeleccionado.NombreProvincia);
+      this.datosCompradorSeleccionado.NombreLocalidad = unidecode(this.datosCompradorSeleccionado.NombreLocalidad);
+      // refresh view
+      this.changeDetectorRefService.detectChanges();
     });
     this.datosProductorSubscribe = this.dataShareService.getDatosProductorSelecionado().subscribe(datos => {
         this.datosProductorSelecionado = datos;
@@ -61,6 +67,10 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
           this.datosProductorSelecionado.CUITParteAdelante = stringCuit.slice(0,2);
           this.datosProductorSelecionado.CUITParteAtras = stringCuit.substr(2);
         }
+        this.datosProductorSelecionado.RazonSocial = unidecode(this.datosProductorSelecionado.RazonSocial);
+        this.datosProductorSelecionado.NombreEstablecimiento = unidecode(this.datosProductorSelecionado.NombreEstablecimiento);
+        // refresh view
+        this.changeDetectorRefService.detectChanges();
     });
     this.datosTransportistaSubscribe = this.dataShareService.getDatosTransportistaSelecionado().subscribe(datos => {
       this.datosTransportistaSelecionado = datos;
@@ -69,6 +79,9 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
         this.datosTransportistaSelecionado.CUITParteAdelante = stringCuit.slice(0,2);
         this.datosTransportistaSelecionado.CUITParteAtras = stringCuit.substr(2);
       }
+      this.datosTransportistaSelecionado.RazonSocial = unidecode(this.datosTransportistaSelecionado.RazonSocial);
+      // refresh view
+      this.changeDetectorRefService.detectChanges();
     });
     this.datosCamionSubscribe = this.dataShareService.getDatosCamionSelecionado().subscribe(datos => {
       this.datosCamionSelecionado = datos;

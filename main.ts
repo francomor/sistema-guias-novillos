@@ -366,6 +366,28 @@ ipcMain.on('comprador:obtenerDatosComprador', (event, renspa) => {
   });
 });
 
+ipcMain.on('comprador:obtenerDatosCompradorPorCUIT', (event, cuit) => {
+  let result = knex('Comprador').select('RENSPA').where('Comprador.CUITPersona', cuit);
+  result.then(function(rows: []){
+    let renspas = []
+    rows.forEach(function (value) {
+      renspas.push("" + value['RENSPA']);
+    }); 
+    win.webContents.send('comprador:RespuestaObtenerDatosCompradorPorCUIT', renspas);
+  });
+});
+
+ipcMain.on('comprador:obtenerTodosLosCUIT', (event) => {
+  let result = knex.select('CUITPersona').from('Comprador');
+  result.then(function(rows: []){
+    let cuits = []
+    rows.forEach(function (value) {
+      cuits.push("" + value['CUITPersona']);
+    }); 
+    win.webContents.send('comprador:RespuestaObtenerTodosLosCUIT', cuits);
+  });
+});
+
 ipcMain.on('comprador:obtenerTodosLosRenspa', (event) => {
   let result = knex.select('RENSPA').from('Comprador');
   result.then(function(rows: []){
