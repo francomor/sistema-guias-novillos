@@ -50,7 +50,8 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   derechoOficinaControl = new FormControl('', [
     Validators.required
   ]);
-  
+  totalGanado = 0;
+
   datosAnimales = {
     Vacas: undefined,
     Vaquillonas: undefined,
@@ -234,7 +235,10 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.calcularTotal();
   }
 
-  
+  onRedondeoChange(event){
+    this.total = parseInt(this.totalRedondeo) + this.derechoOficina;
+  }
+
   calcularTotal() {
     this.dataShareService.setDatosAnimales(this.datosAnimales);
     const kgMunicipal = parseFloat(this.datosFijos.KgMunicipal.replace(/,/g, '.'));
@@ -244,40 +248,53 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.total = 0;
     this.totalSoloGuia = 0;
     this.ingresosBrutos = this.calculoIngresosBrutos(kgRenta);
+    let calculoTotalRedondeo = 0;
 
     if (this.derechoOficinaCantidad != null){ 
       this.derechoOficina += calculoDerechoOficina * this.derechoOficinaCantidad; 
-      this.total += this.derechoOficina;
+      calculoTotalRedondeo += this.derechoOficina;
     }
-    if (this.datosCheckbox.ingresosBrutos){ this.total += this.ingresosBrutos; }
+    if (this.datosCheckbox.ingresosBrutos){ calculoTotalRedondeo += this.ingresosBrutos; }
 
-    this.total += this.sumarValoresGanado(kgMunicipal);
-    this.total += this.sumarValoresPorcinos(kgMunicipal);
-    this.total += this.sumarValoresOvinos(kgMunicipal);  
-    this.total += this.sumarValoresEquinos(kgMunicipal);  
+    calculoTotalRedondeo += this.sumarValoresGanado(kgMunicipal);
+    calculoTotalRedondeo += this.sumarValoresPorcinos(kgMunicipal);
+    calculoTotalRedondeo += this.sumarValoresOvinos(kgMunicipal);  
+    calculoTotalRedondeo += this.sumarValoresEquinos(kgMunicipal);  
 
     this.totalSoloGuia += this.sumarValoresGanado(kgMunicipal);
     this.totalSoloGuia += this.sumarValoresPorcinos(kgMunicipal);
     this.totalSoloGuia += this.sumarValoresOvinos(kgMunicipal);  
     this.totalSoloGuia += this.sumarValoresEquinos(kgMunicipal);  
 
-    this.totalRedondeo = this._decimalPipe.transform(this.total, '1.0-2', 'es-Ar');
+    this.totalRedondeo = this._decimalPipe.transform(calculoTotalRedondeo, '1.0-2', 'es-Ar');
+    this.total = calculoTotalRedondeo + this.derechoOficina;
   }
 
   calculoIngresosBrutos(kgRenta) {
     let ingresosBrutos = 0;
-    if (this.datosAnimales.Vacas != null) { ingresosBrutos += 1.40 * kgRenta * this.datosAnimales.Vacas;}
-    if (this.datosAnimales.Vaquillonas != null) { ingresosBrutos += 1.60 * kgRenta * this.datosAnimales.Vaquillonas;}
-    if (this.datosAnimales.Novillos != null) { ingresosBrutos += 2.00 * kgRenta * this.datosAnimales.Novillos;}
-    if (this.datosAnimales.Novillitos != null) { ingresosBrutos += 1.80 * kgRenta * this.datosAnimales.Novillitos;}
-    if (this.datosAnimales.Terneros != null) { ingresosBrutos += 1.60 * kgRenta * this.datosAnimales.Terneros;}
-    if (this.datosAnimales.Toros != null) { ingresosBrutos += 1.80 * kgRenta * this.datosAnimales.Toros;}
+    this.datosCheckbox.ingresosBrutos = false;
+    if (this.bovinosVenta === 'VentaForanea') {
+      if (this.datosAnimales.Vacas != null) { ingresosBrutos += 1.40 * kgRenta * this.datosAnimales.Vacas;}
+      if (this.datosAnimales.Vaquillonas != null) { ingresosBrutos += 1.60 * kgRenta * this.datosAnimales.Vaquillonas;}
+      if (this.datosAnimales.Novillos != null) { ingresosBrutos += 2.00 * kgRenta * this.datosAnimales.Novillos;}
+      if (this.datosAnimales.Novillitos != null) { ingresosBrutos += 1.80 * kgRenta * this.datosAnimales.Novillitos;}
+      if (this.datosAnimales.Terneros != null) { ingresosBrutos += 1.60 * kgRenta * this.datosAnimales.Terneros;}
+      if (this.datosAnimales.Toros != null) { ingresosBrutos += 1.80 * kgRenta * this.datosAnimales.Toros;}
+      this.datosCheckbox.ingresosBrutos = true;
+    }
 
-    if (this.datosAnimales.Equinos != null) { ingresosBrutos += 0.70 * kgRenta * this.datosAnimales.Equinos;}
-
-    if (this.datosAnimales.Porcinos != null) { ingresosBrutos += 0.20 * kgRenta * this.datosAnimales.Porcinos;}
-
-    if (this.datosAnimales.Ovinos != null) { ingresosBrutos += 0.10 * kgRenta * this.datosAnimales.Ovinos;}
+    if (this.porcinosVenta === 'VentaFuera') {
+      if (this.datosAnimales.Porcinos != null) { ingresosBrutos += 0.20 * kgRenta * this.datosAnimales.Porcinos;}
+      this.datosCheckbox.ingresosBrutos = true;
+    }
+    if (this.equinosVenta === 'VentaFuera') {
+      if (this.datosAnimales.Equinos != null) { ingresosBrutos += 0.70 * kgRenta * this.datosAnimales.Equinos;}
+      this.datosCheckbox.ingresosBrutos = true;
+    }
+    if (this.ovinosVenta === 'VentaFuera') {
+      if (this.datosAnimales.Ovinos != null) { ingresosBrutos += 0.10 * kgRenta * this.datosAnimales.Ovinos;}
+      this.datosCheckbox.ingresosBrutos = true;
+    }
 
     return ingresosBrutos;
   }
@@ -313,14 +330,15 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   }
 
   calcularCantidadDeBoninos() {
-    let cantidadDeBobinosYEquinos = 0;
-    if (this.datosAnimales.Vacas != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Vacas;}
-    if (this.datosAnimales.Vaquillonas != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Vaquillonas;}
-    if (this.datosAnimales.Novillos != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Novillos;}
-    if (this.datosAnimales.Novillitos != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Novillitos;}
-    if (this.datosAnimales.Terneros != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Terneros;}
-    if (this.datosAnimales.Toros != null) { cantidadDeBobinosYEquinos += this.datosAnimales.Toros;}
-    return cantidadDeBobinosYEquinos;
+    let cantidadDeBobinos = 0;
+    if (this.datosAnimales.Vacas != null) { cantidadDeBobinos += this.datosAnimales.Vacas;}
+    if (this.datosAnimales.Vaquillonas != null) { cantidadDeBobinos += this.datosAnimales.Vaquillonas;}
+    if (this.datosAnimales.Novillos != null) { cantidadDeBobinos += this.datosAnimales.Novillos;}
+    if (this.datosAnimales.Novillitos != null) { cantidadDeBobinos += this.datosAnimales.Novillitos;}
+    if (this.datosAnimales.Terneros != null) { cantidadDeBobinos += this.datosAnimales.Terneros;}
+    if (this.datosAnimales.Toros != null) { cantidadDeBobinos += this.datosAnimales.Toros;}
+    this.totalGanado = cantidadDeBobinos;
+    return cantidadDeBobinos;
   }
 
   sumarValoresPorcinos(kgMunicipal) {

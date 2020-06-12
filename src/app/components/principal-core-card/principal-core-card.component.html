@@ -53,7 +53,8 @@
           </div>
         </div>
         <div class='texts'>
-          Destino:
+          Destino: 
+          <span style="display: block; float: right; padding-right: 40px;">Total:&nbsp; {{totalGanado}}</span> 
         </div>
 
         <div fxLayout="row" fxFlex="100%">
@@ -163,7 +164,7 @@
           <div style="font-size: 20px; font-weight: 500; padding-bottom: 10px;">
             Otros
           </div>
-
+          
           <mat-form-field class="input-full-width" appearance="fill">
             <mat-label>Derecho oficina</mat-label>
             <input matInput type="number" 
@@ -173,20 +174,25 @@
             <mat-error *ngIf="derechoOficinaControl.invalid">El valor minimo es 0</mat-error>
           </mat-form-field>
 
-          <div class='texts'> 
-            Calculos adicionales:
-          </div>
-          <mat-checkbox [(ngModel)]="datosCheckbox.ingresosBrutos" (change)="calcularTotal()">Ingresos brutos</mat-checkbox>
         </div>
       </div>
     </div>
 
     <div fxLayout="column" fxFlex="50" fxLayoutAlign="center">
-      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="end start" style="margin-bottom: 80px;">
+      <div fxLayout="row" fxFlex="7%" fxLayoutAlign="end start">
           <button class="mat-primary" mat-button (click)="openUpsertDialog()">Editar valores fijos</button>
           <button class="mat-primary" mat-button routerLink="/home">Reiniciar pantalla</button>
       </div>
-
+      <div fxLayout="row" fxFlex="50%" fxLayoutAlign="center start">
+        <mat-list>
+          <mat-list-item class="texts">
+            <b>Valor kg municipal: </b> &nbsp;${{ datosFijos.KgMunicipal }}
+          </mat-list-item>
+          <mat-list-item class="texts">
+            <b>Valor kg rentas: </b> &nbsp;${{ datosFijos.KgRenta }} 
+          </mat-list-item>
+        </mat-list>
+      </div>
 
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <mat-list>
@@ -197,26 +203,22 @@
             <b>Derecho de oficina: </b>&nbsp;${{ derechoOficina | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
           <mat-list-item class="texts">
-            <b>Valor kg municipal: </b> &nbsp;${{ datosFijos.KgMunicipal }}
+            <b>Guia única: </b>&nbsp;${{ totalSoloGuia | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
-          <mat-list-item class="texts">
-            <b>Valor kg rentas: </b> &nbsp;${{ datosFijos.KgRenta }} 
-          </mat-list-item>
-          <mat-list-item class="texts-big">
-            <b>Total a cobrar:</b>  &nbsp;${{ total | number:'1.0-2':'es-Ar' }}
-          </mat-list-item>
+          <div class="texts-redondeo">
+            <b>Redondeo:</b>
+            <mat-form-field appearance="legacy" style="width: 150px;">
+              <span matPrefix>$&nbsp;</span>
+              <input matInput [formControl]="redondeoControl" [(ngModel)]="totalRedondeo" (input)="onRedondeoChange($event.target.value)">
+              <span matSuffix></span>
+              <mat-error class="texts" *ngIf="redondeoControl.invalid">El valor minimo es 0</mat-error>
+            </mat-form-field>
+          </div>
         </mat-list>
       </div>
-      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center start" style="padding-left: 16px; padding-right: 16px;" class="texts-redondeo">
-        <div>
-          Redondeo:
-          <mat-form-field appearance="legacy" style="width: 150px;">
-            <span matPrefix>$&nbsp;</span>
-            <input matInput [formControl]="redondeoControl" [(ngModel)]="totalRedondeo">
-            <span matSuffix></span>
-            <mat-error class="texts" *ngIf="redondeoControl.invalid">El valor minimo es 0</mat-error>
-          </mat-form-field>
-        </div>
+      
+      <div fxLayout="row" fxFlex="10%" fxLayoutAlign="center center" style="padding-left: 16px; padding-right: 16px;" class="texts-big">
+          <b>Total a pagar:</b>  &nbsp;${{ total | number:'1.0-2':'es-Ar' }}
       </div>
 
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center start">

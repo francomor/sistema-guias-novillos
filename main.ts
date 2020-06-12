@@ -112,6 +112,10 @@ ipcMain.on('readyToPrint', (event) => {
   //workerWindow.hide();
 });
 
+// abrir LinkedIn
+ipcMain.on('mainNav:abrirLinkedIn', (event) => {
+  require("electron").shell.openExternal("https://www.linkedin.com/in/francomorero/");
+});
 
 // db connection
 
@@ -146,8 +150,8 @@ ipcMain.on('datosFijos:actualizarDatosFijos', (event, datosFijos) => {
 // transportista
 ipcMain.on('transportista:obtenerTodosLosTransportistas', (event) => {
   let result = knex('Transportista')
-    .join('Persona', 'Persona.CUIT', '=', 'Transportista.CUITPersona')
-    .join('Camion', 'Camion.idTransportista', '=', 'Transportista.idTransportista')
+    .leftJoin('Persona', 'Persona.CUIT', '=', 'Transportista.CUITPersona')
+    .leftJoin('Camion', 'Camion.idTransportista', '=', 'Transportista.idTransportista')
     .select('*')
     .orderBy('Persona.RazonSocial')
   result.then(function(row){
@@ -169,7 +173,7 @@ ipcMain.on('transportista:obtenerTodosLosCUIT', (event) => {
 
 ipcMain.on('transportista:obtenerDatosDelTransportista', (event, cuitTransportista) => {
   let result = knex('Transportista')
-    .join('Persona', 'Persona.CUIT', '=', 'Transportista.CUITPersona')
+    .leftJoin('Persona', 'Persona.CUIT', '=', 'Transportista.CUITPersona')
     .select('*')
     .where('Transportista.CUITPersona', +cuitTransportista);
   result.then(function(row){
@@ -332,10 +336,10 @@ async function updateCamion(Camion) {
 
 ipcMain.on('comprador:obtenerTodosLosCompradores', (event) => {
   let result = knex('Comprador')
-    .join('Persona', 'Comprador.CUITPersona', '=', 'Persona.CUIT')
-    .join('Establecimiento', 'Comprador.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
-    .join('Localidad', 'Comprador.idLocalidad', '=', 'Localidad.idLocalidad')
-    .join('Provincia', 'Localidad.idProvincia', '=', 'Provincia.idProvincia')
+    .leftJoin('Persona', 'Comprador.CUITPersona', '=', 'Persona.CUIT')
+    .leftJoin('Establecimiento', 'Comprador.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
+    .leftJoin('Localidad', 'Comprador.idLocalidad', '=', 'Localidad.idLocalidad')
+    .leftJoin('Provincia', 'Localidad.idProvincia', '=', 'Provincia.idProvincia')
     .select(
       '*', 
       'Establecimiento.Nombre as NombreEstablecimiento', 
@@ -350,10 +354,10 @@ ipcMain.on('comprador:obtenerTodosLosCompradores', (event) => {
 
 ipcMain.on('comprador:obtenerDatosComprador', (event, renspa) => {
   let result = knex('Comprador')
-    .join('Persona', 'Comprador.CUITPersona', '=', 'Persona.CUIT')
-    .join('Establecimiento', 'Comprador.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
-    .join('Localidad', 'Comprador.idLocalidad', '=', 'Localidad.idLocalidad')
-    .join('Provincia', 'Localidad.idProvincia', '=', 'Provincia.idProvincia')
+    .leftJoin('Persona', 'Comprador.CUITPersona', '=', 'Persona.CUIT')
+    .leftJoin('Establecimiento', 'Comprador.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
+    .leftJoin('Localidad', 'Comprador.idLocalidad', '=', 'Localidad.idLocalidad')
+    .leftJoin('Provincia', 'Localidad.idProvincia', '=', 'Provincia.idProvincia')
     .select(
       '*', 
       'Establecimiento.Nombre as NombreEstablecimiento', 
@@ -490,8 +494,8 @@ async function updateComprador(Comprador) {
 // productor
 ipcMain.on('productor:obtenerTodosLosProductores', (event) => {
   let result = knex('Productor')
-    .join('Persona', 'Productor.CUITPersona', '=', 'Persona.CUIT')
-    .join('Establecimiento', 'Productor.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
+    .leftJoin('Persona', 'Productor.CUITPersona', '=', 'Persona.CUIT')
+    .leftJoin('Establecimiento', 'Productor.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
     .select('*', 'Establecimiento.Nombre as NombreEstablecimiento')
     .orderBy('Persona.RazonSocial')
   result.then(function(row){
@@ -501,8 +505,8 @@ ipcMain.on('productor:obtenerTodosLosProductores', (event) => {
 
 ipcMain.on('productor:obtenerDatosProductor', (event, renspa) => {
   let result = knex('Productor')
-    .join('Persona', 'Productor.CUITPersona', '=', 'Persona.CUIT')
-    .join('Establecimiento', 'Productor.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
+    .leftJoin('Persona', 'Productor.CUITPersona', '=', 'Persona.CUIT')
+    .leftJoin('Establecimiento', 'Productor.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
     .select('*', 'Establecimiento.Nombre as NombreEstablecimiento')
     .where('RENSPA', renspa);
   result.then(function(row){
