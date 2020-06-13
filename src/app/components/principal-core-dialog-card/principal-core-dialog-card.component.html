@@ -1,6 +1,8 @@
 <h1 mat-dialog-title>Editar valores del sistema</h1>
 <mat-dialog-content>
     <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
           <mat-form-field class="input-full-width">
             <mat-label>Valor kg municipal</mat-label>
             <input matInput [formControl]="kgMunicipalFormControl" placeholder="Valor kg municipal" [(ngModel)]="datosFijos.KgMunicipal">
@@ -17,7 +19,259 @@
               Valor kg rentas es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
-
+        </div>
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador derecho oficinia</mat-label>
+            <input matInput [formControl]="ufsDerechoOficinaFormControl" 
+                  placeholder="Multiplicador derecho oficinia" 
+                  [(ngModel)]="datosFijos.ufsDerechoOficina">
+            <mat-error *ngIf="ufsDerechoOficinaFormControl.hasError('required')">
+              Multiplicador derecho oficinia es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="30" fxLayoutAlign="center end">
+        <div class="texto-grande">
+          Ganado
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            UFS
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Si mismo</mat-label>
+            <input matInput [formControl]="ufsGanadoSiMismoFormControl" 
+                  placeholder="Si mismo" 
+                  [(ngModel)]="datosFijos.ufsGanadoSiMismo">
+            <mat-error *ngIf="ufsGanadoSiMismoFormControl.hasError('required')">
+              Si mismo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta en la provincia</mat-label>
+            <input matInput [formControl]="ufsGanadoVentaProvinciaFormControl" 
+                  placeholder="Venta en la provincia" 
+                  [(ngModel)]="datosFijos.ufsGanadoVentaProvincia">
+            <mat-error *ngIf="ufsGanadoVentaProvinciaFormControl.hasError('required')">
+              Venta en la provincia es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta faena dentro</mat-label>
+            <input matInput [formControl]="ufsGanadoVentaFaenaDentroFormControl" 
+                  placeholder="Venta faena dentro" 
+                  [(ngModel)]="datosFijos.ufsGanadoVentaFaenaDentro">
+            <mat-error *ngIf="ufsGanadoVentaFaenaDentroFormControl.hasError('required')">
+              Venta faena dentro es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta fuera</mat-label>
+            <input matInput [formControl]="ufsGanadoVentaFueraFormControl" 
+                  placeholder="Venta fuera" 
+                  [(ngModel)]="datosFijos.ufsGanadoVentaFuera">
+            <mat-error *ngIf="ufsGanadoVentaFueraFormControl.hasError('required')">
+              Venta fuera es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            Ingresos brutos
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador vacas</mat-label>
+            <input matInput [formControl]="ingresosBrutosVacasFormControl" 
+                  placeholder="Multiplicador vacas" 
+                  [(ngModel)]="datosFijos.ingresosBrutosVacas">
+            <mat-error *ngIf="ingresosBrutosVacasFormControl.hasError('required')">
+              Multiplicador vacas es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador vaquillonas</mat-label>
+            <input matInput [formControl]="ingresosBrutosVaquillonasFormControl" 
+                  placeholder="Multiplicador vaquillonas" 
+                  [(ngModel)]="datosFijos.ingresosBrutosVaquillonas">
+            <mat-error *ngIf="ingresosBrutosVaquillonasFormControl.hasError('required')">
+              Multiplicador vaquillonas es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador novillos</mat-label>
+            <input matInput [formControl]="ingresosBrutosNovillosFormControl" 
+                  placeholder="Multiplicador novillos" 
+                  [(ngModel)]="datosFijos.ingresosBrutosNovillos">
+            <mat-error *ngIf="ingresosBrutosNovillosFormControl.hasError('required')">
+              Multiplicador novillos es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador novillitos</mat-label>
+            <input matInput [formControl]="ingresosBrutosNovillitosFormControl" 
+                  placeholder="Multiplicador novillitos" 
+                  [(ngModel)]="datosFijos.ingresosBrutosNovillitos">
+            <mat-error *ngIf="ingresosBrutosNovillitosFormControl.hasError('required')">
+              Multiplicador novillitos es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador terneros</mat-label>
+            <input matInput [formControl]="ingresosBrutosTernerosFormControl" 
+                  placeholder="Multiplicador terneros" 
+                  [(ngModel)]="datosFijos.ingresosBrutosTerneros">
+            <mat-error *ngIf="ingresosBrutosTernerosFormControl.hasError('required')">
+              Multiplicador terneros es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador toros</mat-label>
+            <input matInput [formControl]="ingresosBrutosTorosFormControl" 
+                  placeholder="Multiplicador toros" 
+                  [(ngModel)]="datosFijos.ingresosBrutosToros">
+            <mat-error *ngIf="ingresosBrutosTorosFormControl.hasError('required')">
+              Multiplicador toros es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="30" fxLayoutAlign="center end">
+        <div class="texto-grande">
+          Porcinos
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            UFS
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta en la provincia</mat-label>
+            <input matInput [formControl]="ufsPorcinosVentaProvinciaFormControl" 
+                  placeholder="Venta en la provincia" 
+                  [(ngModel)]="datosFijos.ufsPorcinosVentaProvincia">
+            <mat-error *ngIf="ufsPorcinosVentaProvinciaFormControl.hasError('required')">
+              Venta en la provincia es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta fuera</mat-label>
+            <input matInput [formControl]="ufsPorcinosVentaFueraFormControl" 
+                  placeholder="Venta fuera" 
+                  [(ngModel)]="datosFijos.ufsPorcinosVentaFuera">
+            <mat-error *ngIf="ufsPorcinosVentaFueraFormControl.hasError('required')">
+              Venta fuera es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            Ingresos brutos
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador porcinos</mat-label>
+            <input matInput [formControl]="ingresosBrutosPorcinosFormControl" 
+                  placeholder="Multiplicador porcinos" 
+                  [(ngModel)]="datosFijos.ingresosBrutosPorcinos">
+            <mat-error *ngIf="ingresosBrutosPorcinosFormControl.hasError('required')">
+              Multiplicador porcinos es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="30" fxLayoutAlign="center end">
+        <div class="texto-grande">
+          Ovinos
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            UFS
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta en la provincia</mat-label>
+            <input matInput [formControl]="ufsOvinosVentaProvinciaFormControl" 
+                  placeholder="Venta en la provincia" 
+                  [(ngModel)]="datosFijos.ufsOvinosVentaProvincia">
+            <mat-error *ngIf="ufsOvinosVentaProvinciaFormControl.hasError('required')">
+              Venta en la provincia es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta fuera</mat-label>
+            <input matInput [formControl]="ufsOvinosVentaFueraFormControl" 
+                  placeholder="Venta fuera" 
+                  [(ngModel)]="datosFijos.ufsOvinosVentaFuera">
+            <mat-error *ngIf="ufsOvinosVentaFueraFormControl.hasError('required')">
+              Venta fuera es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            Ingresos brutos
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador ovinos</mat-label>
+            <input matInput [formControl]="ingresosBrutosOvinosFormControl" 
+                  placeholder="Multiplicador ovinos" 
+                  [(ngModel)]="datosFijos.ingresosBrutosOvinos">
+            <mat-error *ngIf="ingresosBrutosOvinosFormControl.hasError('required')">
+              Multiplicador ovinos es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="30" fxLayoutAlign="center end">
+        <div class="texto-grande">
+          Equinos
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            UFS
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta en la provincia</mat-label>
+            <input matInput [formControl]="ufsEquinosVentaProvinciaFormControl" 
+                  placeholder="Venta en la provincia" 
+                  [(ngModel)]="datosFijos.ufsEquinosVentaProvincia">
+            <mat-error *ngIf="ufsEquinosVentaProvinciaFormControl.hasError('required')">
+              Venta en la provincia es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Venta fuera</mat-label>
+            <input matInput [formControl]="ufsEquinosVentaFueraFormControl" 
+                  placeholder="Venta fuera" 
+                  [(ngModel)]="datosFijos.ufsEquinosVentaFuera">
+            <mat-error *ngIf="ufsEquinosVentaFueraFormControl.hasError('required')">
+              Venta fuera es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start center">
+          <div class="texto-medio">
+            Ingresos brutos
+          </div>
+          <mat-form-field class="input-full-width">
+            <mat-label>Multiplicador equinos</mat-label>
+            <input matInput [formControl]="ingresosBrutosEquinosFormControl" 
+                  placeholder="Multiplicador equinos" 
+                  [(ngModel)]="datosFijos.ingresosBrutosEquinos">
+            <mat-error *ngIf="ingresosBrutosEquinosFormControl.hasError('required')">
+              Multiplicador equinos es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+          
     </div>  
 </mat-dialog-content>
 

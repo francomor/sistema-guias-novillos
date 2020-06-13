@@ -77,6 +77,26 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   datosFijos = {
     KgMunicipal: '0',
     KgRenta: '0',
+    ufsDerechoOficina: '0',
+    ingresosBrutosVacas: '0',
+    ingresosBrutosVaquillonas: '0',
+    ingresosBrutosNovillos: '0',
+    ingresosBrutosNovillitos: '0',
+    ingresosBrutosTerneros: '0',
+    ingresosBrutosToros: '0',
+    ingresosBrutosPorcinos: '0',
+    ingresosBrutosEquinos: '0',
+    ingresosBrutosOvinos: '0',
+    ufsGanadoSiMismo: '0',
+    ufsGanadoVentaProvincia: '0',
+    ufsGanadoVentaFaenaDentro: '0',
+    ufsGanadoVentaFuera: '0',
+    ufsPorcinosVentaProvincia: '0',
+    ufsPorcinosVentaFuera: '0',
+    ufsOvinosVentaProvincia: '0',
+    ufsOvinosVentaFuera: '0',
+    ufsEquinosVentaProvincia: '0',
+    ufsEquinosVentaFuera: '0',
   };
 
   total = 0;
@@ -243,7 +263,8 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.dataShareService.setDatosAnimales(this.datosAnimales);
     const kgMunicipal = parseFloat(this.datosFijos.KgMunicipal.replace(/,/g, '.'));
     const kgRenta = parseFloat(this.datosFijos.KgRenta.replace(/,/g, '.'));
-    const calculoDerechoOficina = 3.00 * kgMunicipal;
+    const ufsDerechoOficina = parseFloat(this.datosFijos.ufsDerechoOficina.replace(/,/g, '.'));
+    const calculoDerechoOficina = ufsDerechoOficina * kgMunicipal;
     this.derechoOficina = 0;
     this.total = 0;
     this.totalSoloGuia = 0;
@@ -273,26 +294,36 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   calculoIngresosBrutos(kgRenta) {
     let ingresosBrutos = 0;
     this.datosCheckbox.ingresosBrutos = false;
+    const ingresosBrutosVacas = parseFloat(this.datosFijos.ingresosBrutosVacas.replace(/,/g, '.'));
+    const ingresosBrutosVaquillonas = parseFloat(this.datosFijos.ingresosBrutosVaquillonas.replace(/,/g, '.'));
+    const ingresosBrutosNovillos = parseFloat(this.datosFijos.ingresosBrutosNovillos.replace(/,/g, '.'));
+    const ingresosBrutosNovillitos = parseFloat(this.datosFijos.ingresosBrutosNovillitos.replace(/,/g, '.'));
+    const ingresosBrutosTerneros = parseFloat(this.datosFijos.ingresosBrutosTerneros.replace(/,/g, '.'));
+    const ingresosBrutosToros = parseFloat(this.datosFijos.ingresosBrutosToros.replace(/,/g, '.'));
+    const ingresosBrutosPorcinos = parseFloat(this.datosFijos.ingresosBrutosPorcinos.replace(/,/g, '.'));
+    const ingresosBrutosEquinos = parseFloat(this.datosFijos.ingresosBrutosEquinos.replace(/,/g, '.'));
+    const ingresosBrutosOvinos = parseFloat(this.datosFijos.ingresosBrutosOvinos.replace(/,/g, '.'));
+
     if (this.bovinosVenta === 'VentaForanea') {
-      if (this.datosAnimales.Vacas != null) { ingresosBrutos += 1.40 * kgRenta * this.datosAnimales.Vacas;}
-      if (this.datosAnimales.Vaquillonas != null) { ingresosBrutos += 1.60 * kgRenta * this.datosAnimales.Vaquillonas;}
-      if (this.datosAnimales.Novillos != null) { ingresosBrutos += 2.00 * kgRenta * this.datosAnimales.Novillos;}
-      if (this.datosAnimales.Novillitos != null) { ingresosBrutos += 1.80 * kgRenta * this.datosAnimales.Novillitos;}
-      if (this.datosAnimales.Terneros != null) { ingresosBrutos += 1.60 * kgRenta * this.datosAnimales.Terneros;}
-      if (this.datosAnimales.Toros != null) { ingresosBrutos += 1.80 * kgRenta * this.datosAnimales.Toros;}
+      if (this.datosAnimales.Vacas != null) { ingresosBrutos += ingresosBrutosVacas * kgRenta * this.datosAnimales.Vacas;}
+      if (this.datosAnimales.Vaquillonas != null) { ingresosBrutos += ingresosBrutosVaquillonas * kgRenta * this.datosAnimales.Vaquillonas;}
+      if (this.datosAnimales.Novillos != null) { ingresosBrutos += ingresosBrutosNovillos * kgRenta * this.datosAnimales.Novillos;}
+      if (this.datosAnimales.Novillitos != null) { ingresosBrutos += ingresosBrutosNovillitos * kgRenta * this.datosAnimales.Novillitos;}
+      if (this.datosAnimales.Terneros != null) { ingresosBrutos += ingresosBrutosTerneros * kgRenta * this.datosAnimales.Terneros;}
+      if (this.datosAnimales.Toros != null) { ingresosBrutos += ingresosBrutosToros * kgRenta * this.datosAnimales.Toros;}
       this.datosCheckbox.ingresosBrutos = true;
     }
 
     if (this.porcinosVenta === 'VentaFuera') {
-      if (this.datosAnimales.Porcinos != null) { ingresosBrutos += 0.20 * kgRenta * this.datosAnimales.Porcinos;}
+      if (this.datosAnimales.Porcinos != null) { ingresosBrutos += ingresosBrutosPorcinos * kgRenta * this.datosAnimales.Porcinos;}
       this.datosCheckbox.ingresosBrutos = true;
     }
     if (this.equinosVenta === 'VentaFuera') {
-      if (this.datosAnimales.Equinos != null) { ingresosBrutos += 0.70 * kgRenta * this.datosAnimales.Equinos;}
+      if (this.datosAnimales.Equinos != null) { ingresosBrutos += ingresosBrutosEquinos * kgRenta * this.datosAnimales.Equinos;}
       this.datosCheckbox.ingresosBrutos = true;
     }
     if (this.ovinosVenta === 'VentaFuera') {
-      if (this.datosAnimales.Ovinos != null) { ingresosBrutos += 0.10 * kgRenta * this.datosAnimales.Ovinos;}
+      if (this.datosAnimales.Ovinos != null) { ingresosBrutos += ingresosBrutosOvinos * kgRenta * this.datosAnimales.Ovinos;}
       this.datosCheckbox.ingresosBrutos = true;
     }
 
@@ -301,10 +332,15 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
 
   sumarValoresGanado(kgMunicipal) {
     let total = 0;
-    const precioGanadoSiMismo = 0.74 * kgMunicipal;
-    const precioGanadoVentaProvincia = 1.56 * kgMunicipal;
-    const precioGanadoVentaFaenaDentro = 2.14 * kgMunicipal;
-    const precioGanadoVentaFuera = 3.00 * kgMunicipal;
+    const ufsGanadoSiMismo = parseFloat(this.datosFijos.ufsGanadoSiMismo.replace(/,/g, '.'));
+    const ufsGanadoVentaProvincia = parseFloat(this.datosFijos.ufsGanadoVentaProvincia.replace(/,/g, '.'));
+    const ufsGanadoVentaFaenaDentro = parseFloat(this.datosFijos.ufsGanadoVentaFaenaDentro.replace(/,/g, '.'));
+    const ufsGanadoVentaFuera = parseFloat(this.datosFijos.ufsGanadoVentaFuera.replace(/,/g, '.'));
+    
+    const precioGanadoSiMismo = ufsGanadoSiMismo * kgMunicipal;
+    const precioGanadoVentaProvincia = ufsGanadoVentaProvincia * kgMunicipal;
+    const precioGanadoVentaFaenaDentro = ufsGanadoVentaFaenaDentro * kgMunicipal;
+    const precioGanadoVentaFuera = ufsGanadoVentaFuera * kgMunicipal;
 
     const cantidadDeBobinos = this.calcularCantidadDeBoninos();
     if (this.bovinosVenta === 'VentaProvincia') {
@@ -343,8 +379,11 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
 
   sumarValoresPorcinos(kgMunicipal) {
     let total = 0;
-    const precioPorcinosVentaProvincia = 0.36 * kgMunicipal;
-    const precioPorcinosVentaFuera = 0.73 * kgMunicipal;
+    const ufsPorcinosVentaProvincia = parseFloat(this.datosFijos.ufsPorcinosVentaProvincia.replace(/,/g, '.'));
+    const ufsPorcinosVentaFuera = parseFloat(this.datosFijos.ufsPorcinosVentaFuera.replace(/,/g, '.'));
+   
+    const precioPorcinosVentaProvincia = ufsPorcinosVentaProvincia * kgMunicipal;
+    const precioPorcinosVentaFuera = ufsPorcinosVentaFuera * kgMunicipal;
 
     const cantidadDePorcinos = this.calcularCantidadPorcinos();
     if (this.porcinosVenta === 'VentaProvincia') {
@@ -364,8 +403,11 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
 
   sumarValoresOvinos(kgMunicipal) {
     let total = 0;
-    const precioOvinosVentaProvincia = 0.86 * kgMunicipal;
-    const precioOvinosVentaFuera = 1.20 * kgMunicipal;  
+    const ufsOvinosVentaProvincia = parseFloat(this.datosFijos.ufsOvinosVentaProvincia.replace(/,/g, '.'));
+    const ufsOvinosVentaFuera = parseFloat(this.datosFijos.ufsOvinosVentaFuera.replace(/,/g, '.'));
+
+    const precioOvinosVentaProvincia = ufsOvinosVentaProvincia * kgMunicipal;
+    const precioOvinosVentaFuera = ufsOvinosVentaFuera * kgMunicipal;  
     
     const cantidadDeOvinos = this.calcularCantidadOvinos();
     if (this.ovinosVenta === 'VentaProvincia') {
@@ -385,8 +427,11 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
 
   sumarValoresEquinos(kgMunicipal) {
     let total = 0;
-    const precioEquinosVentaProvincia = 1.56 * kgMunicipal;
-    const precioEquinosVentaFuera = 3.00 * kgMunicipal;  
+    const ufsEquinosVentaProvincia = parseFloat(this.datosFijos.ufsEquinosVentaProvincia.replace(/,/g, '.'));
+    const ufsEquinosVentaFuera = parseFloat(this.datosFijos.ufsEquinosVentaFuera.replace(/,/g, '.'));
+
+    const precioEquinosVentaProvincia = ufsEquinosVentaProvincia * kgMunicipal;
+    const precioEquinosVentaFuera = ufsEquinosVentaFuera * kgMunicipal;  
     
     const cantidadDeEquinos = this.calcularCantidadEquinos();
     if (this.equinosVenta === 'VentaProvincia') {

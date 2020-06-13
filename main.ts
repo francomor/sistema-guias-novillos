@@ -141,6 +141,26 @@ ipcMain.on('datosFijos:actualizarDatosFijos', (event, datosFijos) => {
               .update({
                 KgMunicipal: datosFijos.KgMunicipal,
                 KgRenta: datosFijos.KgRenta,
+                ufsDerechoOficina: datosFijos.ufsDerechoOficina,
+                ingresosBrutosVacas: datosFijos.ingresosBrutosVacas,
+                ingresosBrutosVaquillonas: datosFijos.ingresosBrutosVaquillonas,
+                ingresosBrutosNovillos: datosFijos.ingresosBrutosNovillos,
+                ingresosBrutosNovillitos: datosFijos.ingresosBrutosNovillitos,
+                ingresosBrutosTerneros: datosFijos.ingresosBrutosTerneros,
+                ingresosBrutosToros: datosFijos.ingresosBrutosToros,
+                ingresosBrutosPorcinos: datosFijos.ingresosBrutosPorcinos,
+                ingresosBrutosEquinos: datosFijos.ingresosBrutosEquinos,
+                ingresosBrutosOvinos: datosFijos.ingresosBrutosOvinos,
+                ufsGanadoSiMismo: datosFijos.ufsGanadoSiMismo,
+                ufsGanadoVentaProvincia: datosFijos.ufsGanadoVentaProvincia,
+                ufsGanadoVentaFaenaDentro: datosFijos.ufsGanadoVentaFaenaDentro,
+                ufsGanadoVentaFuera: datosFijos.ufsGanadoVentaFuera,
+                ufsPorcinosVentaProvincia: datosFijos.ufsPorcinosVentaProvincia,
+                ufsPorcinosVentaFuera: datosFijos.ufsPorcinosVentaFuera,
+                ufsOvinosVentaProvincia: datosFijos.ufsOvinosVentaProvincia,
+                ufsOvinosVentaFuera: datosFijos.ufsOvinosVentaFuera,
+                ufsEquinosVentaProvincia: datosFijos.ufsEquinosVentaProvincia,
+                ufsEquinosVentaFuera: datosFijos.ufsEquinosVentaFuera,
               });
   result.then(function(){
     win.webContents.send('datosFijos:RespuestaActualizarDatosFijos');
