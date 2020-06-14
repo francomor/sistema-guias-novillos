@@ -16,7 +16,7 @@
           <table mat-table [dataSource]="datosTabla" class="mat-elevation-z8">
         
             <ng-container matColumnDef="RazonSocial">
-              <th mat-header-cell *matHeaderCellDef> Razon social </th>
+              <th mat-header-cell *matHeaderCellDef> RAZÓN SOCIAL </th>
               <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
             </ng-container>
           
@@ -26,18 +26,25 @@
             </ng-container>
           
             <ng-container matColumnDef="ChapaChasis">
-              <th mat-header-cell *matHeaderCellDef> Chapa del chasis </th>
+              <th mat-header-cell *matHeaderCellDef> CHAPA DEL CHASIS </th>
               <td mat-cell *matCellDef="let element"> {{element.ChapaChasis}} </td>
             </ng-container>
           
             <ng-container matColumnDef="ChapaAcoplado">
-              <th mat-header-cell *matHeaderCellDef> Chapa del acoplado </th>
+              <th mat-header-cell *matHeaderCellDef> CHAPA DEL ACOPLADO </th>
               <td mat-cell *matCellDef="let element"> {{element.ChapaAcoplado}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Chofer">
-              <th mat-header-cell *matHeaderCellDef> Chofer </th>
+              <th mat-header-cell *matHeaderCellDef> CHOFER </th>
               <td mat-cell *matCellDef="let element"> {{element.Chofer}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="eliminar" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button class="mat-warn" mat-button (click)="onClickDeleteButton(element)">Eliminar</button>
+              </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

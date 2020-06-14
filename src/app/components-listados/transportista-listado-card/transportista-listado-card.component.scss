@@ -70,8 +70,8 @@ table {
 .mat-column-ChapaChasis {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 12% !important;
-    width: 12% !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
   
@@ -114,6 +114,17 @@ table {
     -webkit-hyphens: auto;
     hyphens: auto;
 }
+
+.mat-column-eliminar {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 3% !important;
+    width: 3% !important;
+}
+
+.mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }  
 
 /* ScrollBar */
     /* width */

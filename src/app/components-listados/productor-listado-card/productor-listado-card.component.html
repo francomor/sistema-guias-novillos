@@ -16,11 +16,11 @@
           <table mat-table [dataSource]="datosTabla" class="mat-elevation-z8">
         
             <ng-container matColumnDef="RazonSocial">
-              <th mat-header-cell *matHeaderCellDef> Razon social </th>
+              <th mat-header-cell *matHeaderCellDef> RAZÓN SOCIAL </th>
               <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
             </ng-container>
           
-            <ng-container matColumnDef="RENSPA">
+            <ng-container matColumnDef="RENSPA" sticky>
               <th mat-header-cell *matHeaderCellDef> RENSPA </th>
               <td mat-cell *matCellDef="let element" (click)="onRenspaClick($event)" style="color:blue; cursor: pointer;"> {{element.RENSPA}} </td>
             </ng-container>
@@ -31,70 +31,77 @@
             </ng-container>
           
             <ng-container matColumnDef="NombreEstablecimiento">
-              <th mat-header-cell *matHeaderCellDef> Establecimiento </th>
+              <th mat-header-cell *matHeaderCellDef> ESTABLECIMIENTO </th>
               <td mat-cell *matCellDef="let element"> {{element.NombreEstablecimiento}} </td>
             </ng-container>
         
             <ng-container matColumnDef="Partida">
-              <th mat-header-cell *matHeaderCellDef> Partida </th>
+              <th mat-header-cell *matHeaderCellDef> PARTIDA </th>
               <td mat-cell *matCellDef="let element"> {{element.Partida}} </td>
             </ng-container>
         
             <ng-container matColumnDef="Repagro">
-              <th mat-header-cell *matHeaderCellDef> Repagro </th>
+              <th mat-header-cell *matHeaderCellDef> REPAGRO </th>
               <td mat-cell *matCellDef="let element"> {{element.Repagro}} </td>
             </ng-container>
 
             <ng-container matColumnDef="BoletoMarca">
-              <th mat-header-cell *matHeaderCellDef> Boleto de marca </th>
+              <th mat-header-cell *matHeaderCellDef> BOLETO DE MARCA </th>
               <td mat-cell *matCellDef="let element"> {{element.BoletoMarca}} </td>
             </ng-container>
 
             <ng-container matColumnDef="BoletoMarcaInc">
-              <th mat-header-cell *matHeaderCellDef> Inc. </th>
+              <th mat-header-cell *matHeaderCellDef> INC. </th>
               <td mat-cell *matCellDef="let element"> {{element.BoletoMarcaInc}} </td>
             </ng-container>
 
             <ng-container matColumnDef="BoletoMarcaFolio">
-              <th mat-header-cell *matHeaderCellDef> Folio </th>
+              <th mat-header-cell *matHeaderCellDef> FOLIO </th>
               <td mat-cell *matCellDef="let element"> {{element.BoletoMarcaFolio}} </td>
             </ng-container>
 
             <ng-container matColumnDef="VencimientoBoletoMarca">
-              <th mat-header-cell *matHeaderCellDef> Vencimiento </th>
+              <th mat-header-cell *matHeaderCellDef> VENCIMIENTO </th>
               <td mat-cell *matCellDef="let element"> {{element.VencimientoBoletoMarca}} </td>
             </ng-container>
 
             <ng-container matColumnDef="BoletoSenial">
-              <th mat-header-cell *matHeaderCellDef> Boleto de señal </th>
+              <th mat-header-cell *matHeaderCellDef> BOLETO DE SEÑAL </th>
               <td mat-cell *matCellDef="let element"> {{element.BoletoSenial}} </td>
             </ng-container>
 
             <ng-container matColumnDef="BoletoSenialInc">
-              <th mat-header-cell *matHeaderCellDef> Inc. </th>
+              <th mat-header-cell *matHeaderCellDef> INC. </th>
               <td mat-cell *matCellDef="let element"> {{element.BoletoSenialInc}} </td>
             </ng-container>
 
             <ng-container matColumnDef="BoletoSenialFolio">
-              <th mat-header-cell *matHeaderCellDef> Folio </th>
+              <th mat-header-cell *matHeaderCellDef> FOLIO </th>
               <td mat-cell *matCellDef="let element"> {{element.BoletoSenialFolio}} </td>
             </ng-container>
 
             <ng-container matColumnDef="VencimientoBoletoSenial">
-              <th mat-header-cell *matHeaderCellDef> Vencimiento </th>
+              <th mat-header-cell *matHeaderCellDef> VENCIMIENTO </th>
               <td mat-cell *matCellDef="let element"> {{element.VencimientoBoletoSenial}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Telefono">
-              <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+              <th mat-header-cell *matHeaderCellDef> TELÉFONO </th>
               <td mat-cell *matCellDef="let element"> {{element.Telefono}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Email">
-              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <th mat-header-cell *matHeaderCellDef> EMAIL </th>
               <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
             </ng-container>
           
+            <ng-container matColumnDef="eliminar" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button class="mat-warn" mat-button (click)="onClickDeleteButton(element)">Eliminar</button>
+              </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>

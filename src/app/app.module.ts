@@ -79,6 +79,7 @@ import { ListaProductoresComponent } from './home/lista-productores/lista-produc
 import { CompradorListadoCardComponent } from './components-listados/comprador-listado-card/comprador-listado-card.component'
 import { ProductorListadoCardComponent } from './components-listados/productor-listado-card/productor-listado-card.component'
 import { TransportistaListadoCardComponent } from './components-listados/transportista-listado-card/transportista-listado-card.component'
+import { EliminarDialogComponent } from './components-listados/eliminar-dialog/eliminar-dialog.component'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -106,7 +107,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ListaProductoresComponent,
     ProductorListadoCardComponent,
     TransportistaListadoCardComponent,
-    ListaTransportistasComponent
+    ListaTransportistasComponent,
+    EliminarDialogComponent
   ],
   imports: [
     NgxBarcode6Module,
@@ -178,6 +180,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     CompradorUpsertComponent,
     TransportistaUpsertComponent,
     PrincipalCoreDialogComponent,
+    EliminarDialogComponent
   ],
   bootstrap: [AppComponent]
 })

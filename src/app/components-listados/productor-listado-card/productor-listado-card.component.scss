@@ -98,6 +98,20 @@ table {
     padding-left: 30px;
 }
 
+.mat-column-eliminar {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 3% !important;
+    width: 3% !important;
+}
+
+.mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+  }
+
+.mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }  
 
 /* ScrollBar */
     /* width */

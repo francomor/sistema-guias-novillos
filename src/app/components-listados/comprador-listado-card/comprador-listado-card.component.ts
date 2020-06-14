@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
+import { EliminarDialogComponent } from '../eliminar-dialog/eliminar-dialog.component';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { ElectronService } from '../../core/services/electron/electron.service';
   styleUrls: ['./comprador-listado-card.component.scss']
 })
 export class CompradorListadoCardComponent implements OnInit {
-  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'NombreLocalidad', 'NombreProvincia'];
+  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'NombreLocalidad', 'NombreProvincia', 'eliminar'];
   todosLosDatosTabla = [];
   datosTabla = [];
   isLoading = true;
@@ -25,12 +26,12 @@ export class CompradorListadoCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cargaRenspas();
+    this.cargarCompradores();
     
     this.ipcRespuestas();
   }
 
-  cargaRenspas() {
+  cargarCompradores() {
     this.electronService.ipcRenderer.send('comprador:obtenerTodosLosCompradores');
   }
 
@@ -41,6 +42,11 @@ export class CompradorListadoCardComponent implements OnInit {
       this.isLoading = false;
       // refresh view
       this.changeDetectorRefService.detectChanges();
+    });
+
+    this.electronService.ipcRenderer.on('comprador:RespuestaEliminarComprador', (event) => {
+      this.openSnackBar("Comprador eliminado con éxito", "");
+      this.cargarCompradores();
     });
   }
 
@@ -64,5 +70,24 @@ export class CompradorListadoCardComponent implements OnInit {
         duration: 2000,
       });
     });
+  }
+
+  onClickDeleteButton(element: any){
+    const nombre = element.RazonSocial + " (" + element.RENSPA + ")";
+
+    const dialogRef = this.dialog.open(EliminarDialogComponent, {
+      autoFocus:true,
+      data: nombre
+    });
+
+    dialogRef.afterClosed().subscribe(tengoQueEliminar => {
+      if (tengoQueEliminar) {
+        this.eliminarComprador(element);
+      }
+    });
+  }
+
+  eliminarComprador(comprador: any) {
+    this.electronService.ipcRenderer.send('comprador:eliminarComprador', comprador.idComprador);
   }
 }

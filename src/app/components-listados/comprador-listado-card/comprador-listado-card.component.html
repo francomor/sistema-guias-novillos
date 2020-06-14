@@ -16,7 +16,7 @@
           <table mat-table [dataSource]="datosTabla" class="mat-elevation-z8">
         
             <ng-container matColumnDef="RazonSocial">
-              <th mat-header-cell *matHeaderCellDef> Razon social </th>
+              <th mat-header-cell *matHeaderCellDef> RAZÓN SOCIAL </th>
               <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
             </ng-container>
           
@@ -31,19 +31,27 @@
             </ng-container>
           
             <ng-container matColumnDef="NombreEstablecimiento">
-              <th mat-header-cell *matHeaderCellDef> Establecimiento </th>
+              <th mat-header-cell *matHeaderCellDef> ESTABLECIMIENTO </th>
               <td mat-cell *matCellDef="let element"> {{element.NombreEstablecimiento}} </td>
             </ng-container>
         
             <ng-container matColumnDef="NombreLocalidad">
-              <th mat-header-cell *matHeaderCellDef> Localidad </th>
+              <th mat-header-cell *matHeaderCellDef> LOCALIDAD </th>
               <td mat-cell *matCellDef="let element"> {{element.NombreLocalidad}} </td>
-        
-            </ng-container><ng-container matColumnDef="NombreProvincia">
-              <th mat-header-cell *matHeaderCellDef> Provincia </th>
+            </ng-container>
+            
+            <ng-container matColumnDef="NombreProvincia">
+              <th mat-header-cell *matHeaderCellDef> PROVINCIA </th>
               <td mat-cell *matCellDef="let element"> {{element.NombreProvincia}} </td>
             </ng-container>
-          
+
+            <ng-container matColumnDef="eliminar" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button class="mat-warn" mat-button (click)="onClickDeleteButton(element)">Eliminar</button>
+              </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
+import { EliminarDialogComponent } from '../eliminar-dialog/eliminar-dialog.component';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class ProductorListadoCardComponent implements OnInit {
     'RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'Partida', 'Repagro', 
     'BoletoMarca', 'BoletoMarcaInc', 'BoletoMarcaFolio', 'VencimientoBoletoMarca',
     'BoletoSenial', 'BoletoSenialInc', 'BoletoSenialFolio', 'VencimientoBoletoSenial',
-    'Telefono', 'Email'
+    'Telefono', 'Email', 'eliminar'
   ];
   todosLosDatosTabla = [];
   datosTabla = [];
@@ -30,12 +31,12 @@ export class ProductorListadoCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cargaRenspas();
+    this.cargarProductores();
     
     this.ipcRespuestas();
   }
 
-  cargaRenspas() {
+  cargarProductores() {
     this.electronService.ipcRenderer.send('productor:obtenerTodosLosProductores');
   }
 
@@ -46,6 +47,11 @@ export class ProductorListadoCardComponent implements OnInit {
       this.isLoading = false;
       // refresh view
       this.changeDetectorRefService.detectChanges();
+    });
+
+    this.electronService.ipcRenderer.on('productor:RespuestaEliminarProductor', (event) => {
+      this.openSnackBar("Productor eliminado con éxito", "");
+      this.cargarProductores();
     });
   }
 
@@ -69,5 +75,24 @@ export class ProductorListadoCardComponent implements OnInit {
         duration: 2000,
       });
     });
+  }
+
+  onClickDeleteButton(element: any){
+    const nombre = element.RazonSocial + " (" + element.RENSPA + ")";
+    console.log(element);
+    const dialogRef = this.dialog.open(EliminarDialogComponent, {
+      autoFocus:true,
+      data: nombre
+    });
+
+    dialogRef.afterClosed().subscribe(tengoQueEliminar => {
+      if (tengoQueEliminar) {
+        this.eliminarComprador(element);
+      }
+    });
+  }
+
+  eliminarComprador(productor: any) {
+    this.electronService.ipcRenderer.send('productor:eliminarProductor', productor.idProductor);
   }
 }

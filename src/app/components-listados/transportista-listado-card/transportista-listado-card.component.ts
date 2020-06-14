@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
+import { EliminarDialogComponent } from '../eliminar-dialog/eliminar-dialog.component';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { ElectronService } from '../../core/services/electron/electron.service';
   styleUrls: ['./transportista-listado-card.component.scss']
 })
 export class TransportistaListadoCardComponent implements OnInit {
-  displayedColumns: string[] = ['CUIT', 'RazonSocial', 'ChapaChasis', 'ChapaAcoplado', 'Chofer'];
+  displayedColumns: string[] = ['CUIT', 'RazonSocial', 'ChapaChasis', 'ChapaAcoplado', 'Chofer', 'eliminar'];
   todosLosDatosTabla = [];
   datosTabla = [];
   isLoading = true;
@@ -25,12 +26,12 @@ export class TransportistaListadoCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cargaRenspas();
+    this.cargarTransportistas();
     
     this.ipcRespuestas();
   }
 
-  cargaRenspas() {
+  cargarTransportistas() {
     this.electronService.ipcRenderer.send('transportista:obtenerTodosLosTransportistas');
   }
 
@@ -41,6 +42,11 @@ export class TransportistaListadoCardComponent implements OnInit {
       this.isLoading = false;
       // refresh view
       this.changeDetectorRefService.detectChanges();
+    });
+
+    this.electronService.ipcRenderer.on('transportista:RespuestaEliminarTransportista', (event) => {
+      this.openSnackBar("Transportista eliminado con éxito", "");
+      this.cargarTransportistas();
     });
   }
 
@@ -67,5 +73,23 @@ export class TransportistaListadoCardComponent implements OnInit {
         duration: 2000,
       });
     });
+  }
+
+  onClickDeleteButton(element: any){
+    const nombre = element.RazonSocial + " (" + element.ChapaChasis + " - " + element.ChapaAcoplado + ")";
+    const dialogRef = this.dialog.open(EliminarDialogComponent, {
+      autoFocus:true,
+      data: nombre
+    });
+
+    dialogRef.afterClosed().subscribe(tengoQueEliminar => {
+      if (tengoQueEliminar) {
+        this.eliminarTransportista(element);
+      }
+    });
+  }
+
+  eliminarTransportista(transportista: any) {
+    this.electronService.ipcRenderer.send('transportista:eliminarTransportista', transportista.idTransportista, transportista.idCamion);
   }
 }

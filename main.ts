@@ -168,6 +168,41 @@ ipcMain.on('datosFijos:actualizarDatosFijos', (event, datosFijos) => {
 });
 
 // transportista
+ipcMain.on('transportista:eliminarTransportista', (event, idTransportista, idCamion) => {
+  tieneVariosCamiones(idTransportista).then(async (tieneVariosCamiones) => {
+    let result;
+    if (tieneVariosCamiones) {
+      result = knex('Camion')
+      .where('idCamion', idCamion)
+      .del();
+    }
+    else {
+      knex('Camion')
+      .where('idCamion', idCamion)
+      .del();
+      result = knex('Transportista')
+      .where('idTransportista', idTransportista)
+      .del();
+    }
+    result.then(function(){
+      win.webContents.send('transportista:RespuestaEliminarTransportista');
+    });
+  });
+});
+
+async function tieneVariosCamiones(idTransportista) {
+  let result = knex.select('*').from('Camion').where('idTransportista', idTransportista);
+  return await result.then(async function(rows: []){
+    if (rows && rows.length > 1) {   
+      // not empty 
+      return true;
+    } else {
+      // empty
+      return false;
+    }
+  });
+}
+
 ipcMain.on('transportista:obtenerTodosLosTransportistas', (event) => {
   let result = knex('Transportista')
     .leftJoin('Persona', 'Persona.CUIT', '=', 'Transportista.CUITPersona')
@@ -353,6 +388,15 @@ async function updateCamion(Camion) {
 }
 
 // comprador
+ipcMain.on('comprador:eliminarComprador', (event, idComprador) => {
+  let result = knex('Comprador')
+    .where('idComprador', idComprador)
+    .del()
+
+  result.then(function(){
+    win.webContents.send('comprador:RespuestaEliminarComprador');
+  });
+});
 
 ipcMain.on('comprador:obtenerTodosLosCompradores', (event) => {
   let result = knex('Comprador')
@@ -512,6 +556,16 @@ async function updateComprador(Comprador) {
 }
 
 // productor
+ipcMain.on('productor:eliminarProductor', (event, idProductor) => {
+  let result = knex('Productor')
+    .where('idProductor', idProductor)
+    .del()
+
+  result.then(function(){
+    win.webContents.send('productor:RespuestaEliminarProductor');
+  });
+});
+
 ipcMain.on('productor:obtenerTodosLosProductores', (event) => {
   let result = knex('Productor')
     .leftJoin('Persona', 'Productor.CUITPersona', '=', 'Persona.CUIT')

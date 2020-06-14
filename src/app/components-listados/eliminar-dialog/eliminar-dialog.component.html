@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Confirmar eliminación</h1>
+<mat-dialog-content>
+    <div fxLayout="column" fxFlex="100" fxLayoutAlign="start">
+      ¿Está seguro que quiere eliminar a "{{ nombre }}" de la base de datos?
+    </div>  
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button class="mat-raised-button" (click)="close()">Cancelar</button>
+    <button class="mat-raised-button mat-primary" (click)="eliminar()">Eliminar</button>
+</mat-dialog-actions>
