@@ -25,7 +25,7 @@ UsedUserAreasWarning=no
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputBaseFilename=Instalador de guias únicas - Complemento S.A.G
+OutputBaseFilename=Instalador de Sistema de guias únicas - Complemento S.A.G
 SetupIconFile=C:\Users\BairesDev\Documents\Electron\sistema_guias\release\.icon-ico\icon.ico
 Compression=lzma
 SolidCompression=yes
@@ -40,7 +40,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\complemento-guias-v1.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-unpacked\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\.icon-ico\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
