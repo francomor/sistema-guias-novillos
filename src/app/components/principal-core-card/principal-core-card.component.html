@@ -196,15 +196,16 @@
 
       <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
         <mat-list>
+          <mat-list-item class="texts" >
+            <b>Guia única: </b>&nbsp;${{ totalSoloGuia | number:'1.0-2':'es-Ar' }}
+          </mat-list-item>
           <mat-list-item class="texts" *ngIf="datosCheckbox.ingresosBrutos">
           <b>Ingresos Brutos: </b> &nbsp;${{ ingresosBrutos | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
-          <mat-list-item class="texts">
-            <b>Derecho de oficina: </b>&nbsp;${{ derechoOficina | number:'1.0-2':'es-Ar' }}
+          <mat-list-item class="texts" *ngIf="datosCheckbox.ingresosBrutos">
+            <b>SubTotal: </b> &nbsp;${{ totalSoloGuia + ingresosBrutos | number:'1.0-2':'es-Ar' }}
           </mat-list-item>
-          <mat-list-item class="texts">
-            <b>Guia única: </b>&nbsp;${{ totalSoloGuia | number:'1.0-2':'es-Ar' }}
-          </mat-list-item>
+          
           <div class="texts-redondeo">
             <b>Redondeo:</b>
             <mat-form-field appearance="legacy" style="width: 150px;">
@@ -214,6 +215,9 @@
               <mat-error class="texts" *ngIf="redondeoControl.invalid">El valor minimo es 0</mat-error>
             </mat-form-field>
           </div>
+          <mat-list-item class="texts">
+            <b>Derecho de oficina: </b>&nbsp;${{ derechoOficina | number:'1.0-2':'es-Ar' }}
+          </mat-list-item>
         </mat-list>
       </div>
       

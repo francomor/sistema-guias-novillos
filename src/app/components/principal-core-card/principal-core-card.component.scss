@@ -58,6 +58,10 @@
     margin-bottom: 10px;
 }
 
+:host ::ng-deep .mat-list-item-content {
+    padding: 0!important;
+}
+
 .texts-big {
     font-size: 30px;
     font-weight: 500;

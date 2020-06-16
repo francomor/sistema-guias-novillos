@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
+  "name": "guias-unicas",
   "version": "7.1.0",
-  "description": "Angular 9 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "description": "Sistema de guias únicas - Complemento S.A.G",
+  "homepage": "https://www.linkedin.com/in/francomorero/",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Franco Morero",
+    "email": "francomorero96@gmail.com"
   },
   "keywords": [
     "angular",

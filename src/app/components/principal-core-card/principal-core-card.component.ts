@@ -464,6 +464,13 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
       // refresh view
       this.changeDetectorRefService.detectChanges();
     });
+
+    this.electronService.ipcRenderer.on('print:Printed', (event) => {
+      // refresh view
+      this.readyToPrint = false;
+      this.htmlAImprimir = '';
+      this.changeDetectorRefService.detectChanges();
+    });
   }
 
   openUpsertDialog(): void {

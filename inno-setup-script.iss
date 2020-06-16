@@ -10,7 +10,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{1E8B5248-877D-42E3-B847-459E43D21F3E}
+AppId={{254AC367-3F3C-42B7-9384-EB7730D15718}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -25,8 +25,8 @@ UsedUserAreasWarning=no
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputBaseFilename=Instalador de Sistema de guias únicas - Complemento S.A.G
-SetupIconFile=C:\Users\BairesDev\Documents\Electron\sistema_guias\release\.icon-ico\icon.ico
+OutputBaseFilename=Instalador Sistema de guias únicas - Complemento S.A.G
+SetupIconFile=C:\Users\BairesDev\Documents\Electron\sistema_guias\src\assets\icons\favicon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -39,9 +39,25 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
 
 [Files]
-Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\complemento-guias-v1.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\.icon-ico\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\complemento-guias-v1.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\chrome_100_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\chrome_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\d3dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\database.sqlite"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\ffmpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\icudtl.dat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\LICENSE.electron.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\LICENSES.chromium.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\resources.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\snapshot_blob.bin"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\v8_context_snapshot.bin"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\vk_swiftshader.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\vk_swiftshader_icd.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\locales\*"; DestDir: "{app}\locales"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\resources\*"; DestDir: "{app}\resources"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\BairesDev\Documents\Electron\sistema_guias\release\win-ia32-unpacked\swiftshader\*"; DestDir: "{app}\swiftshader"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

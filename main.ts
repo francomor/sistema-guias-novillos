@@ -110,6 +110,7 @@ ipcMain.on('print', (event, content) => {
 ipcMain.on('readyToPrint', (event) => {
   workerWindow.webContents.print({});
   //workerWindow.hide();
+  win.webContents.send('print:Printed');
 });
 
 // abrir LinkedIn
