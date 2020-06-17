@@ -248,14 +248,21 @@
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
           Comprador: 
         </div>
-        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center" *ngIf="datosCompradorSeleccionado.RazonSocial?.length < 20">
+          <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center" *ngIf="datosCompradorSeleccionado.RazonSocial?.length >= 20 && datosCompradorSeleccionado.RazonSocial?.length < 38">
+          <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.RazonSocial" [bc-font-options]="10" [bc-height]="10" [bc-width]="0.8" [bc-display-value]="true"
+                        [bc-font-size]="15"></ngx-barcode6>
+        </div>
+        <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center" *ngIf="datosCompradorSeleccionado.RazonSocial?.length >= 38">
           {{ datosCompradorSeleccionado.RazonSocial }}
         </div>
       </div>
       <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
       <div fxLayout="row" fxFlex="100%">
         <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center end">
-          Destino bovinos: 
+          Destino: 
         </div>
         <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center center">
           <div *ngIf="bovinosVenta === 'VentaProvincia'">
@@ -265,16 +272,36 @@
             <ngx-barcode6 bc-value="Venta Foranea" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
           </div>
           <div *ngIf="bovinosVenta === 'MismoEjido'">
-            <ngx-barcode6 bc-value="Translado Mismo Ejido - A si mismo" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+            <ngx-barcode6 bc-value="Translado Mismo Ejido - A si mismo" [bc-font-options]="10" [bc-height]="10" [bc-width]="0.5" [bc-display-value]="true"
+                          [bc-font-size]="15"></ngx-barcode6>
           </div>
           <div *ngIf="bovinosVenta === 'TransladoProvincial'">
-            <ngx-barcode6 bc-value="Translado provincial - A si mismo" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+            <ngx-barcode6 bc-value="Translado provincial - A si mismo" [bc-font-options]="10" [bc-height]="10" [bc-width]="0.5" [bc-display-value]="true" 
+                          [bc-font-size]="15"></ngx-barcode6>
           </div>
           <div *ngIf="bovinosVenta === 'FaenaLocal'">
             <ngx-barcode6 bc-value="Faena Local" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
           </div>
           <div *ngIf="bovinosVenta === 'Feria'">
             <ngx-barcode6 bc-value="Feria" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          </div>
+          <div *ngIf="ovinosVenta === 'VentaProvincia'">
+            <ngx-barcode6 bc-value="Venta Provincia" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          </div>
+          <div *ngIf="ovinosVenta === 'VentaFuera'">
+            <ngx-barcode6 bc-value="Venta Fuera" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          </div>
+          <div *ngIf="porcinosVenta === 'VentaProvincia'">
+            <ngx-barcode6 bc-value="Venta Provincia" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          </div>
+          <div *ngIf="porcinosVenta === 'VentaFuera'">
+            <ngx-barcode6 bc-value="Venta Fuera" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          </div>
+          <div *ngIf="equinosVenta === 'VentaProvincia'">
+            <ngx-barcode6 bc-value="Venta Provincia" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
+          </div>
+          <div *ngIf="equinosVenta === 'VentaFuera'">
+            <ngx-barcode6 bc-value="Venta Fuera" [bc-font-options]="10" [bc-height]="10" [bc-width]="1" [bc-display-value]="true"></ngx-barcode6>
           </div>
         </div>
       </div>

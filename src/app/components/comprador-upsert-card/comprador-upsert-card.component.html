@@ -86,10 +86,7 @@
     
           <mat-form-field class="input-full-width">
             <mat-label>Nombre del establecimiento</mat-label>
-            <input matInput [formControl]="nombreEstablecimientoFormControl" placeholder="Nombre del establecimiento" [(ngModel)]="datosCompradorSelecionado.NombreEstablecimiento">
-            <mat-error *ngIf="nombreEstablecimientoFormControl.hasError('required')">
-              Nombre del establecimiento es <strong>requerido</strong>
-            </mat-error>
+            <input matInput placeholder="Nombre del establecimiento" [(ngModel)]="datosCompradorSelecionado.NombreEstablecimiento">
           </mat-form-field>
     
           <mat-form-field class="input-full-width">

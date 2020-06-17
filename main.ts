@@ -479,12 +479,7 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
       datosComprador.Partida = '';
       datosComprador.Repagro = '';
     }
-    const establecimiento = {
-      idEstablecimiento: datosComprador.idEstablecimiento,
-      Nombre: datosComprador.NombreEstablecimiento,
-      Repagro: datosComprador.Repagro,
-    }
-    upsertEstablecimiento(establecimiento).then(async (idEstablecimiento) => {
+    if (datosComprador.NombreEstablecimiento === null) {
       const localidad = {
         idLocalidad: datosComprador.idLocalidad,
         Nombre: datosComprador.NombreLocalidad,
@@ -494,7 +489,7 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
         const comprador = {
           idComprador: datosComprador.idComprador,
           RENSPA: datosComprador.RENSPA,
-          idEstablecimiento: idEstablecimiento,
+          idEstablecimiento: null,
           CUITPersona: datosComprador.CUIT,
           idLocalidad: idLocalidad,
         }
@@ -503,7 +498,33 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
           win.webContents.send('comprador:RespuestaUpsertComprador', renspa);
         });
       });
-    });
+    } else {
+      const establecimiento = {
+        idEstablecimiento: datosComprador.idEstablecimiento,
+        Nombre: datosComprador.NombreEstablecimiento,
+        Repagro: datosComprador.Repagro,
+      }
+      upsertEstablecimiento(establecimiento).then(async (idEstablecimiento) => {
+        const localidad = {
+          idLocalidad: datosComprador.idLocalidad,
+          Nombre: datosComprador.NombreLocalidad,
+          idProvincia: datosComprador.idProvincia,
+        }
+        upsertLocalidad(localidad).then(async (idLocalidad) => {
+          const comprador = {
+            idComprador: datosComprador.idComprador,
+            RENSPA: datosComprador.RENSPA,
+            idEstablecimiento: idEstablecimiento,
+            CUITPersona: datosComprador.CUIT,
+            idLocalidad: idLocalidad,
+          }
+          upsertComprador(comprador).then(async () => {
+            const renspa = datosComprador.RENSPA;
+            win.webContents.send('comprador:RespuestaUpsertComprador', renspa);
+          });
+        });
+      });
+    }
   });
 });
 

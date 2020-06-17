@@ -24,9 +24,6 @@ export class CompradorUpsertComponent implements OnInit {
   controlSearchLocalidades = new FormControl('', [
     Validators.required,
   ]);
-  nombreEstablecimientoFormControl = new FormControl('', [
-    Validators.required,
-  ]);
   ProvinciaFormControl = new FormControl('', [
     Validators.required,
   ]);
@@ -98,7 +95,7 @@ export class CompradorUpsertComponent implements OnInit {
   }
 
   get checkFormValid() {
-    if(this.razonSocialFormControl.valid && this.controlSearchRenspa.valid && this.nombreEstablecimientoFormControl.valid
+    if(this.razonSocialFormControl.valid && this.controlSearchRenspa.valid
       && this.CUITFormControl.valid && this.controlSearchLocalidades.valid
       && this.ProvinciaFormControl.valid) 
     {
