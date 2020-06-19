@@ -31,6 +31,10 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
   cuitNoEncontrado = false;
   renspa: string = '';
   cuit: string = '';
+  
+  tieneVariosCompradoresConMismoRenspa = false;
+  cuitsVariosCompradoresConMismoRenspa:Array<number> = [];
+  idsVariosCompradoresConMismoRenspa:Array<number> = [];
 
   navigationSubscription;
   
@@ -50,6 +54,13 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
     const localRenspa = JSON.parse(localStorage.getItem('CompradorRenspa'));
     if (typeof localRenspa !== 'undefined' && localRenspa !== null){
       this.renspa = localRenspa;
+    }
+    const idComprador = JSON.parse(localStorage.getItem('CompradorId'));
+    if (typeof idComprador !== 'undefined' && idComprador !== null){
+      setTimeout(()=>{
+        this.tieneVariosCompradoresConMismoRenspa = false;
+        this.electronService.ipcRenderer.send('comprador:obtenerDatosCompradorPorId', idComprador);
+      }, 1000);
     }
     this.cargaRenspas();
     this.cargaCuits();
@@ -78,8 +89,12 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
 
   resetDatos() {
     this.datosCompradorSelecionado = {};
+    localStorage.removeItem('CompradorId');
     localStorage.removeItem('CompradorRenspa');
     this.tengoDatos = false;
+    this.tieneVariosCompradoresConMismoRenspa = false;
+    this.cuitsVariosCompradoresConMismoRenspa = [];
+    this.idsVariosCompradoresConMismoRenspa = [];
     this.renspaNoEncontrado = false;
     this.cuitNoEncontrado = false;
     this.renspa = '';
@@ -133,6 +148,7 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
     const renspa = textoInput;
     if (textoInput === "") {
       this.renspa = '';
+      localStorage.removeItem('CompradorId');
       localStorage.removeItem('CompradorRenspa');
       this.datosCompradorSelecionado = {};
       this.dataShareService.setDatosCompradorSelecionado(null);
@@ -148,6 +164,7 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
     const cuit = textoInput;
     if (textoInput === "") {
       this.cuit = '';
+      localStorage.removeItem('CompradorId');
       localStorage.removeItem('CompradorRenspa');
       this.datosCompradorSelecionado = {};
       this.dataShareService.setDatosCompradorSelecionado(null);
@@ -171,8 +188,7 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
 
   cargarDatosDelComprador(renspa) {
     this.renspa = renspa;
-    localStorage.setItem('CompradorRenspa', JSON.stringify(this.renspa));
-    this.electronService.ipcRenderer.send('comprador:obtenerDatosComprador', renspa);
+    this.electronService.ipcRenderer.send('comprador:obtenerIdsCompradorPorRenspa', renspa);
   }
 
   cargarDatosDelCompradorCUIT(cuit) {
@@ -188,7 +204,32 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
     this.buscarPorRENSPA = true;
   }
 
+  onVariosCompradoresCuitSelectionChange(cuit:number){
+    const index = this.cuitsVariosCompradoresConMismoRenspa.indexOf(cuit);
+    this.electronService.ipcRenderer.send('comprador:obtenerDatosCompradorPorId', this.idsVariosCompradoresConMismoRenspa[index]);
+    this.tieneVariosCompradoresConMismoRenspa = false;
+    this.cuitsVariosCompradoresConMismoRenspa = [];
+    this.idsVariosCompradoresConMismoRenspa = [];
+  }
+
   ipcRespuestas() {
+    this.electronService.ipcRenderer.on('comprador:RespuestaObtenerIdsCompradorPorRenspa', (event, idsComprador:Array<number>, cuits:Array<number>) => {
+      this.tieneVariosCompradoresConMismoRenspa = false;
+      this.tengoDatos = false;
+      if (idsComprador.length > 0){
+        if (idsComprador.length === 1){
+          this.electronService.ipcRenderer.send('comprador:obtenerDatosCompradorPorId', idsComprador[0]);
+        }
+        else {
+          this.tieneVariosCompradoresConMismoRenspa = true;
+          this.cuitsVariosCompradoresConMismoRenspa = cuits;
+          this.idsVariosCompradoresConMismoRenspa = idsComprador;
+        }
+      }
+      // refresh view
+      this.changeDetectorRefService.detectChanges();
+    });
+    
     this.electronService.ipcRenderer.on('comprador:RespuestaObtenerTodosLosRenspa', (event, renspas) => {
       this.resnpasBusqueda = renspas;
     });
@@ -209,11 +250,13 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
       this.changeDetectorRefService.detectChanges();
     });
 
-    this.electronService.ipcRenderer.on('comprador:RespuestaObtenerDatosComprador', (event, datosComprador) => {
+    this.electronService.ipcRenderer.on('comprador:RespuestaObtenerDatosCompradorPorId', (event, datosComprador) => {
       if (datosComprador == null) {
         this.renspaNoEncontrado = true;
         this.tengoDatos = false;
       } else {
+        localStorage.setItem('CompradorId', JSON.stringify(datosComprador.idComprador));
+        localStorage.setItem('CompradorRenspa', JSON.stringify(this.renspa));
         this.datosCompradorSelecionado = datosComprador;
         this.dataShareService.setDatosCompradorSelecionado(datosComprador);
         this.renspaNoEncontrado = false;

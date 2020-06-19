@@ -239,8 +239,10 @@ ipcMain.on('transportista:obtenerDatosDelTransportista', (event, cuitTransportis
 
 ipcMain.on('transportista:upsertTransportista', (event, datosTransportista, camiones:[]) => {
   const persona = {
-    CUIT: datosTransportista.cuit,
+    CUIT: +datosTransportista.cuit,
     RazonSocial: datosTransportista.RazonSocial,
+    Telefono: null,
+    Email: null,
   }
   upsertPersona(persona).then(async () => {
     const transportista = {
@@ -435,6 +437,24 @@ ipcMain.on('comprador:obtenerDatosComprador', (event, renspa) => {
   });
 });
 
+ipcMain.on('comprador:obtenerDatosCompradorPorId', (event, idComprador) => {
+  let result = knex('Comprador')
+    .leftJoin('Persona', 'Comprador.CUITPersona', '=', 'Persona.CUIT')
+    .leftJoin('Establecimiento', 'Comprador.idEstablecimiento', '=', 'Establecimiento.idEstablecimiento')
+    .leftJoin('Localidad', 'Comprador.idLocalidad', '=', 'Localidad.idLocalidad')
+    .leftJoin('Provincia', 'Localidad.idProvincia', '=', 'Provincia.idProvincia')
+    .select(
+      '*', 
+      'Establecimiento.Nombre as NombreEstablecimiento', 
+      'Localidad.Nombre as NombreLocalidad', 
+      'Provincia.Nombre as NombreProvincia' 
+      )
+    .where('Comprador.idComprador', idComprador);
+  result.then(function(row){
+    win.webContents.send('comprador:RespuestaObtenerDatosCompradorPorId', row[0]);
+  });
+});
+
 ipcMain.on('comprador:obtenerDatosCompradorPorCUIT', (event, cuit) => {
   let result = knex('Comprador').select('RENSPA').where('Comprador.CUITPersona', cuit);
   result.then(function(rows: []){
@@ -457,6 +477,19 @@ ipcMain.on('comprador:obtenerTodosLosCUIT', (event) => {
   });
 });
 
+ipcMain.on('comprador:obtenerIdsCompradorPorRenspa', (event, renspa) => {
+  let result = knex.select('idComprador', 'CUITPersona').from('Comprador').where('Comprador.RENSPA', renspa);
+  result.then(function(rows: []){
+    let idsComprador = []
+    let cuits = []
+    rows.forEach(function (value) {
+      idsComprador.push(value['idComprador']);
+      cuits.push(value['CUITPersona']);
+    }); 
+    win.webContents.send('comprador:RespuestaObtenerIdsCompradorPorRenspa', idsComprador, cuits);
+  });
+});
+
 ipcMain.on('comprador:obtenerTodosLosRenspa', (event) => {
   let result = knex.select('RENSPA').from('Comprador');
   result.then(function(rows: []){
@@ -470,9 +503,11 @@ ipcMain.on('comprador:obtenerTodosLosRenspa', (event) => {
 
 ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
   const persona = {
-    CUIT: datosComprador.CUIT,
+    CUIT: +datosComprador.CUIT,
     RazonSocial: datosComprador.RazonSocial,
-  }
+    Telefono: null,
+    Email: null,
+  };
   upsertPersona(persona).then(async () => {
     if (datosComprador.idEstablecimiento == 0 && datosComprador.NombreEstablecimiento != '') {
       datosComprador.idEstablecimiento = -1;
@@ -503,6 +538,7 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
         idEstablecimiento: datosComprador.idEstablecimiento,
         Nombre: datosComprador.NombreEstablecimiento,
         Repagro: datosComprador.Repagro,
+        Partida: null,
       }
       upsertEstablecimiento(establecimiento).then(async (idEstablecimiento) => {
         const localidad = {
@@ -623,7 +659,7 @@ ipcMain.on('productor:obtenerTodosLosRenspa', (event) => {
 
 ipcMain.on('productor:upsertProductor', (event, datosProductor) => {
   const persona = {
-    CUIT: datosProductor.CUIT,
+    CUIT: +datosProductor.CUIT,
     RazonSocial: datosProductor.RazonSocial,
     Telefono: datosProductor.Telefono,
     Email: datosProductor.Email,
@@ -704,6 +740,14 @@ async function updateProductor(Productor) {
               .where('idProductor', Productor.idProductor)
               .update({
                 RENSPA: Productor.RENSPA,
+                idEstablecimiento: Productor.idEstablecimiento,
+                CUITPersona: Productor.CUITPersona,
+              });
+  return await result.then(async () => {
+    // actualiza boletos de marcas y senal a todos los productores con mismo cuit
+    let result = knex('Productor')
+              .where('CUITPersona', Productor.CUITPersona)
+              .update({
                 BoletoMarca: Productor.BoletoMarca,
                 BoletoMarcaInc: Productor.BoletoMarcaInc,
                 BoletoMarcaFolio: Productor.BoletoMarcaFolio,
@@ -712,11 +756,10 @@ async function updateProductor(Productor) {
                 BoletoSenialInc: Productor.BoletoSenialInc,
                 BoletoSenialFolio: Productor.BoletoSenialFolio,
                 VencimientoBoletoSenial: Productor.VencimientoBoletoSenial,
-                idEstablecimiento: Productor.idEstablecimiento,
-                CUITPersona: Productor.CUITPersona,
               });
-  return await result.then(() => {
-    return Productor.idProductor;
+    return await result.then(() => {         
+      return Productor.idProductor;
+    });
   });
 }
 
@@ -794,6 +837,7 @@ async function upsertPersona(persona) {
 async function insertPersona(persona) {
   let result = knex('Persona')
               .insert({
+                CUIT: persona.CUIT,
                 RazonSocial: persona.RazonSocial,
                 Telefono: persona.Telefono,
                 Email: persona.Email,

@@ -79,7 +79,6 @@ export class ProductorListadoCardComponent implements OnInit {
 
   onClickDeleteButton(element: any){
     const nombre = element.RazonSocial + " (" + element.RENSPA + ")";
-    console.log(element);
     const dialogRef = this.dialog.open(EliminarDialogComponent, {
       autoFocus:true,
       data: nombre

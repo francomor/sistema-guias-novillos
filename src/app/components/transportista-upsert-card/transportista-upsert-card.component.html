@@ -4,26 +4,13 @@
       <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
         <mat-form-field style="width: 97%;">
           <mat-label>CUIT</mat-label>
-          <input matInput type="text" 
-          class="search-input" 
-          [formControl]="controlSearchCuit" 
-          [matAutocomplete]="autoSearchCuits" 
-          (keyup.enter)="inputSearchOnKeyEnter()" 
-          (ngModelChange)="inputSearchOnKeyDown($event)"
-          placeholder="CUIT" 
-          [ngModel]="cuit"
-          >
+          <input matInput type="text" [formControl]="controlSearchCuit" placeholder="CUIT" [(ngModel)]="cuit">
           <mat-error *ngIf="controlSearchCuit.hasError('required')">
             CUIT es <strong>requerido</strong>
           </mat-error>
           <mat-error *ngIf="controlSearchCuit.hasError('min')">
             Por favor ingresa un CUIT valido
           </mat-error>
-          <mat-autocomplete #autoSearchCuits="matAutocomplete">
-            <mat-option *ngFor="let cuit of filteredCuits | async" [value]="cuit" (onSelectionChange)="matOptionAutoCompleteOnSelectionChange($event)">
-              {{cuit}}
-            </mat-option>
-          </mat-autocomplete>
         </mat-form-field>
       </div>
 
@@ -60,16 +47,16 @@
           </mat-form-field>
     
           <mat-form-field class="input-full-width">
-            <mat-label>Chapa del acoplado</mat-label>
-            <input matInput placeholder="Chapa del acoplado" [(ngModel)]="camionSeleccionado.ChapaAcoplado">
-          </mat-form-field>
+            <mat-label>Chofer</mat-label>
+            <input matInput placeholder="Chofer" [(ngModel)]="camionSeleccionado.Chofer">
+          </mat-form-field>     
         </div>
         
         <div fxLayout="column" fxFlex="100" fxLayoutAlign="start center"> 
           <mat-form-field class="input-full-width">
-            <mat-label>Chofer</mat-label>
-            <input matInput placeholder="Chofer" [(ngModel)]="camionSeleccionado.Chofer">
-          </mat-form-field>     
+            <mat-label>Chapa del acoplado</mat-label>
+            <input matInput placeholder="Chapa del acoplado" [(ngModel)]="camionSeleccionado.ChapaAcoplado">
+          </mat-form-field>
         </div>
       </div>
 

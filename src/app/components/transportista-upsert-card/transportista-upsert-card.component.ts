@@ -23,8 +23,6 @@ export class TransportistaUpsertComponent implements OnInit {
     Validators.min(5)
   ]);
 
-  cuitBusqueda: string[] = [];
-  filteredCuits: Observable<string[]>;
   cuit = '';
 
   tengoDatos = false;
@@ -48,24 +46,9 @@ export class TransportistaUpsertComponent implements OnInit {
     this.datosTransportistaSelecionado = this.data.datosTransportistaSelecionado;
     this.camionSeleccionado = this.data.camionSeleccionado;
     this.cuit = this.data.cuit;
-
-    this.cargaCuits();
-
-    this.filteredCuits = this.controlSearchCuit.valueChanges.pipe(
-      map(value => this._filterCuits(value))
-    );
     
     this.ipcRespuestas();
     this.changeDetectorRefService.detectChanges();
-  }
-
-  private _filterCuits(value: string): string[] {
-    const filterValue = this._normalizeValue(value);
-    return this.cuitBusqueda.filter(renspa => this._normalizeValue(renspa).includes(filterValue));
-  }
-
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
   }
 
   close(): void {
@@ -94,20 +77,6 @@ export class TransportistaUpsertComponent implements OnInit {
 
   cargaCuits() {
     this.electronService.ipcRenderer.send('transportista:obtenerTodosLosCUIT');
-  }
-
-  inputSearchOnKeyEnter() {
-    this.autocomplete.closePanel(); 
-  }
-
-  inputSearchOnKeyDown(textoInput) {
-    this.cuit = textoInput;
-    this.cargarDatosDelTransportista(this.cuit);
-  }
-
-  matOptionAutoCompleteOnSelectionChange(event) {
-    this.cuit = event.source.value;
-    this.cargarDatosDelTransportista(this.cuit);
   }
 
   cargarDatosDelTransportista(cuit) {
@@ -152,10 +121,6 @@ export class TransportistaUpsertComponent implements OnInit {
   }
 
   ipcRespuestas() {
-    this.electronService.ipcRenderer.on('transportista:RespuestaObtenerTodosLosCUIT', (event, cuits) => {
-      this.cuitBusqueda = cuits;
-    });
-
     this.electronService.ipcRenderer.on('transportista:RespuestaObtenerDatosDelTransportista', (event, datosTransportista) => {
       if (datosTransportista == null) {
         this.cuitNoEncontrado = true;

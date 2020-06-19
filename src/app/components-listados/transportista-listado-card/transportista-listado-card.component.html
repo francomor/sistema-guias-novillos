@@ -20,7 +20,7 @@
               <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
             </ng-container>
           
-            <ng-container matColumnDef="CUIT">
+            <ng-container matColumnDef="CUIT" sticky>
               <th mat-header-cell *matHeaderCellDef> CUIT </th>
               <td mat-cell *matCellDef="let element" (click)="onCuitClick($event)" style="color:blue; cursor: pointer;"> {{element.CUIT}} </td>
             </ng-container>

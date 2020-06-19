@@ -32,8 +32,6 @@ export class ProductorsUpsertComponent implements OnInit {
     Validators.min(5)
   ]);
 
-  resnpasBusqueda: string[] = [];
-  filteredRENSPAS: Observable<string[]>;
   renspa = '';
 
   tengoDatos = false;
@@ -51,24 +49,9 @@ export class ProductorsUpsertComponent implements OnInit {
   ngOnInit() {
     this.datosProductorSelecionado = this.data.datosProductorSelecionado;
     this.renspa = this.data.renspa;
-
-    this.cargaRenspas();
-
-    this.filteredRENSPAS = this.controlSearchRenspa.valueChanges.pipe(
-      map(value => this._filterRENSPA(value))
-    );
     
     this.ipcRespuestas();
     this.changeDetectorRefService.detectChanges();
-  }
-
-  private _filterRENSPA(value: string): string[] {
-    const filterValue = this._normalizeValue(value);
-    return this.resnpasBusqueda.filter(street => this._normalizeValue(street).includes(filterValue));
-  }
-
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
   }
 
   close(): void {
@@ -100,29 +83,11 @@ export class ProductorsUpsertComponent implements OnInit {
     this.electronService.ipcRenderer.send('productor:obtenerTodosLosRenspa');
   }
 
-  inputSearchOnKeyEnter() {
-    this.autocomplete.closePanel(); 
-  }
-
-  inputSearchRENSPAOnKeyDown(textoInput) {
-    this.renspa = textoInput;
-    this.cargarDatosDelProductor(this.renspa);
-  }
-
-  RENSPAmatOptionAutoCompleteOnSelectionChange(event) {
-    this.renspa = event.source.value;
-    this.cargarDatosDelProductor(this.renspa);
-  }
-
   cargarDatosDelProductor(renspa) {
     this.electronService.ipcRenderer.send('productor:obtenerDatosProductor', renspa);
   }
 
   ipcRespuestas() {
-    this.electronService.ipcRenderer.on('productor:RespuestaObtenerTodosLosRenspa', (event, renspas) => {
-      this.resnpasBusqueda = renspas;
-    });
-
     this.electronService.ipcRenderer.on('productor:RespuestaObtenerDatosProductor', (event, datosProductor) => {
       if (datosProductor == null) {
         this.renspaNoEncontrado = true;

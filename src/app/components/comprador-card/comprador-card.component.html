@@ -60,8 +60,20 @@
       </div>
     </div>
 
+    <div fxLayout="row" fxLayoutAlign="center start" *ngIf="tieneVariosCompradoresConMismoRenspa">
+      <div fxLayout="column" fxFlex="100%" fxFlex.lt-lg="100%" fxLayoutAlign="start center">
+        <mat-chip-list class="mat-chip-list-stacked my-chip">
+          <mat-chip style="text-align: center;"
+            *ngFor="let cuit of cuitsVariosCompradoresConMismoRenspa" 
+            (click)="onVariosCompradoresCuitSelectionChange(cuit)">
+              {{cuit}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+
     <div fxLayout="row" fxFlex="100%">
-      <div *ngIf="tengoDatos">
+      <div *ngIf="tengoDatos && !tieneVariosCompradoresConMismoRenspa">
         <div class="texts">
           <b>Razón social:</b> {{ datosCompradorSelecionado.RazonSocial }}
         </div>

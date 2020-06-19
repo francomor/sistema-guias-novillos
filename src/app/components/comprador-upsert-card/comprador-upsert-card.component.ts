@@ -32,8 +32,6 @@ export class CompradorUpsertComponent implements OnInit {
     Validators.min(5)
   ]);
 
-  resnpasBusqueda: string[] = [];
-  filteredRENSPAS: Observable<string[]>;
   renspa = '';
 
   localidadesBusqueda: string[] = [];
@@ -60,13 +58,8 @@ export class CompradorUpsertComponent implements OnInit {
     this.renspa = this.data.renspa;
     this.localidad = this.data.datosCompradorSelecionado.NombreLocalidad;
 
-    this.cargaRenspas();
     this.cargaProvincias();
     this.cargaLocalidades();
-
-    this.filteredRENSPAS = this.controlSearchRenspa.valueChanges.pipe(
-      map(value => this._filterRENSPA(value))
-    );
 
     this.filteredLocalidades = this.controlSearchLocalidades.valueChanges.pipe(
       map(value => this._filterLocalidades(value))
@@ -74,11 +67,6 @@ export class CompradorUpsertComponent implements OnInit {
     
     this.ipcRespuestas();
     this.changeDetectorRefService.detectChanges();
-  }
-
-  private _filterRENSPA(value: string): string[] {
-    const filterValue = this._normalizeValue(value);
-    return this.resnpasBusqueda.filter(renspa => this._normalizeValue(renspa).includes(filterValue));
   }
 
   private _filterLocalidades(value: string): string[] {
@@ -91,7 +79,12 @@ export class CompradorUpsertComponent implements OnInit {
   }
 
   close(): void {
+    console.log(this.renspa);
     this.dialogRef.close(this.renspa);
+  }
+
+  inputSearchOnKeyEnter() {
+    this.autocomplete.closePanel(); 
   }
 
   get checkFormValid() {
@@ -113,12 +106,7 @@ export class CompradorUpsertComponent implements OnInit {
   callUpsertComprador() {
     this.datosCompradorSelecionado.RENSPA = this.renspa;
     this.datosCompradorSelecionado.idProvincia = this.idProvinciaSeleccionada;
-    console.log(this.datosCompradorSelecionado);
     this.electronService.ipcRenderer.send('comprador:upsertComprador', this.datosCompradorSelecionado);
-  }
-
-  cargaRenspas() {
-    this.electronService.ipcRenderer.send('comprador:obtenerTodosLosRenspa');
   }
 
   cargaProvincias() {
@@ -129,23 +117,9 @@ export class CompradorUpsertComponent implements OnInit {
     this.electronService.ipcRenderer.send('localidad:obtenerTodasLasLocalidades');
   }
 
-  inputSearchOnKeyEnter() {
-    this.autocomplete.closePanel(); 
-  }
-
-  inputSearchRENSPAOnKeyDown(textoInput) {
-    this.renspa = textoInput;
-    this.cargarDatosDelComprador(this.renspa);
-  }
-
   inputSearchLocalidadOnKeyDown(textoInput) {
     this.localidad = textoInput;
     this.cargarIdLocalidad(this.localidad);
-  }
-
-  RENSPAmatOptionAutoCompleteOnSelectionChange(event) {
-    this.renspa = event.source.value;
-    this.cargarDatosDelComprador(this.renspa);
   }
 
   LocalidadesMatOptionAutoCompleteOnSelectionChange(event) {
@@ -162,10 +136,6 @@ export class CompradorUpsertComponent implements OnInit {
   }
 
   ipcRespuestas() {
-    this.electronService.ipcRenderer.on('comprador:RespuestaObtenerTodosLosRenspa', (event, renspas) => {
-      this.resnpasBusqueda = renspas;
-    });
-
     this.electronService.ipcRenderer.on('provincias:RespuestaObtenerTodasLasProvincias', (event, provincias) => {
       this.provincias = provincias;
       if (this.datosCompradorSelecionado.NombreProvincia) {

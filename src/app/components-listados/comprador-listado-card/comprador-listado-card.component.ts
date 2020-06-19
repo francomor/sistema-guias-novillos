@@ -37,6 +37,7 @@ export class CompradorListadoCardComponent implements OnInit {
 
   ipcRespuestas() {
     this.electronService.ipcRenderer.on('comprador:RespuestaObtenerTodosLosCompradores', (event, datos) => {
+      console.log(datos);
       this.todosLosDatosTabla = datos;
       this.datosTabla = datos;
       this.isLoading = false;
@@ -59,9 +60,11 @@ export class CompradorListadoCardComponent implements OnInit {
     this.changeDetectorRefService.detectChanges();
   }
 
-  onRenspaClick(event) {
-    localStorage.setItem('CompradorRenspa', JSON.stringify(event.target.innerHTML.trim()));
-    this.openSnackBar("Comprador con RENSPA " + event.target.innerHTML + " fue seleccionado con éxito", "");
+  onRenspaClick(element) {
+    console.log(element)
+    localStorage.setItem('CompradorId', JSON.stringify(element.idComprador));
+    localStorage.setItem('CompradorRenspa', JSON.stringify(element.RENSPA));
+    this.openSnackBar("Comprador con RENSPA " + element.RENSPA + " fue seleccionado con éxito", "");
   }
 
   openSnackBar(message: string, action: string) {

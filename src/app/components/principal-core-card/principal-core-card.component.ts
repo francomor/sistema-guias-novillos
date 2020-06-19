@@ -273,7 +273,6 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
 
     if (this.derechoOficinaCantidad != null){ 
       this.derechoOficina += calculoDerechoOficina * this.derechoOficinaCantidad; 
-      calculoTotalRedondeo += this.derechoOficina;
     }
     if (this.datosCheckbox.ingresosBrutos){ calculoTotalRedondeo += this.ingresosBrutos; }
 

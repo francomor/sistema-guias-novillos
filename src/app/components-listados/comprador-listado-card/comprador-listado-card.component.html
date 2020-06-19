@@ -20,9 +20,9 @@
               <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
             </ng-container>
           
-            <ng-container matColumnDef="RENSPA">
+            <ng-container matColumnDef="RENSPA" sticky>
               <th mat-header-cell *matHeaderCellDef> RENSPA </th>
-              <td mat-cell *matCellDef="let element" (click)="onRenspaClick($event)" style="color:blue; cursor: pointer;"> {{element.RENSPA}} </td>
+              <td mat-cell *matCellDef="let element" (click)="onRenspaClick(element)" style="color:blue; cursor: pointer;"> {{element.RENSPA}} </td>
             </ng-container>
           
             <ng-container matColumnDef="CUITPersona">

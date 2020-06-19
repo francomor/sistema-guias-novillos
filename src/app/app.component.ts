@@ -26,6 +26,7 @@ export class AppComponent {
     }
 
     localStorage.removeItem('CompradorRenspa');
+    localStorage.removeItem('CompradorId');
     localStorage.removeItem('ProductorRenspa');
     localStorage.removeItem('TransportistaCUIT');
     localStorage.removeItem('TransportistaIDCamionSeleccionado');
