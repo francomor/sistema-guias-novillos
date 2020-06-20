@@ -327,8 +327,8 @@ ipcMain.on('camion:obtenerCamionesDelTransportista', (event, cuitTransportista) 
     .select('*')
     .where('Transportista.CUITPersona', +cuitTransportista);
   result.then(function(rows: []){
-    let camiones = []
-    rows.forEach(function (value) {
+    let camiones = [];
+    rows.forEach((value) => {
       const camion = {
         idCamion: value['idCamion'],
         ChapaChasis: value['ChapaChasis'],

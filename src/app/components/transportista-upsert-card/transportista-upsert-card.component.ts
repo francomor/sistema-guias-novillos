@@ -46,7 +46,7 @@ export class TransportistaUpsertComponent implements OnInit {
     this.datosTransportistaSelecionado = this.data.datosTransportistaSelecionado;
     this.camionSeleccionado = this.data.camionSeleccionado;
     this.cuit = this.data.cuit;
-    
+    this.cargarDatosDelTransportista(this.cuit);
     this.ipcRespuestas();
     this.changeDetectorRefService.detectChanges();
   }
@@ -112,9 +112,7 @@ export class TransportistaUpsertComponent implements OnInit {
           i--; 
         }
       }
-      if (this.camiones.length == 0) {
-        this.tengoCamionSeleccionado = false; 
-      }
+      this.tengoCamionSeleccionado = false; 
       // refresh view
       this.changeDetectorRefService.detectChanges();
     }
