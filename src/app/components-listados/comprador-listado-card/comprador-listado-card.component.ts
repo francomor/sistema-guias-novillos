@@ -12,7 +12,7 @@ import { EliminarDialogComponent } from '../eliminar-dialog/eliminar-dialog.comp
   styleUrls: ['./comprador-listado-card.component.scss']
 })
 export class CompradorListadoCardComponent implements OnInit {
-  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'NombreLocalidad', 'NombreProvincia', 'eliminar'];
+  displayedColumns: string[] = ['RENSPA', 'RazonSocial', 'CUITPersona', 'NombreEstablecimiento', 'Repagro', 'NombreLocalidad', 'NombreProvincia', 'eliminar'];
   todosLosDatosTabla = [];
   datosTabla = [];
   isLoading = true;
@@ -37,7 +37,6 @@ export class CompradorListadoCardComponent implements OnInit {
 
   ipcRespuestas() {
     this.electronService.ipcRenderer.on('comprador:RespuestaObtenerTodosLosCompradores', (event, datos) => {
-      console.log(datos);
       this.todosLosDatosTabla = datos;
       this.datosTabla = datos;
       this.isLoading = false;
@@ -61,7 +60,6 @@ export class CompradorListadoCardComponent implements OnInit {
   }
 
   onRenspaClick(element) {
-    console.log(element)
     localStorage.setItem('CompradorId', JSON.stringify(element.idComprador));
     localStorage.setItem('CompradorRenspa', JSON.stringify(element.RENSPA));
     this.openSnackBar("Comprador con RENSPA " + element.RENSPA + " fue seleccionado con éxito", "");

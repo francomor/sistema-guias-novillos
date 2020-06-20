@@ -511,8 +511,6 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
   upsertPersona(persona).then(async () => {
     if (datosComprador.idEstablecimiento == 0 && datosComprador.NombreEstablecimiento != '') {
       datosComprador.idEstablecimiento = -1;
-      datosComprador.Partida = '';
-      datosComprador.Repagro = '';
     }
     if (datosComprador.NombreEstablecimiento === null) {
       const localidad = {
@@ -527,6 +525,8 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
           idEstablecimiento: null,
           CUITPersona: datosComprador.CUIT,
           idLocalidad: idLocalidad,
+          Partida: null,
+          Repagro: datosComprador.Repagro,
         }
         upsertComprador(comprador).then(async () => {
           const renspa = datosComprador.RENSPA;
@@ -537,8 +537,6 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
       const establecimiento = {
         idEstablecimiento: datosComprador.idEstablecimiento,
         Nombre: datosComprador.NombreEstablecimiento,
-        Repagro: datosComprador.Repagro,
-        Partida: null,
       }
       upsertEstablecimiento(establecimiento).then(async (idEstablecimiento) => {
         const localidad = {
@@ -553,6 +551,8 @@ ipcMain.on('comprador:upsertComprador', (event, datosComprador) => {
             idEstablecimiento: idEstablecimiento,
             CUITPersona: datosComprador.CUIT,
             idLocalidad: idLocalidad,
+            Partida: null,
+            Repagro: datosComprador.Repagro,
           }
           upsertComprador(comprador).then(async () => {
             const renspa = datosComprador.RENSPA;
@@ -593,6 +593,8 @@ async function insertComprador(Comprador) {
               idEstablecimiento: Comprador.idEstablecimiento,
               CUITPersona: Comprador.CUITPersona,
               idLocalidad: Comprador.idLocalidad,
+              Partida: Comprador.Partida,
+              Repagro: Comprador.Repagro,
             })
   return await result.then((id) => {
     return id[0];
@@ -607,6 +609,8 @@ async function updateComprador(Comprador) {
                 idEstablecimiento: Comprador.idEstablecimiento,
                 CUITPersona: Comprador.CUITPersona,
                 idLocalidad: Comprador.idLocalidad,
+                Partida: Comprador.Partida,
+                Repagro: Comprador.Repagro,
               });
   return await result.then(() => {
     return Comprador.idComprador;
@@ -668,8 +672,6 @@ ipcMain.on('productor:upsertProductor', (event, datosProductor) => {
     const establecimiento = {
       idEstablecimiento: datosProductor.idEstablecimiento,
       Nombre: datosProductor.NombreEstablecimiento,
-      Partida: datosProductor.Partida,
-      Repagro: datosProductor.Repagro,
     }
     upsertEstablecimiento(establecimiento).then(async (idEstablecimiento) => {
         const productor = {
@@ -685,6 +687,8 @@ ipcMain.on('productor:upsertProductor', (event, datosProductor) => {
           VencimientoBoletoSenial: datosProductor.VencimientoBoletoSenial,
           idEstablecimiento: idEstablecimiento,
           CUITPersona: datosProductor.CUIT,
+          Partida: datosProductor.Partida,
+          Repagro: datosProductor.Repagro,
         }
         upsertProductor(productor).then(async () => {
           const renspa = datosProductor.RENSPA;
@@ -729,6 +733,8 @@ async function insertProductor(Productor) {
               VencimientoBoletoSenial: Productor.VencimientoBoletoSenial,
               idEstablecimiento: Productor.idEstablecimiento,
               CUITPersona: Productor.CUITPersona,
+              Partida: Productor.Partida,
+              Repagro: Productor.Repagro,
             })
   return await result.then((id) => {
     return id[0];
@@ -742,6 +748,8 @@ async function updateProductor(Productor) {
                 RENSPA: Productor.RENSPA,
                 idEstablecimiento: Productor.idEstablecimiento,
                 CUITPersona: Productor.CUITPersona,
+                Partida: Productor.Partida,
+                Repagro: Productor.Repagro,
               });
   return await result.then(async () => {
     // actualiza boletos de marcas y senal a todos los productores con mismo cuit
@@ -789,8 +797,6 @@ async function insertEstablecimiento(Establecimiento) {
             .returning('idEstablecimiento')
             .insert({
               Nombre: Establecimiento.Nombre,
-              Partida: Establecimiento.Partida,
-              Repagro: Establecimiento.Repagro,
             })
   return await result.then((id) => {
     return id[0];
@@ -802,8 +808,6 @@ async function updateEstablecimiento(Establecimiento) {
               .where('idEstablecimiento', Establecimiento.idEstablecimiento)
               .update({
                 Nombre: Establecimiento.Nombre,
-                Partida: Establecimiento.Partida,
-                Repagro: Establecimiento.Repagro,
               })
   return await result.then(() => {
     return Establecimiento.idEstablecimiento;

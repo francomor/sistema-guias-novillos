@@ -148,6 +148,9 @@ export class CompradorCardComponent implements OnInit, OnDestroy {
     const renspa = textoInput;
     if (textoInput === "") {
       this.renspa = '';
+      this.tieneVariosCompradoresConMismoRenspa = false;
+      this.cuitsVariosCompradoresConMismoRenspa = [];
+      this.idsVariosCompradoresConMismoRenspa = [];
       localStorage.removeItem('CompradorId');
       localStorage.removeItem('CompradorRenspa');
       this.datosCompradorSelecionado = {};

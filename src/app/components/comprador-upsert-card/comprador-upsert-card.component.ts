@@ -79,7 +79,6 @@ export class CompradorUpsertComponent implements OnInit {
   }
 
   close(): void {
-    console.log(this.renspa);
     this.dialogRef.close(this.renspa);
   }
 

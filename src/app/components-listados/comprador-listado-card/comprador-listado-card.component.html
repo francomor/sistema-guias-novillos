@@ -34,6 +34,11 @@
               <th mat-header-cell *matHeaderCellDef> ESTABLECIMIENTO </th>
               <td mat-cell *matCellDef="let element"> {{element.NombreEstablecimiento}} </td>
             </ng-container>
+
+            <ng-container matColumnDef="Repagro">
+              <th mat-header-cell *matHeaderCellDef> REPAGRO </th>
+              <td mat-cell *matCellDef="let element"> {{element.Repagro}} </td>
+            </ng-container>
         
             <ng-container matColumnDef="NombreLocalidad">
               <th mat-header-cell *matHeaderCellDef> LOCALIDAD </th>
