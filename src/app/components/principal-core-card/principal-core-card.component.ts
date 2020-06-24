@@ -69,7 +69,7 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
   porcinosVenta = null;
   equinosVenta = null;
 
-  derechoOficinaCantidad = undefined;
+  derechoOficinaCantidad = 1;
   datosCheckbox = {
     ingresosBrutos: false,
   }
@@ -177,7 +177,7 @@ export class PrincipalCoreCardComponent implements OnInit, OnDestroy{
     this.equinosVenta = null;
     this.porcinosVenta = null;
   
-    this.derechoOficinaCantidad = undefined;
+    this.derechoOficinaCantidad = 1;
     this.datosCheckbox = {
       ingresosBrutos: false,
     }
