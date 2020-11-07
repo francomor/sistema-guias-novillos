@@ -77,6 +77,12 @@ You can disable "Developer Tools" by commenting `win.webContents.openDevTools();
 
 **Your application is optimised. Only /dist folder and node dependencies are included in the executable.**
 
+## To deploy for Alejandro
+
+Run
+- `npm run electron:windows`
+- [inno-setup-script.iss with Inno Setup]: https://jrsoftware.org/isinfo.php
+
 ## You want to use a specific lib (like rxjs) in electron main thread ?
 
 YES! You can do it! Just by importing your library in npm dependencies section (not **devDependencies**) with `npm install --save`. It will be loaded by electron during build phase and added to your final package. Then use your library by importing it in `main.ts` file. Quite simple, isn't it ?

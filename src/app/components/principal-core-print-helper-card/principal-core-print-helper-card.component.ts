@@ -53,10 +53,12 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
     this.datosCompradorSubscribe = this.dataShareService.getDatosCompradorSelecionado().subscribe(datos => { 
       this.datosCompradorSeleccionado = datos;
       if (this.datosCompradorSeleccionado.CUIT != null) {
-        const stringCuit = this.datosCompradorSeleccionado.CUIT.toString()
+        const stringCuit = this.datosCompradorSeleccionado.CUIT.toString();
         this.datosCompradorSeleccionado.CUITParteAdelante = stringCuit.slice(0,2);
         this.datosCompradorSeleccionado.CUITParteAtras = stringCuit.substr(2);
+        this.datosCompradorSeleccionado.CUIT = this.reformatCuit(this.datosCompradorSeleccionado.CUIT); 
       }
+      this.datosCompradorSeleccionado.RENSPA = this.cleanRenspa(this.datosCompradorSeleccionado.RENSPA);
       this.datosCompradorSeleccionado.RazonSocial = unidecode(this.datosCompradorSeleccionado.RazonSocial);
       this.datosCompradorSeleccionado.NombreProvincia = unidecode(this.datosCompradorSeleccionado.NombreProvincia);
       this.datosCompradorSeleccionado.NombreLocalidad = unidecode(this.datosCompradorSeleccionado.NombreLocalidad);
@@ -66,10 +68,11 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
     this.datosProductorSubscribe = this.dataShareService.getDatosProductorSelecionado().subscribe(datos => {
         this.datosProductorSelecionado = datos;
         if (this.datosProductorSelecionado.CUIT != null) {
-          const stringCuit = this.datosProductorSelecionado.CUIT.toString()
+          const stringCuit = this.datosProductorSelecionado.CUIT.toString();
           this.datosProductorSelecionado.CUITParteAdelante = stringCuit.slice(0,2);
           this.datosProductorSelecionado.CUITParteAtras = stringCuit.substr(2);
         }
+        this.datosProductorSelecionado.RENSPA = this.cleanRenspa(this.datosProductorSelecionado.RENSPA);
         this.datosProductorSelecionado.RazonSocial = unidecode(this.datosProductorSelecionado.RazonSocial);
         this.datosProductorSelecionado.NombreEstablecimiento = unidecode(this.datosProductorSelecionado.NombreEstablecimiento);
         // refresh view
@@ -100,6 +103,21 @@ export class PrincipalCorePrintHelperComponent implements OnInit, OnDestroy {
     if (this.datosAnimales.Porcinos != null) { this.datosAnimalesParseados.Porcinos = this.datosAnimales.Porcinos;}
     if (this.datosAnimales.Ovinos != null) { this.datosAnimalesParseados.Ovinos = this.datosAnimales.Ovinos;}
 
+  }
+
+  reformatCuit(numericCuit) {
+    // Transform CUIT from 20393865580 to '20-39386558-0'
+    let stringCuit = numericCuit.toString();
+    stringCuit = stringCuit.split('-').join('');
+    const firstPartOfCuit = stringCuit.slice(0,2);
+    const middlePartOfCuit = (stringCuit.substring(0, stringCuit.length - 1)).substr(2);
+    const lastPartOfCuit = stringCuit.slice(stringCuit.length - 1);
+    const cuit = firstPartOfCuit + "-" + middlePartOfCuit + "-" + lastPartOfCuit;
+    return cuit;
+  }
+
+  cleanRenspa(resnpa) {
+    return resnpa.substring(0,17);
   }
 
   ngAfterViewInit() {

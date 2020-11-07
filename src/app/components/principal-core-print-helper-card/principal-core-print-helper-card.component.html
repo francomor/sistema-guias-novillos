@@ -74,7 +74,7 @@
             datosAnimalesParseados.Toros 
           }}
         </div>
-      </div>
+      </div>      
     </div>
     <br>
 
@@ -122,6 +122,43 @@
         <div fxLayout="column" fxFlex="35%" fxLayoutAlign="center center">
           {{ datosAnimalesParseados.Equinos }}
         </div>
+      </div>
+    </div>
+    <br>
+
+    <div fxLayout="column" style="border: 2px solid black; padding: 2px; border-radius: 15px;">
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 30px; font-weight: 500; margin-bottom: 10px;"> 
+        DTE
+      </div>
+      <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 15px; font-weight: 500;"> 
+        Renspa productor
+      </div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <ngx-barcode6 [bc-value]="datosProductorSelecionado.RENSPA" [bc-font-options]="5" [bc-height]="10" [bc-width]="0.7" [bc-display-value]="false"></ngx-barcode6>
+      </div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 15px; font-family: monospace;">
+        {{ datosProductorSelecionado.RENSPA }}
+      </div>
+      <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 15px; font-weight: 500;"> 
+        CUIT comprador
+      </div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.CUIT" [bc-font-options]="5" [bc-height]="10" [bc-width]="0.7" [bc-display-value]="false"></ngx-barcode6>
+      </div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 15px; font-family: monospace;">
+        {{ datosCompradorSeleccionado.CUIT }}
+      </div>
+      <div style="display: block; margin: 0; border-top-width: 1px; border-top-style: solid; border-top-color: rgba(0,0,0,.12);"></div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 15px; font-weight: 500;"> 
+        Renspa comprador
+      </div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+        <ngx-barcode6 [bc-value]="datosCompradorSeleccionado.RENSPA" [bc-font-options]="5" [bc-height]="10" [bc-width]="0.7" [bc-display-value]="false"></ngx-barcode6>
+      </div>
+      <div fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" style="font-size: 15px; font-family: monospace;">
+        {{ datosCompradorSeleccionado.RENSPA }}
       </div>
     </div>
     <br>
