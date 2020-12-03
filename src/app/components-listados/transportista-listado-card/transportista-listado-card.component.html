@@ -22,7 +22,7 @@
           
             <ng-container matColumnDef="CUIT" sticky>
               <th mat-header-cell *matHeaderCellDef> CUIT </th>
-              <td mat-cell *matCellDef="let element" (click)="onCuitClick($event)" style="color:blue; cursor: pointer;"> {{element.CUIT}} </td>
+              <td mat-cell *matCellDef="let element" (click)="onCuitClick(element)" style="color:blue; cursor: pointer;"> {{element.CUIT}} </td>
             </ng-container>
           
             <ng-container matColumnDef="ChapaChasis">

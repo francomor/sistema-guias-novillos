@@ -59,12 +59,12 @@ export class TransportistaListadoCardComponent implements OnInit {
     this.changeDetectorRefService.detectChanges();
   }
 
-  onCuitClick(event) {
-    const cuitTransportista = event.target.innerHTML.trim();
-    const transportistaSeleccionado = this.todosLosDatosTabla.find(element => element.CUIT == cuitTransportista);
+  onCuitClick(transportista) {
+    const cuitTransportista = transportista.CUIT;
+    const idCamionTransportista = transportista.idCamion;
     localStorage.setItem('TransportistaCUIT', JSON.stringify(cuitTransportista));
-    localStorage.setItem('TransportistaIDCamionSeleccionado', JSON.stringify(transportistaSeleccionado.idCamion));
-    this.openSnackBar("Transportista con CUIT " + event.target.innerHTML + " fue seleccionado con éxito", "");
+    localStorage.setItem('TransportistaIDCamionSeleccionado', JSON.stringify(idCamionTransportista));
+    this.openSnackBar("Transportista con CUIT " + cuitTransportista + " fue seleccionado con éxito", "");
   }
 
   openSnackBar(message: string, action: string) {
