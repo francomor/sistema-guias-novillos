@@ -1,0 +1,69 @@
+<div class="card" fxLayout="column">
+  <div class="title-text" style="margin-bottom: 15px">Listado de boletos de marca</div>
+  <div fxLayout="row" fxFlexFill>
+    <div fxLayout="column" fxFlexFill>
+
+      <div *ngIf="!isLoading">
+        <mat-form-field class="texts-redondeo" appearance="fill" style="width: 50%;">
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-label>Filtrar por razón social</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Razon social">
+        </mat-form-field>
+        <div class="table-container" fxLayout="row" fxLayoutAlign="space-between start">
+          <table mat-table [dataSource]="datosTabla" class="mat-elevation-z8">
+        
+            <ng-container matColumnDef="VencimientoBoleto" sticky>
+              <th mat-header-cell *matHeaderCellDef> VENCIMIENTO </th>
+              <td mat-cell *matCellDef="let element"> 
+                {{element.VencimientoBoletoMarca}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="RENSPA">
+              <th mat-header-cell *matHeaderCellDef> RENSPA </th>
+              <td mat-cell *matCellDef="let element" (click)="onRenspaClick($event)" style="color:blue; cursor: pointer;"> {{element.RENSPA}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="RazonSocial">
+              <th mat-header-cell *matHeaderCellDef> RAZÓN SOCIAL </th>
+              <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="BoletoMarca">
+              <th mat-header-cell *matHeaderCellDef> BOLETO DE MARCA </th>
+              <td mat-cell *matCellDef="let element"> {{element.BoletoMarca}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="BoletoMarcaInc">
+              <th mat-header-cell *matHeaderCellDef> INC. </th>
+              <td mat-cell *matCellDef="let element"> {{element.BoletoMarcaInc}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="BoletoMarcaFolio">
+              <th mat-header-cell *matHeaderCellDef> FOLIO </th>
+              <td mat-cell *matCellDef="let element"> {{element.BoletoMarcaFolio}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Telefono">
+              <th mat-header-cell *matHeaderCellDef> TELÉFONO </th>
+              <td mat-cell *matCellDef="let element"> {{element.Telefono}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Email">
+              <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+              <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+      <mat-spinner
+      strokeWidth="3"
+      diameter="30"
+      *ngIf="isLoading"
+    ></mat-spinner>
+    </div>
+  </div>
+</div>

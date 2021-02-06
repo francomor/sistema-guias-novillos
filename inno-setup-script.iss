@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Sistema de guias únicas - Complemento S.A.G"
-#define MyAppVersion "1.4"
+#define MyAppVersion "1.5"
 #define MyAppPublisher "Franco Morero"
 #define MyAppURL "https://www.linkedin.com/in/francomorero/"
 #define MyAppExeName "complemento-guias-v1.exe"

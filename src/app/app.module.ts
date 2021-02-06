@@ -76,9 +76,13 @@ import { PrincipalCorePrintHelperComponent } from './components/principal-core-p
 import { ListaTransportistasComponent } from './home/lista-transportista/lista-transportista.component'
 import { ListaCompradoresComponent } from './home/lista-compradores/lista-compradores.component'
 import { ListaProductoresComponent } from './home/lista-productores/lista-productores.component'
+import { ListaBoletosMarcaComponent } from './home/lista-boletos-marca/lista-boletos-marca.component'
+import { ListaBoletosSenialComponent } from './home/lista-boletos-senial/lista-boletos-senial.component'
 import { CompradorListadoCardComponent } from './components-listados/comprador-listado-card/comprador-listado-card.component'
 import { ProductorListadoCardComponent } from './components-listados/productor-listado-card/productor-listado-card.component'
 import { TransportistaListadoCardComponent } from './components-listados/transportista-listado-card/transportista-listado-card.component'
+import { BoletosListadoMarcaCardComponent } from './components-listados/boletos-listado-marca-card/boletos-listado-marca-card.component'
+import { BoletosListadoSenialCardComponent } from './components-listados/boletos-listado-senial-card/boletos-listado-senial-card.component'
 import { EliminarDialogComponent } from './components-listados/eliminar-dialog/eliminar-dialog.component'
 
 // AoT requires an exported function for factories
@@ -105,9 +109,13 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ListaCompradoresComponent,
     CompradorListadoCardComponent,
     ListaProductoresComponent,
+    ListaBoletosMarcaComponent,
+    ListaBoletosSenialComponent,
     ProductorListadoCardComponent,
     TransportistaListadoCardComponent,
     ListaTransportistasComponent,
+    BoletosListadoMarcaCardComponent,
+    BoletosListadoSenialCardComponent,
     EliminarDialogComponent
   ],
   imports: [
