@@ -1,6 +1,0 @@
-UPDATE Productor SET BoletoMarca = '065400017', BoletoMarcaFolio = '80', VencimientoBoletoMarca = '25-06-2013', BoletoMarcaInc = '380' WHERE idProductor = 15;
-UPDATE Productor SET BoletoMarca = '192100024', BoletoMarcaFolio = '55', VencimientoBoletoMarca = '28-06-2022', BoletoMarcaInc = '55' WHERE idProductor = 108;
-UPDATE Productor SET BoletoMarca = '182500004', BoletoMarcaFolio = '56', VencimientoBoletoMarca = '02-05-2017', BoletoMarcaInc = '56' WHERE idProductor = 133;
-UPDATE Productor SET BoletoMarca = '065400017', BoletoMarcaFolio = '80', VencimientoBoletoMarca = '25-06-2013', BoletoMarcaInc = '380' WHERE idProductor = 15;
-UPDATE Productor SET BoletoMarca = '192100024', BoletoMarcaFolio = '55', VencimientoBoletoMarca = '28-06-2022', BoletoMarcaInc = '55' WHERE idProductor = 108;
-UPDATE Productor SET BoletoMarca = '182500004', BoletoMarcaFolio = '56', VencimientoBoletoMarca = '02-05-2017', BoletoMarcaInc = '56' WHERE idProductor = 133;
